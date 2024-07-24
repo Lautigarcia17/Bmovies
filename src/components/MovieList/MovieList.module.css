@@ -1,0 +1,26 @@
+.color{
+    color: white;
+}
+
+.content{
+    width: 100%;
+    height: auto;
+}
+
+.tittleList{
+    margin-top: 100px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    color: wheat;
+}
+
+.elements{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.movie{
+    
+}

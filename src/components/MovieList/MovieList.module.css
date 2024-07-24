@@ -1,26 +1,73 @@
 .color{
-    color: white;
+    color: black;
 }
 
-.content{
+.content {
     width: 100%;
     height: auto;
+
 }
 
-.tittleList{
-    margin-top: 100px;
+.tittleList {
+    margin: 100px 0px;
     text-align: center;
     font-size: 50px;
     font-weight: 700;
     color: wheat;
 }
 
-.elements{
+.elements {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-items: center;
+    align-items: center;
 }
 
-.movie{
-    
+.movieItem {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4);
+    justify-content: center;
+}
+
+.tittleMovie{
+    font-weight: 900;
+    font-size: 25px;
+    color: black;
+    font-family: M PLUS Rounded 1c;
+    margin-bottom: 5px;
+}
+
+.yearMovie{
+    font-size: 18px;
+    color: black;
+    margin-bottom: 15px;
+}
+
+
+
+.moviePoster {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 12px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+@media (max-width: 1500px) {
+   .movieItem{
+        width: 60%;
+   }
+}
+
+
+@media (max-width: 768px) {
+    .elements {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

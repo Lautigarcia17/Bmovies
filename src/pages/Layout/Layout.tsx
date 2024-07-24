@@ -6,7 +6,7 @@ import styles from './Layout.module.css'
 const Layout = () => {
   return (
     <div className={styles.content}>
-      <Navbar />
+        <Navbar />
         <Outlet /> 
     </div>
   );

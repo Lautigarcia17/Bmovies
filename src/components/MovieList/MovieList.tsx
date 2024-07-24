@@ -104,14 +104,14 @@ function MovieList(){
     return (
         <>
             <div className={styles.content}>
-                <h1 className={styles.tittleList}>Lista de Películas</h1>
+                <h1 className={styles.tittleList}>List Movies</h1>
 
                 <div className={styles.elements}>
                     {listMovies.map((movie : any) => (
-                        <div key={movie.imdbID}>
-                            <h2 className={styles.color}>{movie.Title}</h2>
-                            <p className={styles.color}>Año: {movie.Year}</p>
-                            <img src={movie.Poster} alt={movie.Title} style={{ width: '100px' }} />
+                        <div key={movie.imdbID} className={styles.movieItem}>
+                            <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
+                            <h2 className={styles.tittleMovie}>{movie.Title}</h2>
+                            <p className={styles.yearMovie}>Year: {movie.Year}</p>
                         </div>
                     ))}
                 </div>

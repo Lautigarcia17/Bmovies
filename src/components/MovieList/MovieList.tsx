@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import styles from './MovieList.module.css'
-import axios from 'axios'
+// import { useEffect, useState } from 'react';
+// import axios from 'axios'
 
 function MovieList(){
     // const API_URL = 'http://www.omdbapi.com/?apikey=5b1461ac'
@@ -56,7 +56,7 @@ function MovieList(){
             "Year": "2006",
             "imdbID": "tt0491703",
             "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTYyMjk0NTMwMl5BMl5BanBnXkFtZTgwNzY0NjAwNzE@._V1_SX300.jpg"
+            "Poster": "https://m.media-amazon.com/images/M/MV5BMTYyMjk0NTMwMl5BMl5BanBnXkFtZTgwNzY0NjAwNzE@._V1_SX300.jpg",
         },
         {
             "Title": "The Avengers",

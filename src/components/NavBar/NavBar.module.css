@@ -10,6 +10,7 @@
     z-index: 99;
     transition: background-color 0.1s ease;
     align-items: center;
+    position: absolute;
 }
 
 

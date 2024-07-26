@@ -19,7 +19,8 @@
 .elements {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    /* gap: 30px; */
+    gap: 100px;
     justify-items: center;
     align-items: center;
 }
@@ -35,6 +36,11 @@
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4);
     justify-content: center;
 }
+
+a{
+    color: transparent;
+}
+
 
 .tittleMovie{
     font-weight: 900;

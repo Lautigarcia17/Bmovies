@@ -1,12 +1,9 @@
+import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
 // import { useEffect, useState } from 'react';
 // import axios from 'axios'
 
 function MovieList(){
-    // const API_URL = 'http://www.omdbapi.com/?apikey=5b1461ac'
-    // const [movies, setMovies] = useState([]);
-    // const [searchTerm, setSearchTerm] = useState('avengers');
-
 
     const listMovies = [
         {
@@ -84,22 +81,7 @@ function MovieList(){
 
 
 
-    // const fetchData = async (movie : string) =>{
-    //     const response = await axios.get(API_URL + '&s=' + movie);
-    //     const data = response.data.Search;
-    //     if(data){
-    //         setMovies(data);
-    //     }
-    //     else{
-    //         setMovies([])
-    //     }
-    //     console.log(data);
-    // }
 
-
-    // // useEffect(() => {
-    // //     fetchData(searchTerm);
-    // // },[searchTerm])
 
     return (
         <>
@@ -108,11 +90,11 @@ function MovieList(){
 
                 <div className={styles.elements}>
                     {listMovies.map((movie : any) => (
-                        <div key={movie.imdbID} className={styles.movieItem}>
+                        <Link to={`details/${movie.Title}`} key={movie.imdbID} className={styles.movieItem}>
                             <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
                             <h2 className={styles.tittleMovie}>{movie.Title}</h2>
                             <p className={styles.yearMovie}>Year: {movie.Year}</p>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 

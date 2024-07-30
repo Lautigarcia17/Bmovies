@@ -124,21 +124,17 @@ const Example = () => {
                     <label className={styles.label}> Select Movie :</label>
                     <input type="text" className={styles.search} placeholder="Search Movie Title ..." id="movie-search-box" onKeyUp={findMovies}/>
 
-
-                    <div className={styles.contentList}>
-                      {movies.map((movie: Movie) => (
-                        <div key={movie.imdbID} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
-                          <div className={styles.searchItemThumbnail}>
-                            <img src={movie.Poster} alt={movie.Title} />
-                          </div>
-                          <div className={styles.searchItemInfo}>
-                            <h3>{movie.Title}</h3>
-                            <p>{movie.Year}</p>
-                          </div>
+                    {movies.map((movie: Movie) => (
+                      <div key={movie.imdbID} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
+                        <div className={styles.searchItemThumbnail}>
+                          <img src={movie.Poster} alt={movie.Title} />
                         </div>
-                      ))}
-                    </div>
-
+                        <div className={styles.searchItemInfo}>
+                          <h3>{movie.Title}</h3>
+                          <p>{movie.Year}</p>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>

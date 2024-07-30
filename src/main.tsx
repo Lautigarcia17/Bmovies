@@ -8,6 +8,8 @@ import ProfilePage from './pages/ProfilePage/ProfilePage.tsx'
 import MoviePage from './pages/MoviePage/MoviePage.tsx'
 import PageNotFound from './pages/PageNotFound/PageNotFound.tsx'
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const router = createBrowserRouter([
   {
     path: '/',

@@ -5,7 +5,7 @@
 .content {
     width: 100%;
     height: auto;
-
+    margin-bottom: 50px;
 }
 
 .tittleList {
@@ -35,7 +35,15 @@
     flex-direction: column;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.4);
     justify-content: center;
+    border: 2px solid transparent;
+    color: transparent;
 }
+
+.movieItem:hover{
+    border: 2px solid wheat;
+}
+
+
 
 a{
     color: transparent;
@@ -46,14 +54,14 @@ a{
     font-weight: 900;
     font-size: 25px;
     color: wheat;
-    font-family: M PLUS Rounded 1c;
+    font-family: 'Times New Roman', Times, serif;
     margin-bottom: 5px;
 }
 
 .yearMovie{
     font-size: 18px;
     color: white;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import styles from './NavBar.module.css'
 import logo from '../../assets/Bmovie-removebg-preview.png'
 
@@ -7,7 +7,9 @@ function NavBar(){
         <>
             <div className={styles.content}>
                 <div className={styles.logo}>
-                    <img src={logo} alt="logo" />
+                    <Link to='/'>
+                        <img src={logo} alt="logo" />
+                    </Link>
                 </div>
                 <div className={styles.element}>
                     <button className={styles.btnNav}><NavLink to= '/' className={({ isActive }) => `${styles.link} ${isActive ? styles.btnWhite : ''}`}> Home</NavLink></button> 

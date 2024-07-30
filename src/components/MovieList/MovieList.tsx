@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
+import Example from '../ModalMovie/ModalMovie'
 // import { useEffect, useState } from 'react';
 // import axios from 'axios'
 
@@ -79,14 +80,12 @@ function MovieList(){
     ]
 
 
-
-
-
-
     return (
         <>
             <div className={styles.content}>
                 <h1 className={styles.tittleList}>List Movies</h1>
+
+                <Example />
 
                 <div className={styles.elements}>
                     {listMovies.map((movie : any) => (

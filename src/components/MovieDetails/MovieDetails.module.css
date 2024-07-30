@@ -82,7 +82,7 @@
 
 .data Label{
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: 16px;
     color: #cdd4bc;
     font-weight: 700;
 }
@@ -112,6 +112,12 @@
     font-weight: 700;
 }
 
+.icon{
+    width: 35px;
+    height: 35px;
+}
+
+
 
 .imageSection {
     display: flex;
@@ -135,3 +141,94 @@
 }
 
 
+@media (max-width: 1550px) {
+    .card {
+        width: 65%;
+    }
+    .rating{
+        width: 45px;
+        height: 45px;
+        right: 5px
+    }
+}
+
+
+
+
+@media (max-width: 1000px) {
+    .card {
+        flex-direction: column-reverse;
+        width: 80%;
+    }
+    .rating{
+        right: 20px
+    }
+
+
+    .moviePoster{
+        height: 200px;
+    }
+
+    .trailerSection label {
+        font-size: 15px;
+    }
+
+    .tittleMovie{
+        font-size: 28px; 
+    }
+    .movieDetails{
+        margin-top: 10px;
+        padding-top: 10px;   
+    }
+
+    .trailerSection{
+        margin-bottom: 0px;
+    }
+
+    .data label{
+        font-size: 16px;
+    }
+    .data p{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .icon{
+        width: 25px;
+        height: 25px;
+    }
+
+    .movie{
+        padding: 5px 20px;
+    }
+    .moviePoster{
+        padding: 0px;
+        border-radius: 0px;
+    }
+
+    .trailerSection label {
+        font-size: 12px;
+    }
+
+    .tittleMovie{
+        font-size: 20px; 
+    }
+
+
+    .data label{
+        font-size: 12px;
+    }
+    .data p{
+        font-size: 10px;
+    }
+
+    .rating{
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+        right: 10px;
+        top: 6px;
+    }
+
+}

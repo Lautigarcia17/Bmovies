@@ -3,19 +3,19 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from './pages/Layout/Layout.tsx'
-import MovieList from './components/MovieList/MovieList.tsx'
 import ProfilePage from './pages/ProfilePage/ProfilePage.tsx'
 import MoviePage from './pages/MoviePage/MoviePage.tsx'
 import PageNotFound from './pages/PageNotFound/PageNotFound.tsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import MovieListPage from './pages/MovieListPage/MovieListPage.tsx'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     children: [
-      { path: '', element: <MovieList /> },
+      { path: '', element: <MovieListPage /> },
       { path: 'details/:idMovie', element: <MoviePage /> },
       { path: 'profile', element: <ProfilePage /> },
     ],

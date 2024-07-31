@@ -1,25 +1,6 @@
-.color{
-    color: black;
-}
-
-.content {
-    width: 100%;
-    height: auto;
-    margin-bottom: 50px;
-}
-
-.tittleList {
-    margin: 100px 0px;
-    text-align: center;
-    font-size: 50px;
-    font-weight: 700;
-    color: wheat;
-}
-
 .elements {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    /* gap: 30px; */
     gap: 100px;
     justify-items: center;
     align-items: center;
@@ -71,16 +52,6 @@ a{
     height: 100%;
     margin-bottom: 12px;
     border-radius: 10px 10px 0px 0px;
-}
-
-.btn{
-    font-size: 16px;
-    width: 100px;
-    height: 50px;
-    background-color: #00db92;
-    color: white;
-    margin-left: 10px;
-    border-radius: 26px;
 }
 
 

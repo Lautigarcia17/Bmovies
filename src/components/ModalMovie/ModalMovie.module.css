@@ -4,11 +4,11 @@
 .modalContent {
     background-color: #242628; 
   }
-  
-  .modalHeader, .modalFooter {
-    border: none; 
-  }
-  
+
+.modalBody{
+  padding-top: 0px;
+}
+
   .modalTitle {
     width: 100%;
     display: flex;

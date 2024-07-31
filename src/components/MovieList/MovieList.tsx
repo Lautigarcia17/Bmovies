@@ -1,13 +1,11 @@
 import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
-import ModalMovie from '../ModalMovie/ModalMovie'
-import { useState } from 'react';
+
 // import { useEffect, useState } from 'react';
 // import axios from 'axios'
 
 function MovieList(){
-    const [show, setShow] = useState<boolean>(false);
-    const handleModal = () => setShow(!show);
+
 
     const listMovies = [
         {
@@ -85,24 +83,15 @@ function MovieList(){
 
     return (
         <>
-            <div className={styles.content}>
-                <h1 className={styles.tittleList}>List Movies</h1>
-
-
-                <button className={styles.btn} onClick={handleModal}>Add movie</button>
-                <ModalMovie show={show} handleModal={handleModal}/>
-
-                <div className={styles.elements}>
-                    {listMovies.map((movie : any) => (
-                        <Link to={`details/${movie.Title}`} key={movie.imdbID} className={styles.movieItem}>
-                            <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
-                            <h2 className={styles.tittleMovie}>{movie.Title}</h2>
-                            <p className={styles.yearMovie}>Year: {movie.Year}</p>
-                        </Link>
-                    ))}
-                </div>
-
-            </div>
+            <div className={styles.elements}>
+                {listMovies.map((movie : any) => (
+                    <Link to={`details/${movie.Title}`} key={movie.imdbID} className={styles.movieItem}>
+                        <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
+                        <h2 className={styles.tittleMovie}>{movie.Title}</h2>
+                        <p className={styles.yearMovie}>Year: {movie.Year}</p>
+                    </Link>
+                ))}
+            </div>      
         </>
     )
 }

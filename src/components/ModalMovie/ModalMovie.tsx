@@ -94,7 +94,7 @@ const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
           <Modal.Header className={styles.modalHeader} closeButton>
             <h2 className={styles.modalTitle}>Add Movie</h2>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body className={styles.modalBody}>
             <form className={styles.formControl}>
               <div className={styles.searchElement}>
 

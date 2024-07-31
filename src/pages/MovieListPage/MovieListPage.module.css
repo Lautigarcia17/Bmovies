@@ -1,0 +1,30 @@
+.content {
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+}
+
+.tittleList {
+    margin: 100px 0px;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    color: wheat;
+}
+
+
+.sectionAdd{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+.sectionAdd button{
+    font-size: 16px;
+    width: 70px;
+    height: 50px;
+    background-color: black;
+    color: white;
+    border-radius: 15px;
+    border: 1px solid white;
+}

@@ -1,36 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
-import styles from "./ModalMovie.module.css"; // Asegúrate de que este archivo contenga tus estilos personalizados
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
+import styles from "./ModalMovie.module.css"; 
 import axios from "axios";
 import { Movie } from "../../types/Movie";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 
-
-const Example = () => {
-  const [show, setShow] = useState(false);
-  const [rating, setRating] = useState("");
-  const [url, setUrl] = useState("");
-
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  const handleRatingChange = (e: any) => setRating(e.target.value);
-  const handleUrlChange = (e: any) => setUrl(e.target.value);
-
-
-  const handleSave = () => {
-    handleClose();
-  };
-
-
-
-  const API_URL = 'http://www.omdbapi.com/?apikey=5b1461ac';
-  const [movies,setMovies] = useState<Movie[] >([]);
+const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
+  const [rating, setRating] = useState<number | string>('');
+  const [urlTrailer, setUrlTrailer] = useState<string>('');
+  const [movies,setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
+  const API_URL : string = 'http://www.omdbapi.com/?apikey=5b1461ac';
 
+  const handleRatingChange = (e : React.FocusEvent<HTMLInputElement>) => setRating(parseFloat(e.target.value));
+  const handleUrlChange = (e : React.FocusEvent<HTMLInputElement>) => setUrlTrailer(e.target.value);
 
   const handleSelectMovie = (movie: Movie) => {
     setSelectedMovie(movie);
@@ -38,13 +24,12 @@ const Example = () => {
   };
 
 
-  const findMovies = async (e : any) =>{
+  const findMovies = async (e : React.KeyboardEvent<HTMLInputElement>) =>{
    
-    const response = await axios.get(API_URL + '&s=' + e.target.value);
+    const response = await axios.get(API_URL + '&s=' + e.currentTarget.value);
     const data = response.data;
     if(data && data.Search){
         setMovies(data.Search);
-        console.log('Movies set:', movies);
     }
   } 
 
@@ -53,49 +38,66 @@ const Example = () => {
   };
 
   const validateRange = (e : React.FocusEvent<HTMLInputElement> ) =>{
-    let value = parseFloat(e.target.value)
+    if(e.target.value !== ''){
+      let value = parseFloat(e.target.value)
 
-    if(value < 1 || isNaN(value)){
-      value = 1;
-    }else if(value>10){
-      value = 10
+      if(value < 1 || isNaN(value)){
+        value = 1;
+      }else if(value>10){
+        value = 10
+      }
+  
+      e.target.value = roundToNearestHalf(value).toString();  
     }
-
-
-
-    e.target.value = roundToNearestHalf(value).toString();
   }
 
 
-  useEffect( ()=>{
-    setSelectedMovie({
-      Poster : 'https://m.media-amazon.com/images/M/MV5BMTg5NzY0MzA2MV5BMl5BanBnXkFtZTYwNDc3NTc2._V1_SX300.jpg',
-      Title: "Cars",
-      Year: 2006,
-      imdbID: "tt0317219"
-    })
-  },[])
+ 
 
+  const handleSave = () => {
+    if (selectedMovie) {
+      toast.promise(
+        axios.get(API_URL + '&t=' + selectedMovie.Title).then((response) => {
+          if (response && response.data) {
+            const movieSave: Movie = {
+              Title: response.data.Title,
+              Year: response.data.Year,
+              Genre: response.data.Genre,
+              Director: response.data.Director,
+              Actors: response.data.Actors,
+              Plot: response.data.Plot,
+              Poster: response.data.Poster,
+              imdbID: response.data.imdbID,
+              Trailer: urlTrailer,
+              Rating: rating,
+            };
+
+            console.log(movieSave);
+          }
+        }),
+        {
+          loading: 'Saving ...',
+          success: 'Saved successfully!',
+          error: 'Error saving',
+        }
+      );
+    }
+    handleModal();
+  };
 
 
   return (
     <>
-      <button className={styles.btn} onClick={handleShow}>Add movie</button>
 
-      <Modal show={show} onHide={handleClose} centered backdrop="static">
+      <Modal show={show} onHide={handleModal} centered backdrop="static">
         <div className={styles.modalContent}>
           <Modal.Header className={styles.modalHeader} closeButton>
             <h2 className={styles.modalTitle}>Add Movie</h2>
           </Modal.Header>
           <Modal.Body>
             <form className={styles.formControl}>
-
-    
-
-
               <div className={styles.searchElement}>
 
-                
                 {selectedMovie ? (
 
                   <div>
@@ -116,46 +118,52 @@ const Example = () => {
                       </button>
                     </div>
 
+                    <div className={styles.linkInputContainer}>
+                      <input type="text" className={styles.linkInput} value={urlTrailer} placeholder="enter URL TRAILER..." onChange={handleUrlChange}/>
+                        <span className={styles.linkIcon}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><path fill="#000000" d="M0 2v12h16V2zm3 11H1v-2h2zm0-4H1V7h2zm0-4H1V3h2zm9 8H4V3h8zm3 0h-2v-2h2zm0-4h-2V7h2zm0-4h-2V3h2zM6 5v6l4-3z"/></svg>
+                        </span>
+                    </div>
                   </div>
-
-
                 ) : (
-                  <div className={styles.searchList}>
-                    <label className={styles.label}> Select Movie :</label>
-                    <input type="text" className={styles.search} placeholder="Search Movie Title ..." id="movie-search-box" onKeyUp={findMovies}/>
 
-                    {movies.map((movie: Movie) => (
-                      <div key={movie.imdbID} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
-                        <div className={styles.searchItemThumbnail}>
-                          <img src={movie.Poster} alt={movie.Title} />
-                        </div>
-                        <div className={styles.searchItemInfo}>
-                          <h3>{movie.Title}</h3>
-                          <p>{movie.Year}</p>
-                        </div>
+                  <div className={styles.searchList}>
+                      <label className={styles.label}> Select Movie :</label>
+                      <input type="text" className={styles.search} placeholder="Search Movie Title ..." id="movie-search-box" onKeyUp={findMovies}/>
+
+                      <div className={styles.contentList}>
+                        {movies.map((movie: Movie) => (
+                          <div key={movie.imdbID} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
+                            <div className={styles.searchItemThumbnail}>
+                              <img src={movie.Poster} alt={movie.Title} />
+                            </div>
+                            <div className={styles.searchItemInfo}>
+                              <h3>{movie.Title}</h3>
+                              <p>{movie.Year}</p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
                   </div>
+
                 )}
               </div>
-
-
-
-                {/* <input type="text" placeholder="Url..." value={url} onChange={handleUrlChange} className={styles.urlInput}/> */}
             </form>
           </Modal.Body>
           <Modal.Footer className={styles.modalFooter}>
-            <Button variant="secondary" onClick={handleClose}>
+            <button className={styles.btnCancel} onClick={handleModal}>
               Close
-            </Button>
-            <Button variant="primary" onClick={handleSave}>
-              Save Changes
-            </Button>
+            </button>
+            <button className={styles.btnSave} onClick={handleSave}>
+              Save 
+            </button>
           </Modal.Footer>
         </div>
       </Modal>
+      <Toaster/>
+
     </>
   );
 };
 
-export default Example;
+export default ModalMovie;

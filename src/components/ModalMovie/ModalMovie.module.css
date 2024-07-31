@@ -1,13 +1,4 @@
 
-.btn{
-    font-size: 16px;
-    width: 100px;
-    height: 50px;
-    background-color: #00db92;
-    color: white;
-    margin-left: 10px;
-    border-radius: 26px;
-}
 
 
 .modalContent {
@@ -22,8 +13,8 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    color: wheat; 
-    font-size: 30px;
+    color: wheat;
+    font-size: 35px;
   }
   
   .formControl {
@@ -32,28 +23,34 @@
   
   
 .ratingInput {
-    border-radius: 20px;
-    width: 40px;
-    height: 40px;
+    border-radius: 33px;
+    width: 50px;
+    height: 50px;
     margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     text-align: center;
     font-weight: 700;
-    color: black;
+    color: wheat;
+    background-color: black;
+    border: 3px solid wheat;
   }
 
 
   .searchList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .contentList {
     max-height: 300px;
-    overflow-y: auto;
-    background-color: var(--dark-color);
-    width: 300px;
-
-    overflow-x: hidden;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: rgb(255, 255, 255) transparent;
-}
+    width: 100%;
+  }
+
 
 .searchListItem {
     display: flex;
@@ -118,7 +115,7 @@
   
   .closeButton {
     position: absolute;
-    top: 0.5rem;
+    top: 0;
     right: 0.5rem;
     background: none;
     border: none;
@@ -132,16 +129,17 @@
   }
 
   .search{
-    padding: 2px 12px;
+    padding: 2px 20px;
     font-size: 18px;
     border-radius: 10px;
   }
 
   .label{    
-    font-size: 18px;
+    font-size: 25px;
     color: white;
     margin-bottom: 5px;
     margin-left: 5px;
+    font-family: 'M PLUS Rounded 1c';
   }
 
   .rating{
@@ -157,4 +155,61 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+
+.btnSave{
+  color: black;
+  background-color: #42c727;
+  font-weight: 700;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 1px 14px;
+  font-size: 16px;
+}
+.btnSave:hover{
+  background-color: #2bff00;
+}
+
+.btnCancel{
+  color: red;
+  background-color: black;
+  border: 2px solid red;
+  border-radius: 10px;
+  padding: 1px 14px;
+  font-size: 16px;
+}
+
+.btnCancel:hover{
+  background-color: #a02121;
+}
+
+
+
+.linkInputContainer {
+  position: relative;
+  width: 100%;
+}
+
+.linkInput {
+  width: 100%;
+  padding: 2px 0px 2px 15px;
+  font-size: 1rem;
+  border: 3px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+  background-color: unset;
+  color: white;
+}
+
+.linkIcon {
+  position: absolute;
+  right: 10px;
+  top: 56%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.linkIcon svg {
+  fill: #999;
 }

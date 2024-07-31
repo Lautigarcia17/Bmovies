@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
-import Example from '../ModalMovie/ModalMovie'
+import ModalMovie from '../ModalMovie/ModalMovie'
+import { useState } from 'react';
 // import { useEffect, useState } from 'react';
 // import axios from 'axios'
 
 function MovieList(){
+    const [show, setShow] = useState<boolean>(false);
+    const handleModal = () => setShow(!show);
 
     const listMovies = [
         {
@@ -85,7 +88,9 @@ function MovieList(){
             <div className={styles.content}>
                 <h1 className={styles.tittleList}>List Movies</h1>
 
-                <Example />
+
+                <button className={styles.btn} onClick={handleModal}>Add movie</button>
+                <ModalMovie show={show} handleModal={handleModal}/>
 
                 <div className={styles.elements}>
                     {listMovies.map((movie : any) => (

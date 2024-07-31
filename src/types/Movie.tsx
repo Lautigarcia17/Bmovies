@@ -7,6 +7,6 @@ export interface Movie {
     Plot?: string;
     Poster: string;
     Trailer?: string;
-    Rating?: number;
-    imdbID: string  
+    Rating?: number | string;
+    imdbID?: string  
 }

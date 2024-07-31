@@ -23,13 +23,13 @@ function MovieDetails(){
         Poster:"https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
         Trailer:"https://www.youtube.com/watch?v=hA6hldpSTF8",
         Rating: 8.5,
-        ViewedYear: 2023,
+
     }
     
     const colour = classNames(styles.rating,{
-        [styles.ratingRed]: movie && movie.Rating < 5,
-        [styles.ratingYellow]: movie && movie.Rating >= 5 && movie.Rating < 6,
-        [styles.ratingGreen]: movie && movie.Rating >= 6,
+        [styles.ratingRed]: movie && parseFloat(movie.Rating?.toString() || '0') < 5,
+        [styles.ratingYellow]: movie && parseFloat(movie.Rating?.toString() || '0') >= 5 && parseFloat(movie.Rating?.toString() || '0') < 6,
+        [styles.ratingGreen]: movie && parseFloat(movie.Rating?.toString() || '0') >= 6,
     })
     // const fetchData = async () =>{
     //     const response = await axios.get(API_URL + '&t=' + params.idMovie);

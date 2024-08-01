@@ -29,7 +29,13 @@ const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
     const response = await axios.get(API_URL + '&s=' + e.currentTarget.value);
     const data = response.data;
     if(data && data.Search){
-        setMovies(data.Search);
+        const arrayMovies : Movie[] = data.Search.map( (data:any) => ({
+            poster: data.Poster,
+            title : data.Title,
+            year : data.Year,
+            imdbID : data.imdbID
+        }))
+        setMovies(arrayMovies);
     }
   } 
 
@@ -57,19 +63,19 @@ const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
   const handleSave = () => {
     if (selectedMovie) {
       toast.promise(
-        axios.get(API_URL + '&t=' + selectedMovie.Title).then((response) => {
+        axios.get(API_URL + '&t=' + selectedMovie.title).then((response) => {
           if (response && response.data) {
             const movieSave: Movie = {
-              Title: response.data.Title,
-              Year: response.data.Year,
-              Genre: response.data.Genre,
-              Director: response.data.Director,
-              Actors: response.data.Actors,
-              Plot: response.data.Plot,
-              Poster: response.data.Poster,
-              imdbID: response.data.imdbID,
-              Trailer: urlTrailer,
-              Rating: rating,
+              title: response.data.Title,
+              year: response.data.Year,
+              genre: response.data.Genre,
+              director: response.data.Director,
+              actors: response.data.Actors,
+              plot: response.data.Plot,
+              poster: response.data.Poster,
+              imdbID: response.data.ImbdID,
+              trailer: urlTrailer,
+              rating: rating,
             };
 
             console.log(movieSave);
@@ -107,11 +113,11 @@ const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
 
                     <div className={styles.selectedMovie}>
                       <div className={styles.searchItemThumbnail}>
-                        <img src={selectedMovie.Poster} alt={selectedMovie.Title} />
+                        <img src={selectedMovie.poster} alt={selectedMovie.title} />
                       </div>
                       <div className={styles.searchItemInfo}>
-                        <h3>{selectedMovie.Title}</h3>
-                        <p>{selectedMovie.Year}</p>
+                        <h3>{selectedMovie.title}</h3>
+                        <p>{selectedMovie.year}</p>
                       </div>
                       <button className={styles.closeButton} onClick={() => setSelectedMovie(null)}>
                         &times; {/* Cruz */}
@@ -135,11 +141,11 @@ const ModalMovie = ({show,handleModal} : {show:boolean,handleModal:any}) => {
                         {movies.map((movie: Movie) => (
                           <div key={movie.imdbID} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
                             <div className={styles.searchItemThumbnail}>
-                              <img src={movie.Poster} alt={movie.Title} />
+                              <img src={movie.poster} alt={movie.title} />
                             </div>
                             <div className={styles.searchItemInfo}>
-                              <h3>{movie.Title}</h3>
-                              <p>{movie.Year}</p>
+                              <h3>{movie.title}</h3>
+                              <p>{movie.year}</p>
                             </div>
                           </div>
                         ))}

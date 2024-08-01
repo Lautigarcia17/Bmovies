@@ -9,6 +9,7 @@ import PageNotFound from './pages/PageNotFound/PageNotFound.tsx'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MovieListPage from './pages/MovieListPage/MovieListPage.tsx'
+import AuthPage from './pages/AuthPage/AuthPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,7 @@ const router = createBrowserRouter([
       { path: '', element: <MovieListPage /> },
       { path: 'details/:idMovie', element: <MoviePage /> },
       { path: 'profile', element: <ProfilePage /> },
+      { path: 'auth', element: <AuthPage /> },
     ],
   },
   { path: '*', element: <PageNotFound /> },

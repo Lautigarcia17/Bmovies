@@ -3,51 +3,33 @@ import classNames from 'classnames'
 import styles from './MovieDetails.module.css'
 import { Movie } from '../../types/Movie'
 // import { useEffect, useState } from 'react';
-// import axios from 'axios';
+
 
 
 function MovieDetails(){
     // const params = useParams<{idMovie : string}>();
-    // const API_URL = 'http://www.omdbapi.com/?apikey=5b1461ac';
     // const [movie,setMovie] = useState<Movie | null>(null);
 
 
     const movie : Movie = 
     {
-        Title:"The Avengers",
-        Year:2012,
-        Genre:"Action, Sci-Fi",
-        Director:"Joss Whedon",
-        Actors:"Robert Downey Jr., Chris Evans, Scarlett Johansson",
-        Plot:"Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
-        Poster:"https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
-        Trailer:"https://www.youtube.com/watch?v=hA6hldpSTF8",
-        Rating: 8.5,
+        title:"The Avengers",
+        year:2012,
+        genre:"Action, Sci-Fi",
+        director:"Joss Whedon",
+        actors:"Robert Downey Jr., Chris Evans, Scarlett Johansson",
+        plot:"Earth's mightiest heroes must come together and learn to fight as a team if they are going to stop the mischievous Loki and his alien army from enslaving humanity.",
+        poster:"https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg",
+        trailer:"https://www.youtube.com/watch?v=hA6hldpSTF8",
+        rating: 8.5,
 
     }
     
     const colour = classNames(styles.rating,{
-        [styles.ratingRed]: movie && parseFloat(movie.Rating?.toString() || '0') < 5,
-        [styles.ratingYellow]: movie && parseFloat(movie.Rating?.toString() || '0') >= 5 && parseFloat(movie.Rating?.toString() || '0') < 6,
-        [styles.ratingGreen]: movie && parseFloat(movie.Rating?.toString() || '0') >= 6,
+        [styles.ratingRed]: movie && parseFloat(movie.rating?.toString() || '0') < 5,
+        [styles.ratingYellow]: movie && parseFloat(movie.rating?.toString() || '0') >= 5 && parseFloat(movie.rating?.toString() || '0') < 6,
+        [styles.ratingGreen]: movie && parseFloat(movie.rating?.toString() || '0') >= 6,
     })
-    // const fetchData = async () =>{
-    //     const response = await axios.get(API_URL + '&t=' + params.idMovie);
-    //     const data = response.data;
-    //     if(data){
-    //         setMovie(data);
-    //     }
-    //     else{
-    //         setMovie(null)
-    //     }
-    //     console.log(data);
-    // }
-
-
-    // useEffect(() => {
-    //     fetchData();
-    // },[])
-
 
     return (
         <>
@@ -55,7 +37,7 @@ function MovieDetails(){
                 <div className={styles.content}>
                     <div className={styles.card}>
                         <div className={styles.imageSection}>
-                            <img src={movie?.Poster} alt={movie?.Title} className={styles.moviePoster} />
+                            <img src={movie?.poster} alt={movie?.title} className={styles.moviePoster} />
                             <div className={styles.trailerSection}>
                                     <label>Trailer </label>
                                     <a href="https://www.youtube.com/watch?v=hA6hldpSTF8" target='_blank'>
@@ -66,34 +48,32 @@ function MovieDetails(){
                         </div>
                         <div className={styles.movie}>
                             <div className={styles.contentTittle}>
-                                <h2 className={styles.tittleMovie}>{movie && movie.Title}</h2>
+                                <h2 className={styles.tittleMovie}>{movie && movie.title}</h2>
                             </div>
                             <div className={styles.movieDetails}>
                                 <div className={styles.data}>
                                     <label>Year </label>
-                                    <p >{movie && movie.Year}</p>
+                                    <p >{movie && movie.year}</p>
                                 </div>
                                 <div className={styles.data}>
                                     <label>Plot </label>
-                                    <p>{movie && movie.Plot}</p>
+                                    <p>{movie && movie.plot}</p>
                                 </div>
                                 <div className={styles.data}>
                                     <label>Genre </label>
-                                    <p >{movie && movie.Genre}</p>
+                                    <p >{movie && movie.genre}</p>
                                 </div>
                                 <div className={styles.data}>
                                     <label>Director </label>
-                                    <p >{movie && movie.Director}</p>
+                                    <p >{movie && movie.director}</p>
                                 </div>
                                 <div className={styles.data}>
                                     <label>Actors </label>
-                                    <p >{movie && movie.Actors}</p>
+                                    <p >{movie && movie.actors}</p>
                                 </div>
                             </div>
 
-
-
-                            <div className={ colour}>{movie && movie.Rating}</div>
+                            <div className={ colour}>{movie && movie.rating}</div>
                         </div>
                     </div>
                 </div>

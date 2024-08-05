@@ -140,6 +140,11 @@
     background-color: green;
 }
 
+.spinner{
+    height: 100%;
+}
+
+
 
 @media (max-width: 1550px) {
     .card {

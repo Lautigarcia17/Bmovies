@@ -1,97 +1,80 @@
 import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
 
-// import { useEffect, useState } from 'react';
-// import axios from 'axios'
+import { useEffect, useState } from 'react';
+import { supabase } from '../../supabase/client';
+import { Movie } from '../../types/Movie';
 
 function MovieList(){
+    const [listMovies,setListMovies] = useState<Movie[]>([]);
 
-
-    const listMovies = [
-        {
-            "Title": "The Avengers",
-            "Year": "2012",
-            "imdbID": "tt0848228",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Avengers: Endgame",
-            "Year": "2019",
-            "imdbID": "tt4154796",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Avengers: Infinity War",
-            "Year": "2018",
-            "imdbID": "tt4154756",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMjMxNjY2MDU1OV5BMl5BanBnXkFtZTgwNzY1MTUwNTM@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Avengers: Age of Ultron",
-            "Year": "2015",
-            "imdbID": "tt2395427",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTM4OGJmNWMtOTM4Ni00NTE3LTg3MDItZmQxYjc4N2JhNmUxXkEyXkFqcGdeQXVyNTgzMDMzMTg@._V1_SX300.jpg"
-        },
-        {
-            "Title": "The Avengers",
-            "Year": "1998",
-            "imdbID": "tt0118661",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BZTQ4NmIzMTktOTdjOC00NzE4LWIzNTgtODkwNzM5ZjUzZDkxXkEyXkFqcGdeQXVyMTUzMDUzNTI3._V1_SX300.jpg"
-        },
-        {
-            "Title": "The Avengers: Earth's Mightiest Heroes",
-            "Year": "2010–2012",
-            "imdbID": "tt1626038",
-            "Type": "series",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BYzA4ZjVhYzctZmI0NC00ZmIxLWFmYTgtOGIxMDYxODhmMGQ2XkEyXkFqcGdeQXVyNjExODE1MDc@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Ultimate Avengers: The Movie",
-            "Year": "2006",
-            "imdbID": "tt0491703",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTYyMjk0NTMwMl5BMl5BanBnXkFtZTgwNzY0NjAwNzE@._V1_SX300.jpg",
-        },
-        {
-            "Title": "The Avengers",
-            "Year": "1961–1969",
-            "imdbID": "tt0054518",
-            "Type": "series",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BZWI4ZWM4ZWQtODk1ZC00MzMxLThlZmMtOGFmMTYxZTAwYjc5XkEyXkFqcGdeQXVyMTk0MjQ3Nzk@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Ultimate Avengers II",
-            "Year": "2006",
-            "imdbID": "tt0803093",
-            "Type": "movie",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BZjI3MTI5ZTYtZmNmNy00OGZmLTlhNWMtNjZiYmYzNDhlOGRkL2ltYWdlL2ltYWdlXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_SX300.jpg"
-        },
-        {
-            "Title": "Avengers Assemble",
-            "Year": "2012–2019",
-            "imdbID": "tt2455546",
-            "Type": "series",
-            "Poster": "https://m.media-amazon.com/images/M/MV5BMTY0NTUyMDQwOV5BMl5BanBnXkFtZTgwNjAwMTA0MDE@._V1_SX300.jpg"
+    useEffect(()=>{
+        const fetchData = async()=>{
+            try {
+                const {data,error} =  await supabase.from('movies').select().order('created_at',{ascending:false});
+                
+                if (!error) { 
+                    const moviesDatabase : Movie[] = data.map( (movie : any) => ({
+                        id: movie.id,
+                        title: movie.title,
+                        year: movie.year,
+                        genre: movie.genre,
+                        director: movie.director,
+                        actors: movie.actors,
+                        plot: movie.plot,
+                        poster: movie.poster,
+                        trailer: movie.trailer,
+                        rating: movie.rating,
+                        user_id: movie.user_id,
+                        created_at: movie.created_at ? new Date(movie.created_at) : new Date() 
+                    }) )
+                    setListMovies([]);
+                    setListMovies(moviesDatabase);
+                }else{
+                    console.log(error);
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
-    ]
 
+        fetchData();
+
+        const subscription = supabase.channel('custom-all-chanel').on('postgres_changes',{event: '*',schema:'*',table: 'movies'}, ()=>{
+            fetchData();
+        }).subscribe()
+        
+        return () =>{
+            supabase.removeChannel(subscription);
+        }
+
+    },[])
 
     return (
         <>
-            <div className={styles.elements}>
-                {listMovies.map((movie : any,index : number) => (
-                    <Link to={`details/${movie.Title}`} key={index} className={styles.movieItem}>
-                        <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
-                        <h2 className={styles.tittleMovie}>{movie.Title}</h2>
-                        <p className={styles.yearMovie}>Year: {movie.Year}</p>
-                    </Link>
-                ))}
-            </div>      
+            <div className={styles.content}>
+                {listMovies.length !== 0 ? (
+                    <>
+                        <div className={styles.elements}>
+                            {listMovies.map((movie : Movie) => (
+                                <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
+                                    <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                                    <h2 className={styles.tittleMovie}>{movie.title}</h2>
+                                    <p className={styles.yearMovie}>Year: {movie.year}</p>
+                                </Link>
+                            ))}
+                        </div>
+                    </>
+                ):
+                    <div className={styles.withoutMovie}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#f5deb3" d="M14 20h-4v-9l-3.5 3.5l-2.42-2.42L12 4.16l7.92 7.92l-2.42 2.42L14 11z"/></svg>
+                        <h1>Load your first movies!!</h1>
+                    </div>
+                }
+  
+            </div>
+
+    
         </>
     )
 }

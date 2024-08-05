@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
 import axios from "axios";
@@ -27,17 +27,23 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
 
   const findMovies = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 
-    const response = await axios.get(API_URL + '&s=' + e.currentTarget.value);
-    const data = response.data;
-    if (data && data.Search) {
-      const arrayMovies: Movie[] = data.Search.map((data: any) => ({
-        poster: data.Poster,
-        title: data.Title,
-        year: data.Year,
-        imdbID: data.imdbID
-      }))
-      setMovies(arrayMovies);
+    if(e.currentTarget.value != ''){
+      const response = await axios.get(API_URL + '&s=' + e.currentTarget.value);
+      const data = response.data;
+      if (data && data.Search) {
+        const arrayMovies: Movie[] = data.Search.map((data: any) => ({
+          poster: data.Poster,
+          title: data.Title,
+          year: data.Year,
+          imdbID: data.imdbID
+        }))
+        setMovies(arrayMovies);
+      }
     }
+    else{
+      setMovies([]);
+    }
+
   }
 
   const roundToNearestHalf = (num: number) => {
@@ -55,6 +61,7 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
       }
 
       e.target.value = roundToNearestHalf(value).toString();
+      setRating(parseFloat(e.target.value));
     }
   }
 
@@ -121,7 +128,7 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
 
         if(error){
           console.log(error)
-          toast.success(`Error!`, { position: 'top-right',duration:3000 })
+          toast.error(`Error!`, { position: 'top-right',duration:3000 })
         } 
         else{
           toast.success(`Congratulations! ${movieData.title} was registered`, { position: 'top-right',duration:3000 })
@@ -142,6 +149,12 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
     handleModal();
   };
 
+
+  useEffect( ()=>{
+    setMovies([]);
+    setRating(null);
+    setUrlTrailer(null);
+  },[show])
 
   return (
     <>

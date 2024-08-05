@@ -9,5 +9,6 @@ export interface Movie {
     poster: string;
     trailer?: string | null;
     rating?: number | null;
-    userId?: string; 
+    user_id?: string; 
+    created_at? : Date;
 }

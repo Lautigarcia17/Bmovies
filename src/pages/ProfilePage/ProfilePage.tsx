@@ -4,7 +4,7 @@ import styles from './ProfilePage.module.css'
 function ProfilePage(){
     return (
         <>
-        <UserProfile/>
+            <UserProfile/>
         </>
     )
 }

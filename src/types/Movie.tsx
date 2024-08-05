@@ -7,8 +7,7 @@ export interface Movie {
     actors?: string;
     plot?: string;
     poster: string;
-    trailer?: string;
-    rating?: number | string;
-    imdbID?: string;
+    trailer?: string | null;
+    rating?: number | null;
     userId?: string; 
 }

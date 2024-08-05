@@ -84,8 +84,8 @@ function MovieList(){
     return (
         <>
             <div className={styles.elements}>
-                {listMovies.map((movie : any) => (
-                    <Link to={`details/${movie.Title}`} key={movie.imdbID} className={styles.movieItem}>
+                {listMovies.map((movie : any,index : number) => (
+                    <Link to={`details/${movie.Title}`} key={index} className={styles.movieItem}>
                         <img src={movie.Poster} alt={movie.Title} className={styles.moviePoster} />
                         <h2 className={styles.tittleMovie}>{movie.Title}</h2>
                         <p className={styles.yearMovie}>Year: {movie.Year}</p>

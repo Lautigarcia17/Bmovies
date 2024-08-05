@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
 import styles from './AuthPage.module.css'
-import Login from '../../components/Auth/Login/Login';
-import Register from '../../components/Auth/Register/Register';
-import { supabase } from '../../supabase/client';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { Login, Register } from '../../components';
+
+// import { supabase } from '../../supabase/client';
+// import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 function AuthPage() {
   const [showLogin, setShowLogin] = useState<boolean>(true);
-  const navigate : NavigateFunction = useNavigate();
+  // const navigate : NavigateFunction = useNavigate();
 
-  useEffect(() => {
-    const verifyAuth = async () => {
-      const { data,error} = await supabase.auth.getUser();
-      if (data.user && !error) {
-        navigate('/');
-      }
-    };
-    verifyAuth();
-  }, [navigate]);
+  // useEffect(() => {
+  //   const verifyAuth = async () => {
+  //     const { data,error} = await supabase.auth.getUser();
+  //     if (data.user && !error) {
+  //       navigate('/');
+  //     }
+  //   };
+  //   verifyAuth();
+  // }, [navigate]);
 
 
   return (

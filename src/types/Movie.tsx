@@ -1,12 +1,12 @@
 export interface Movie {
     id? : string,
-    title: string;
-    year: number;
-    genre?: string;
-    director?: string;
-    actors?: string;
-    plot?: string;
-    poster: string;
+    title: string ;
+    year: number | null;
+    genre?: string | null;
+    director?: string | null;
+    actors?: string | null;
+    plot?: string | null;
+    poster: string ;
     trailer?: string | null;
     rating?: number | null;
     user_id?: string; 

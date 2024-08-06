@@ -144,6 +144,36 @@
     height: 100%;
 }
 
+.actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+/* Dialog */
+.confirmToast {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .confirmButtons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .confirmButton {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .confirmButton:hover {
+    background-color: #ddd;
+  }
 
 
 @media (max-width: 1550px) {
@@ -196,6 +226,11 @@
     .data p{
         font-size: 12px;
     }
+
+    .actions{
+        margin: 10px 0px 0px 20px;
+    }
+
 }
 
 @media (max-width: 600px) {

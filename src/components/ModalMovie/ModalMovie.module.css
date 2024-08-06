@@ -134,6 +134,18 @@
     border-radius: 10px;
   }
 
+  .searchById{
+    width: 150px;
+    padding: 2px 20px;
+    border-radius: 10px;
+  }
+
+  .btnSearch{
+    background-color: transparent;
+    border: 0px;
+  }
+
+
   .label{    
     font-size: 25px;
     color: white;
@@ -212,4 +224,33 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .linkIcon svg {
   fill: #999;
+}
+
+
+/* RADIOBUTTON */
+
+
+
+.radioButtons {
+  display: flex; 
+  justify-content: space-evenly; 
+  margin-bottom: 15px;
+}
+
+.radioButtons input[type="radio"] {
+  display: none;
+}
+
+.radioButtons input[type="radio"] + label {
+  display: inline-block;
+  padding: 1px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.radioButtons input[type="radio"]:checked + label {
+  background-color: #2896b3;
 }

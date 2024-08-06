@@ -13,6 +13,8 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
   const [urlTrailer, setUrlTrailer] = useState<string | null>(null);
   const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [imdbIDOption, setImdbIDOption] = useState<string | null>('');
+  const [showSearchByTitle, setShowSearchByTitle] = useState<boolean>(true);
 
   const API_URL: string = 'http://www.omdbapi.com/?apikey=5b1461ac';
 
@@ -27,7 +29,7 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
 
   const findMovies = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 
-    if(e.currentTarget.value != ''){
+    if (e.currentTarget.value != '') {
       const response = await axios.get(API_URL + '&s=' + e.currentTarget.value);
       const data = response.data;
       if (data && data.Search) {
@@ -40,11 +42,33 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
         setMovies(arrayMovies);
       }
     }
-    else{
+    else {
       setMovies([]);
     }
 
   }
+
+  const findMovieById = async (e: any) => {
+    e.preventDefault();
+    if (imdbIDOption != '') {
+      const response = await axios.get(API_URL + '&i=' + imdbIDOption);
+      const data = response.data;
+      if (data) {
+        const arrayMovies: Movie[] = [{
+          poster: data.Poster,
+          title: data.Title,
+          year: data.Year
+        }]
+        setMovies(arrayMovies);
+      }
+    }
+    else {
+      setMovies([]);
+    }
+
+  }
+
+
 
   const roundToNearestHalf = (num: number) => {
     return Math.round(num * 2) / 2;
@@ -66,18 +90,26 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
   }
 
 
-  const fetchMovieData = async (title: string): Promise<Movie> => {
+  const fetchMovieData = async (title: string, year: number): Promise<Movie> => {
 
     try {
-      const response = await axios.get(API_URL + '&t=' + title);
+      let response;
+
+      if (year == 0) {
+        response = await axios.get(API_URL + '&t=' + title);
+      }
+      else {
+        response = await axios.get(API_URL + '&t=' + title + '&y=' + year);
+      }
+
       if (response && response.data) {
         const movie: Movie = {
           title: response.data.Title,
-          year: parseInt(response.data.Year),
-          genre: response.data.Genre,
-          director: response.data.Director,
-          actors: response.data.Actors,
-          plot: response.data.Plot,
+          year: response.data.Year !== 'N/A' ? parseInt(response.data.Year) : null,
+          genre: response.data.Genre !== 'N/A' ? response.data.Genre : null,
+          director: response.data.Director !== 'N/A' ? response.data.Director : null,
+          actors: response.data.Actors !== 'N/A' ? response.data.Actors : null,
+          plot: response.data.Plot !== 'N/A' ? response.data.Plot : null,
           poster: response.data.Poster,
           trailer: urlTrailer,
           rating: rating,
@@ -98,51 +130,65 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
     }
   }
 
+  const checkIfMovieExists = async (title: string) => {
+    const { data, error } = await supabase
+      .from('movies')
+      .select()
+      .eq('title', title);
+
+    if (error) {
+      console.error('Error checking if movie exists:', error);
+      return false;
+    }
+
+    return data.length > 0;
+  };
 
 
 
   const handleSave = async () => {
     if (selectedMovie) {
       toast.promise((async () => {
-        const movieData = await fetchMovieData(selectedMovie.title);
-        const responseApi = await getSession();
+        if (await checkIfMovieExists(selectedMovie.title) == false) {
+          const movieData = await fetchMovieData(selectedMovie.title, selectedMovie.year ?? 0);
+          const responseApi = await getSession();
 
-        const provisionalDate = new Date();
-        provisionalDate.setFullYear(2023);
+          const { error } = await supabase.from('movies').insert(
+            {
+              title: movieData.title,
+              year: movieData.year,
+              genre: movieData.genre,
+              director: movieData.director,
+              actors: movieData.actors,
+              plot: movieData.plot,
+              poster: movieData.poster,
+              trailer: urlTrailer,
+              rating: rating,
+              user_id: responseApi.data.session?.user.id,
+              created_at: new Date(),
+            }
+          )
 
-        const {error} = await supabase.from('movies').insert(
-          {
-            title: movieData.title,
-            year: movieData.year,
-            genre: movieData.genre,
-            director: movieData.director,
-            actors: movieData.actors,
-            plot: movieData.plot,
-            poster: movieData.poster,
-            trailer: urlTrailer,
-            rating: rating,
-            user_id: responseApi.data.session?.user.id,
-            created_at: provisionalDate,
+          if (error) {
+            console.log(error)
+            throw new Error('Error inserting the movie');
           }
-        )
-
-        if(error){
-          console.log(error)
-          toast.error(`Error!`, { position: 'top-right',duration:3000 })
-        } 
-        else{
-          toast.success(`Congratulations! ${movieData.title} was registered`, { position: 'top-right',duration:3000 })
-          setSelectedMovie(null);
-          setMovies([]);
-          setUrlTrailer(null)
-          setRating(null);
         }
+        else {
+          throw new Error(`Error! The movie has already been registered.`);
+        }
+        setSelectedMovie(null);
+        setMovies([]);
+        setUrlTrailer(null)
+        setRating(null);
 
       })(),
         {
           loading: 'Saving ...',
           success: 'Saved successfully!',
-          error: 'Error saving',
+          error: (err) => {
+            return err.message
+          }
         }
       );
     }
@@ -150,11 +196,26 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
   };
 
 
-  useEffect( ()=>{
+  useEffect(() => {
+
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    };
+
+    if (show) {
+      window.addEventListener('keydown', handleKeyPress);
+    } else {
+      window.removeEventListener('keydown', handleKeyPress);
+    }
+
     setMovies([]);
     setRating(null);
     setUrlTrailer(null);
-  },[show])
+    setShowSearchByTitle(true);
+    setImdbIDOption('');
+  }, [show])
 
   return (
     <>
@@ -199,10 +260,30 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
 
                   <div className={styles.searchList}>
                     <label className={styles.label}> Select Movie :</label>
-                    <input type="text" className={styles.search} placeholder="Search Movie Title ..." id="movie-search-box" onKeyUp={findMovies} />
+                    <div className={styles.radioButtons}>
+                      <input type="radio" id="excelent" name="search" value="Tittle" onClick={() => setShowSearchByTitle(true)} defaultChecked />
+                      <label htmlFor="excelent">Tittle</label>
 
+                      <input type="radio" id="good" name="search" value="good" onClick={() => setShowSearchByTitle(false)} />
+                      <label htmlFor="good">IMDb ID</label>
+                    </div>
+
+
+
+                    {showSearchByTitle ? (
+                      <input type="text" className={styles.search} placeholder="By Title ..." id="movie-search-box" onKeyUp={findMovies} />
+                    ) : (
+                        <div>
+                          <input value={imdbIDOption?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />
+                          <button className={styles.btnSearch} onClick={findMovieById}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" fillRule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
+                          </button>
+                        </div>
+                      )
+                    }
+                    
                     <div className={styles.contentList}>
-                      {movies.map((movie: Movie,index : number) => (
+                      {movies.map((movie: Movie, index: number) => (
                         <div key={index} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
                           <div className={styles.searchItemThumbnail}>
                             <img src={movie.poster} alt={movie.title} />

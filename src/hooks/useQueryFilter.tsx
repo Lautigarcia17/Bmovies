@@ -21,7 +21,7 @@ const useQueryFilter = (defaultFilter = 'all') =>{
         setQueryFilter(defaultFilter);
        }
         
-    },[])
+    },[location.search])
 
     return {queryFilter,handleQuery}
 }

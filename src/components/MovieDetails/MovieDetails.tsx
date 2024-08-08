@@ -7,12 +7,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import { Spinner } from 'react-bootstrap'
 import DropdownDetail from '../DropdownDetail/DropdownDetail'
+import ModalEdit from '../ModalEdit/ModalEdit'
 
 
 function MovieDetails() {
     const { idMovie } = useParams<{ idMovie: string }>();
     const [movie, setMovie] = useState<Movie | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [showEdit,setShowEdit] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
     const colour = classNames(styles.rating, {
@@ -21,11 +24,60 @@ function MovieDetails() {
         [styles.ratingGreen]: movie && parseFloat(movie.rating?.toString() || '0') >= 6,
     })
 
+    const handleModalEdit= ()=>{
+        setShowEdit(!showEdit);
+    }
+
+
+    const handleRemove = async ()=>{
+        try {
+            const response = await supabase.from('movies').delete().eq('id',idMovie); 
+
+            if(response.error){
+                toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
+            }
+            else{
+                toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 3000 })
+                navigate('/');
+            }
+        } catch (error) {
+            console.log(error);   
+        }
+    }
+
+
+
+    const handleEdit = async (rating: number, trailer: string) => {
+        try {
+            const updateData: any = {};
+            if (rating !== undefined) updateData.rating = rating;
+            if (trailer !== undefined) updateData.trailer = trailer;
+    
+            if (Object.keys(updateData).length > 0) {
+                const { error } = await supabase.from('movies').update(updateData).eq('id', idMovie);
+    
+                if (error) {
+                    toast.error(`Error! The movie was not updated: ${error.message}`, { position: 'top-right', duration: 3000 });
+                } else {
+                    toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 3000 });
+                }
+            } else {
+                toast.error(`No data to update`, { position: 'top-right', duration: 3000 });
+            }
+        } catch (error:any) {
+            console.error('Update failed:', error);
+            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 3000 });
+        }
+    };
+
+
+
     useEffect(() => {
 
-        if (idMovie) {
-            setLoading(true)
-            const fetchData = async () => {
+        const findMovie = async () =>{
+            if (idMovie) {
+                setLoading(true)
+           
                 try {
                     const { data, error } = await supabase.from('movies').select().eq('id', idMovie);
 
@@ -35,42 +87,30 @@ function MovieDetails() {
                         toast.error(`Error! movie not found`, { position: 'top-right', duration: 3000 })
                         navigate('/');
                     }
-
-
                 } catch (error) {
                     console.log(error);
                 }
-                setLoading(false);
+                    setLoading(false);
+                
             }
-            fetchData();
+            else {
+                navigate('/');
+            }
         }
-        else {
-            navigate('/');
+
+
+        findMovie();
+
+        const subscription = supabase.channel('custom-all-chanel').on('postgres_changes', { event: '*', schema: '*', table: 'movies' }, () => {
+            findMovie();
+        }).subscribe()
+
+        return () => {
+            supabase.removeChannel(subscription);
         }
+
     }, [])
 
-    const handleRemove = async ()=>{
-        
-        // try {
-        //     const response = await supabase.from('movies').delete().eq('id',idMovie); 
-
-        //     if(response.error){
-        //         toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
-        //     }
-        //     else{
-        //         toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 3000 })
-        //         navigate('/');
-        //     }
-        // } catch (error) {
-        //     console.log(error);   
-        // }
-
-
-
-    }
-    const handleEdit = ()=>{
-        console.log('Edit: ',idMovie);
-    }
 
     return (
         <>
@@ -141,7 +181,8 @@ function MovieDetails() {
                                     </div>
 
                                     <div className={styles.actions}>
-                                        <DropdownDetail handleEdit={handleEdit} handleRemove={handleRemove}/>
+                                        <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemove}/>
+                                        <ModalEdit show={showEdit} handleModalEdit={handleModalEdit}  handleEdit={handleEdit}/>
                                     </div>
                                     
                                 </>

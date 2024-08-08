@@ -195,6 +195,11 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
     handleModal();
   };
 
+  const handleViewOption = (state : boolean)=>{
+    setShowSearchByTitle(state)
+    setMovies([]);
+  }
+
 
   useEffect(() => {
 
@@ -261,10 +266,10 @@ const ModalMovie = ({ show, handleModal }: { show: boolean, handleModal: any }) 
                   <div className={styles.searchList}>
                     <label className={styles.label}> Select Movie :</label>
                     <div className={styles.radioButtons}>
-                      <input type="radio" id="excelent" name="search" value="Tittle" onClick={() => setShowSearchByTitle(true)} defaultChecked />
+                      <input type="radio" id="excelent" name="search" value="Tittle" onClick={() => handleViewOption(true)} defaultChecked />
                       <label htmlFor="excelent">Tittle</label>
 
-                      <input type="radio" id="good" name="search" value="good" onClick={() => setShowSearchByTitle(false)} />
+                      <input type="radio" id="good" name="search" value="good" onClick={()=> handleViewOption(false)} />
                       <label htmlFor="good">IMDb ID</label>
                     </div>
 

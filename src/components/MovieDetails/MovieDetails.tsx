@@ -51,19 +51,19 @@ function MovieDetails() {
 
     const handleRemove = async ()=>{
         
-        try {
-            const response = await supabase.from('movies').delete().eq('id',idMovie); 
+        // try {
+        //     const response = await supabase.from('movies').delete().eq('id',idMovie); 
 
-            if(response.error){
-                toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
-            }
-            else{
-                toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 3000 })
-                navigate('/');
-            }
-        } catch (error) {
-            console.log(error);   
-        }
+        //     if(response.error){
+        //         toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
+        //     }
+        //     else{
+        //         toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 3000 })
+        //         navigate('/');
+        //     }
+        // } catch (error) {
+        //     console.log(error);   
+        // }
 
 
 

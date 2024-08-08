@@ -32,3 +32,8 @@
 .sectionAdd button:hover{
     border: 2px solid wheat;
 }
+
+
+.element{
+    margin-bottom: 50px;
+}

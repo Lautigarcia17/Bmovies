@@ -83,6 +83,7 @@ a{
 }
 
 
+
 @media (max-width: 1500px) {
    .movieItem{
         width: 60%;
@@ -94,11 +95,8 @@ a{
     .elements {
         grid-template-columns: repeat(1, 1fr);
     }
-}
-
-@media (max-width: 768px) {
     .withoutMovie h1 {
         font-size: 20px;
     }
-
 }
+

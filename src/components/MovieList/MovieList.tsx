@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
 import { Spinner } from 'react-bootstrap'
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabase/client';
 import { Movie } from '../../types/Movie';
 
-function MovieList() {
+function MovieList({ search, setShowSearch }: { search: string, setShowSearch: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -29,8 +29,9 @@ function MovieList() {
                         user_id: movie.user_id,
                         created_at: movie.created_at ? new Date(movie.created_at) : new Date()
                     }))
-                    setListMovies([]);
+                    // setListMovies([]);
                     setListMovies(moviesDatabase);
+                    setShowSearch(true);
                 } else {
                     console.log(error);
                 }
@@ -53,6 +54,9 @@ function MovieList() {
 
     }, [])
 
+    let listMoviesFiltered = listMovies.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+    const moviesToDisplay =  listMoviesFiltered.length == 0 ? listMovies : listMoviesFiltered
+
     return (
         <>
             <div className={styles.content}>
@@ -65,19 +69,21 @@ function MovieList() {
                         {listMovies.length !== 0 ? (
                             <>
                                 <div className={styles.elements}>
-                                    {listMovies.map((movie: Movie) => (
-                                        <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
-                                            <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
-                                            <h2 className={styles.tittleMovie}>{movie.title}</h2>
-                                            {movie.genre && (
-                                                <p className={styles.dataMovie}>{movie.genre}</p>
-                                            )}
-                                            {movie.rating && (
-                                                <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
-                                            )}
+                                    {
+                                        moviesToDisplay.map((movie: Movie) => (
+                                            <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
+                                                <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                                                <h2 className={styles.tittleMovie}>{movie.title}</h2>
+                                                {movie.genre && (
+                                                    <p className={styles.dataMovie}>{movie.genre}</p>
+                                                )}
+                                                {movie.rating && (
+                                                    <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
+                                                )}
 
-                                        </Link>
-                                    ))}
+                                            </Link>
+                                        ))
+                                    }
                                 </div>
                             </>
                         ) :

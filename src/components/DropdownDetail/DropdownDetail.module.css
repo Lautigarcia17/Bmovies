@@ -1,0 +1,42 @@
+.customToggle {
+    background-color: transparent !important;
+    color: white !important;
+    border: none;
+    font-size: 18px;
+    outline: none ;
+    box-shadow: none ;
+}
+
+  
+.customToggle:hover{
+    background-color: #1d1d1d; 
+    border: 1px dotted #ccc !important; 
+}
+
+.customMenu {
+    background-color: #1d1d1d; 
+    border: 1px solid #ccc; 
+}
+  
+.customItem {
+    color: white; 
+}
+  
+.customItem:hover {
+    background-color: #ddd; 
+    color: black;
+}
+
+.customToggle:after {
+    display: none!important;
+}
+
+@media (max-width: 1000px) {
+    .customMenu{
+        padding: 0px;
+    }
+
+    .customItem{
+        font-size: 14px;
+    }
+}

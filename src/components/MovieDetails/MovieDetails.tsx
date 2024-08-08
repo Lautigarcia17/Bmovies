@@ -6,7 +6,7 @@ import { supabase } from '../../supabase/client'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast, { Toaster } from 'react-hot-toast'
 import { Spinner } from 'react-bootstrap'
-import DropdownAction from '../Dropdown/DropdownAction'
+import DropdownDetail from '../DropdownDetail/DropdownDetail'
 
 
 function MovieDetails() {
@@ -141,7 +141,7 @@ function MovieDetails() {
                                     </div>
 
                                     <div className={styles.actions}>
-                                        <DropdownAction handleEdit={handleEdit} handleRemove={handleRemove}/>
+                                        <DropdownDetail handleEdit={handleEdit} handleRemove={handleRemove}/>
                                     </div>
                                     
                                 </>

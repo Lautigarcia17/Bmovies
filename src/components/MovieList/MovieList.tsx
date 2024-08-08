@@ -5,9 +5,41 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabase/client';
 import { Movie } from '../../types/Movie';
 
-function MovieList({ search, setShowSearch }: { search: string, setShowSearch: React.Dispatch<React.SetStateAction<boolean>> }) {
+function MovieList({ search, queryFilter, setShowSearch }: { search: string, queryFilter : string, setShowSearch: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+
+    
+
+    const filter = ()=>{
+        let moviesFiltered : Array<any> = [];
+
+        if(queryFilter !== ''){
+            switch (queryFilter) {
+                case 'all':
+                        moviesFiltered = listMovies;
+                    break;
+                case 'not seen':
+                        moviesFiltered = listMovies.filter( (movie)=> movie.rating == null)
+                    break;
+                case '2023':
+                    moviesFiltered = listMovies.filter( (movie)=> movie.created_at?.getFullYear().toString() == queryFilter && movie.rating != null)
+                    break;
+                case '2024':
+                    moviesFiltered = listMovies.filter( (movie)=> movie.created_at?.getFullYear().toString() == queryFilter && movie.rating != null)
+                    break;
+                default:
+                    moviesFiltered = listMovies.filter( (movie)=> {
+                        return movie.rating ? Math.ceil(movie.rating) == parseInt(queryFilter) : null
+                    })
+                    break;
+            }
+        }
+
+        if(search !== '')  moviesFiltered = moviesFiltered.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
+        
+        return moviesFiltered;
+    }
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,9 +86,7 @@ function MovieList({ search, setShowSearch }: { search: string, setShowSearch: R
 
     }, [])
 
-    let listMoviesFiltered = listMovies.filter((item) => item.title.toLowerCase().includes(search.toLowerCase()))
-    const moviesToDisplay =  listMoviesFiltered.length == 0 ? listMovies : listMoviesFiltered
-
+    const moviesToDisplay = filter();
     return (
         <>
             <div className={styles.content}>
@@ -70,6 +100,8 @@ function MovieList({ search, setShowSearch }: { search: string, setShowSearch: R
                             <>
                                 <div className={styles.elements}>
                                     {
+                                        moviesToDisplay.length !==0 ? (
+
                                         moviesToDisplay.map((movie: Movie) => (
                                             <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
                                                 <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
@@ -80,9 +112,13 @@ function MovieList({ search, setShowSearch }: { search: string, setShowSearch: R
                                                 {movie.rating && (
                                                     <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
                                                 )}
-
                                             </Link>
                                         ))
+                                    ) :
+                                        <div className={styles.withoutResults}>
+                                            <h1> Without results !</h1>
+                                        </div>
+
                                     }
                                 </div>
                             </>

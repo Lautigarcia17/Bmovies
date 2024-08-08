@@ -83,6 +83,17 @@ a{
 }
 
 
+.withoutResults{
+    width: 100%;
+    position: absolute;
+    text-align: center;
+}
+.withoutResults h1{
+    color: brown;
+    font-size: 25px;
+    font-weight: 700;
+}
+
 
 @media (max-width: 1500px) {
    .movieItem{

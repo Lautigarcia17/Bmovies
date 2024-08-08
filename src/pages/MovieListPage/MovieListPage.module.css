@@ -56,3 +56,21 @@
     font-weight: 900;
     text-transform: capitalize;
 }
+
+
+@media (max-width : 1600px) {
+    .filterQuery{
+        margin-left: 100px;
+    }
+}
+@media (max-width : 1000px) {
+    .filterQuery{
+        margin-left: 50px;
+    }
+}
+
+@media (max-width : 600px) {
+    .filterQuery{
+        margin-left: 20px;
+    }
+}

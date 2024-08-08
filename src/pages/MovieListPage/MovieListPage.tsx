@@ -4,14 +4,19 @@ import ModalMovie from '../../components/ModalMovie/ModalMovie';
 import MovieList from '../../components/MovieList/MovieList';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
+import useQueryFilter from '../../hooks/useQueryFilter';
 
 function MovieListPage() {
 
     const [show, setShow] = useState<boolean>(false);
     const [search, setSearch] = useState<string>('');
-    const [queryFilter,setQueryFilter] = useState<string>('all');
     const [showSearch, setShowSearch] = useState<boolean>(false);
     const handleModal = () => setShow(!show);
+
+
+    const {queryFilter,handleQuery} = useQueryFilter();
+
+
 
     return (
         <>
@@ -34,7 +39,7 @@ function MovieListPage() {
 
                         <div className={styles.element}>
                             <div className={styles.filterQuery}>
-                                <DropdownFilter setQueryFilter={setQueryFilter}/>
+                                <DropdownFilter handleQuery={handleQuery}/>
                                 <label>{queryFilter}</label>
                             </div>
                         </div>

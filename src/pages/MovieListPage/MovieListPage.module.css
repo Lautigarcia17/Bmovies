@@ -58,6 +58,13 @@
 }
 
 
+.spinner{
+    height: 100%;
+    text-align: center;
+}
+
+
+
 @media (max-width : 1600px) {
     .filterQuery{
         margin-left: 100px;

@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import styles from './MovieListPage.module.css'
-import ModalMovie from '../../components/ModalMovie/ModalMovie';
-import MovieList from '../../components/MovieList/MovieList';
+import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
-import useQueryFilter from '../../hooks/useQueryFilter';
+import { useQueryFilter } from '../../hooks/useQueryFilter';
+import { useMovie } from '../../hooks/useMovie';
+import ModalMovie from '../../components/ModalMovie/ModalMovie';
+import MovieList from '../../components/MovieList/MovieList';
+
 
 function MovieListPage() {
 
     const [show, setShow] = useState<boolean>(false);
     const [search, setSearch] = useState<string>('');
-    const [showSearch, setShowSearch] = useState<boolean>(false);
+    const { queryFilter, manageQuery } = useQueryFilter();
+    const { listMovies, movieToDisplay, loading } = useMovie(search, queryFilter)
+
     const handleModal = () => setShow(!show);
-
-
-    const {queryFilter,handleQuery} = useQueryFilter();
-
-
 
     return (
         <>
@@ -31,7 +31,37 @@ function MovieListPage() {
                 <ModalMovie show={show} handleModal={handleModal} />
 
 
-                {showSearch ? (
+                {loading ? (
+
+                    <div className={styles.spinner}>
+                        <Spinner animation="border" variant="light" />
+                    </div>
+
+                ) : (
+                    <>
+                        {listMovies.length > 0 && (
+                            <>
+                                <div className={styles.element}>
+                                    <SearchMovie setSearch={setSearch} />
+                                </div>
+
+                                <div className={styles.element}>
+                                    <div className={styles.filterQuery}>
+                                        <DropdownFilter handleQuery={manageQuery} />
+                                        <label>{queryFilter}</label>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                        <div className={styles.element}>
+                            <MovieList listMovies={listMovies} movieToDisplay={movieToDisplay} />
+                        </div>
+                    </>
+                )}
+
+
+                {/* {listMovies.length > 0 ? (
                     <>
                         <div className={styles.element}>
                             <SearchMovie setSearch={setSearch} />
@@ -39,7 +69,7 @@ function MovieListPage() {
 
                         <div className={styles.element}>
                             <div className={styles.filterQuery}>
-                                <DropdownFilter handleQuery={handleQuery}/>
+                                <DropdownFilter handleQuery={manageQuery} />
                                 <label>{queryFilter}</label>
                             </div>
                         </div>
@@ -48,8 +78,15 @@ function MovieListPage() {
                 ) : null}
 
                 <div className={styles.element}>
-                    <MovieList search={search} queryFilter={queryFilter} setShowSearch={setShowSearch} />
-                </div>
+                    {loading ? (
+                        <div className={styles.spinner}>
+                            <Spinner animation="border" variant="light" />
+                        </div>
+                    ) :
+                        <MovieList listMovies={listMovies} movieToDisplay={movieToDisplay} />
+                    }
+
+                </div> */}
 
             </div>
         </>

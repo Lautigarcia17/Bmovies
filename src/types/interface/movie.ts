@@ -1,4 +1,9 @@
-export interface Movie {
+export interface MovieEdit{
+    trailer: string | null;
+    rating: number | null;
+}
+
+export interface Movie extends Partial<MovieEdit>{
     id? : string,
     title: string ;
     year: number | null;
@@ -7,8 +12,7 @@ export interface Movie {
     actors?: string | null;
     plot?: string | null;
     poster: string ;
-    trailer?: string | null;
-    rating?: number | null;
     user_id?: string; 
     created_at? : Date;
 }
+

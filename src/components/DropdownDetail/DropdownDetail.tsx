@@ -1,7 +1,7 @@
 import { Dropdown } from "react-bootstrap"
 import styles from './DropdownDetail.module.css'
 
-const DropdownDetail = ({handleRemove, handleModalEdit} : any) => {
+function DropdownDetail ({handleRemove, handleModalEdit} : {handleRemove: ()=> void, handleModalEdit: ()=> void}){
   return (
     <Dropdown drop="up">
       <Dropdown.Toggle id="dropdown-basic" className={styles.customToggle}>

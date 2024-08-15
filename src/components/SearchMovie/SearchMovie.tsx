@@ -1,6 +1,6 @@
 import styles from './SearchMovie.module.css'
 
-function SearchMovie( {setSearch} : any ) {
+function SearchMovie( {setSearch} : { setSearch:React.Dispatch<React.SetStateAction<string>> } ) {
 
   return (
     

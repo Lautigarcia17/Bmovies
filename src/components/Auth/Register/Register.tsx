@@ -1,50 +1,29 @@
 import styles from './Register.module.css'
-import { useForm } from 'react-hook-form';
 import { toast, Toaster } from 'react-hot-toast'
-import { supabase } from '../../../supabase/client';
 import { NavigateFunction, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../hooks/useAuth';
+
 
 function Register() {
   const navigate : NavigateFunction = useNavigate();
 
-  const { register, formState: { errors },reset, handleSubmit } = useForm({
-    mode: 'onChange'
-  });
+  const {signUp,register,handleSubmit,errors} = useAuth();
 
-  const signUp = async (dataUser: any) => {
-    try {
-      if (dataUser.email && dataUser.password) {
-        const { data, error } = await supabase.auth.signUp({
-          email: dataUser.email,
-          password: dataUser.password,
-          options: {
-            data: {
-              username: dataUser.username,
-              age: dataUser.age
-            }
-          }
-        })
+  const onSubmit = async (dataUser:any)=>{
+    const {data,error} = await signUp(dataUser)
 
-        if(error){
-          toast.error(error.message, { position: 'top-right',duration:3000 });
-        }
-        else{
-          toast.success(`Congratulations ${data.user?.user_metadata.username}! you have registered`, { position: 'top-right',duration:3000 })
-          navigate('/');
-        }
-        reset();
-      }
-
-    } catch (error) {
-      console.log(error);
+    if (error) {
+      toast.error(error.message, { position: 'top-right', duration: 3000 });
     }
-
+    else {
+      toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 3000 })
+      navigate('/')
+    }
   }
 
   return (
         <>
-        
-          <form  className={styles.form} onSubmit={handleSubmit(signUp)}>
+          <form  className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 
             <label htmlFor="username">Username</label>
             <input type="text" id='username' className={styles.inputText} placeholder='Enter your username ...' {...register('username', {

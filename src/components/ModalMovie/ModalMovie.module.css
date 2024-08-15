@@ -226,15 +226,23 @@ input[type="number"]::-webkit-outer-spin-button {
   fill: #999;
 }
 
+.contentImdbId{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
 
 /* RADIOBUTTON */
 
 
 
 .radioButtons {
-  display: flex; 
-  justify-content: space-evenly; 
+  display: flex;
+  justify-content: space-evenly;
   margin-bottom: 15px;
+  gap: 10px;
 }
 
 .radioButtons input[type="radio"] {
@@ -244,7 +252,6 @@ input[type="number"]::-webkit-outer-spin-button {
 .radioButtons input[type="radio"] + label {
   display: inline-block;
   padding: 1px 10px;
-  margin-right: 10px;
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 5px;

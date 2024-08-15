@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import styles from './AuthPage.module.css'
-import { Login, Register } from '../../components';
+import Login from '../../components/Auth/Login/Login';
+import Register from '../../components/Auth/Register/Register';
+
 
 // import { supabase } from '../../supabase/client';
 // import { NavigateFunction, useNavigate } from 'react-router-dom';

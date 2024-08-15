@@ -5,6 +5,7 @@
     font-size: 18px;
     outline: none ;
     box-shadow: none ;
+    border: 1px dotted transparent !important; 
 }
 
   

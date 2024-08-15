@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UseQueryFilter } from "../types/type";
 
-const useQueryFilter = (defaultFilter = 'all') =>{
+
+export const useQueryFilter = (defaultFilter = 'all') : UseQueryFilter =>{
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -10,7 +12,7 @@ const useQueryFilter = (defaultFilter = 'all') =>{
 
     const [queryFilter,setQueryFilter] = useState<string>(initialFilter);
 
-    const handleQuery = (query :string)=>{
+    const manageQuery = (query :string)=>{
         setQueryFilter(query);
         navigate(`?filter=${query}`)
     }
@@ -23,7 +25,6 @@ const useQueryFilter = (defaultFilter = 'all') =>{
         
     },[location.search])
 
-    return {queryFilter,handleQuery}
+    return {queryFilter,manageQuery}
 }
 
-export default useQueryFilter

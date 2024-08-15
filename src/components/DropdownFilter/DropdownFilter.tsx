@@ -1,7 +1,7 @@
 import { Dropdown, DropdownDivider } from "react-bootstrap"
 import styles from './DropdownFilter.module.css'
 
-function DropdownFilter({handleQuery }: { handleQuery: any }) {
+function DropdownFilter({handleQuery }: { handleQuery: (query : string) => void }) {
 
     const rating : Array<number> = [1,  2,  3, 4,  5,  6, 7, 8,  9, 10];
 

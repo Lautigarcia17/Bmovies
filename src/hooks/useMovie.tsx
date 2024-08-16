@@ -79,9 +79,16 @@ export const useMovie = (search: string, queryFilter: string) : UseMovieReturn =
         }
     }, [])
 
+
+
+    
     useEffect(() => {
         setMovieToDisplay(filter());
     }, [listMovies,search,queryFilter])
+
+
+
+
 
     return {listMovies,movieToDisplay,loading}
 }

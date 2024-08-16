@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
 
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 import { useMovieApi } from "../../hooks/useMovieApi";
 import { useMovieDatabase } from "../../hooks/useMovieDatabase";
@@ -208,8 +208,6 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: ()=>voi
           </Modal.Footer>
         </div>
       </Modal>
-      <Toaster />
-
     </>
   );
 };

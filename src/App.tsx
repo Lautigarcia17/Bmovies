@@ -7,13 +7,13 @@ import MoviePage from './pages/MoviePage/MoviePage';
 import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
+import { Toaster } from 'react-hot-toast';
 
 
 function App() {
   const navigate = useNavigate();
 
   useEffect(()=>{
-
     const fetchSession = async ()=>{
       const response = await supabase.auth.getSession();
       if(response.data.session === null){
@@ -35,6 +35,7 @@ function App() {
             <Route path='*' element={<PageNotFound/>}/>
           </Route>
         </Routes>
+        <Toaster/>
     </>
   )
 }

@@ -9,12 +9,9 @@ function ModalEdit ({ show, handleModalEdit,handleEdit }: { show: boolean, handl
   const [trailer, setTrailer] = useState<string>('');
 
   const handleSave = ()=>{
-
     if(rating || trailer) handleEdit(rating,trailer)
     handleModalEdit();
   }
-
-
 
   return (
     <>

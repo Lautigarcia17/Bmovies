@@ -59,35 +59,6 @@ function MovieListPage() {
                         </div>
                     </>
                 )}
-
-
-                {/* {listMovies.length > 0 ? (
-                    <>
-                        <div className={styles.element}>
-                            <SearchMovie setSearch={setSearch} />
-                        </div>
-
-                        <div className={styles.element}>
-                            <div className={styles.filterQuery}>
-                                <DropdownFilter handleQuery={manageQuery} />
-                                <label>{queryFilter}</label>
-                            </div>
-                        </div>
-                    </>
-
-                ) : null}
-
-                <div className={styles.element}>
-                    {loading ? (
-                        <div className={styles.spinner}>
-                            <Spinner animation="border" variant="light" />
-                        </div>
-                    ) :
-                        <MovieList listMovies={listMovies} movieToDisplay={movieToDisplay} />
-                    }
-
-                </div> */}
-
             </div>
         </>
     )

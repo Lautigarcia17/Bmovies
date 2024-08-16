@@ -1,5 +1,5 @@
 import styles from './Login.module.css'
-import { toast, Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 
@@ -45,7 +45,6 @@ function Login() {
 
         <input type="submit" value="Login" className={styles.submit} />
       </form>
-      <Toaster />
     </>
 
   );

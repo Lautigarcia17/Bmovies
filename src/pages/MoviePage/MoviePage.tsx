@@ -4,7 +4,7 @@ import { useMovieById } from '../../hooks/useMovieById'
 import styles from './MoviePage.module.css'
 import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();
@@ -31,7 +31,6 @@ function MoviePage() {
                         <MovieDetails movie={movie} />
                     )
                 }
-                <Toaster />
             </div>
         </>
     )

@@ -23,19 +23,20 @@ export const getMovieByTittle = (title : string)=>{
 
 export const addMovie = (movie: Movie) => {
     return supabase.from('movies').insert(
-        {
-          title: movie.title,
-          year: movie.year,
-          genre: movie.genre,
-          director: movie.director,
-          actors: movie.actors,
-          plot: movie.plot,
-          poster: movie.poster,
-          trailer: movie.trailer,
-          rating: movie.rating,
-          user_id: movie.user_id,
-          created_at: movie.created_at,
-        }
+        // {
+        //   title: movie.title,
+        //   year: movie.year,
+        //   genre: movie.genre,
+        //   director: movie.director,
+        //   actors: movie.actors,
+        //   plot: movie.plot,
+        //   poster: movie.poster,
+        //   trailer: movie.trailer,
+        //   rating: movie.rating,
+        //   user_id: movie.user_id,
+        //   created_at: movie.created_at,
+        // }
+        movie
       )
 }
 

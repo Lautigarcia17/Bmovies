@@ -16,7 +16,7 @@ export const useMovieById = ( idMovie : string) : UseMovieByIdReturn=>{
            
                 try {
                     const { data, error } = await getMovieById(idMovie);
-                    console.log(data);
+ 
                     if (data && !error) {
                         setMovie(data[0]);
                     } 

@@ -2,7 +2,7 @@ import classNames from 'classnames'
 import styles from './MovieDetails.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import toast, { Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 import DropdownDetail from '../DropdownDetail/DropdownDetail'
 import ModalEdit from '../ModalEdit/ModalEdit'
 import { deleteMovie, updateMovie } from '../../services/database'
@@ -139,7 +139,7 @@ function MovieDetails( {movie} : {movie:Movie}) {
                                 </div>   
                             </>
                         )}
-                        <Toaster/>
+                 
                     </div>
                     
                 </div>

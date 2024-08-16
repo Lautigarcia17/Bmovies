@@ -1,5 +1,5 @@
 import styles from './Register.module.css'
-import { toast, Toaster } from 'react-hot-toast'
+import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../hooks/useAuth';
 
@@ -57,7 +57,6 @@ function Register() {
 
             <input type="submit" value="Register" className={styles.submit} />
           </form>
-          <Toaster />
         </>
 
   );

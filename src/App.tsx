@@ -1,7 +1,5 @@
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route} from 'react-router-dom'
 import Layout from './pages/Layout/Layout'
-import { useEffect } from 'react'
-import { supabase } from './supabase/client'
 import MovieListPage from './pages/MovieListPage/MovieListPage';
 import MoviePage from './pages/MoviePage/MoviePage';
 import AuthPage from './pages/AuthPage/AuthPage';

@@ -122,7 +122,7 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
 
 
     useEffect(() => {
-        if(session !== ''){
+        if(session !== null){
             fetchData();
         }
     }, [session])

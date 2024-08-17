@@ -62,7 +62,7 @@ export const useAuth = () =>{//: UseAuthReturn => {
 
     try {
       await logOut();
-      setSession('');
+      setSession(null);
     } catch (error) {
       throw new Error(`Error in logout`);
     }
@@ -73,7 +73,7 @@ export const useAuth = () =>{//: UseAuthReturn => {
     const loadSession = async () => {
       try {
         const responseApi = await getSession();
-        setSession(responseApi.data.session?.user.id ?? '');
+        setSession(responseApi.data.session?.user.id ?? null);
       } catch (error) {
         console.error('Error fetching session:', error);
       }finally {

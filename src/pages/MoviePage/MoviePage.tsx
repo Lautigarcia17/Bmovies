@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();
-    const { movie, loading, processCompleted } = useMovieById(idMovie || '');
+    const { movie,setMovie, loading, processCompleted } = useMovieById(idMovie || '');
     const navigate = useNavigate();
 
 
@@ -28,7 +28,7 @@ function MoviePage() {
                         <Spinner animation="border" variant="light" />
                     </div>
                 ) : (movie &&
-                        <MovieDetails movie={movie} />
+                        <MovieDetails movie={movie} setMovie={setMovie}/>
                     )
                 }
             </div>

@@ -1,18 +1,18 @@
 import classNames from 'classnames'
 import styles from './MovieDetails.module.css'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import DropdownDetail from '../DropdownDetail/DropdownDetail'
 import ModalEdit from '../ModalEdit/ModalEdit'
-import { deleteMovie, updateMovie } from '../../services/database'
 import { Movie } from '../../types/interface'
+import { movieContext } from '../../context/MovieContext'
 
 
-function MovieDetails( {movie} : {movie:Movie}) {
+function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : any}) {
     const [showEdit,setShowEdit] = useState<boolean>(false);
     const navigate = useNavigate();
-
+    const {removeMovie,modifyMovie} = useContext(movieContext)
 
     const colour = classNames(styles.rating, {
         [styles.ratingRed]: movie && parseFloat(movie.rating?.toString() || '0') < 5,
@@ -28,9 +28,9 @@ function MovieDetails( {movie} : {movie:Movie}) {
     const handleRemove = async ()=>{
         try {
             if(movie.id != ''){
-                const response = await deleteMovie(movie.id ?? '')
+                const {error} = await removeMovie(movie.id ?? '')
     
-                if(response.error){
+                if(error){
                     toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
                 }
                 else{
@@ -48,21 +48,15 @@ function MovieDetails( {movie} : {movie:Movie}) {
     const handleEdit = async (rating: number | null, trailer: string) => {
         try {
             if(movie.id !== ''){
-                const updateData: any = {};
-                if (rating !== null) updateData.rating = rating;
-                if (trailer !== '') updateData.trailer = trailer;
-        
-                if (Object.keys(updateData).length > 0) {
-                    const { error } = await updateMovie(movie.id ?? '',updateData);
-        
-                    if (error) {
-                        toast.error(`Error! The movie was not updated: ${error.message}`, { position: 'top-right', duration: 3000 });
-                    } else {
-                        toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 3000 });
-                    }
+                const {data,error} = await modifyMovie(movie.id,rating,trailer);
+
+                if (error) {
+                    toast.error(`Error! The movie was not updated: ${error.message}`, { position: 'top-right', duration: 3000 });
                 } else {
-                    toast.error(`No data to update`, { position: 'top-right', duration: 3000 });
+                    toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 3000 });
+                    setMovie(data[0]);
                 }
+
             }
         } catch (error:any) {
             console.error('Update failed:', error);

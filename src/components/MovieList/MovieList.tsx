@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import styles from './MovieList.module.css'
 import { Movie } from '../../types/interface'
 
-
 function MovieList({ listMovies, movieToDisplay }: any) {
     return (
         <>

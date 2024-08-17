@@ -1,8 +1,5 @@
-import { RealtimeChannel } from "@supabase/supabase-js";
 import { supabase } from "../supabase/client";
 import { Movie, MovieEdit, UserLogin, UserRegister } from "../types/interface";
-
-
 
 export const getSession = () => {
     return supabase.auth.getSession();
@@ -22,30 +19,15 @@ export const getMovieByTittle = (title : string)=>{
 
 
 export const addMovie = (movie: Movie) => {
-    return supabase.from('movies').insert(
-        // {
-        //   title: movie.title,
-        //   year: movie.year,
-        //   genre: movie.genre,
-        //   director: movie.director,
-        //   actors: movie.actors,
-        //   plot: movie.plot,
-        //   poster: movie.poster,
-        //   trailer: movie.trailer,
-        //   rating: movie.rating,
-        //   user_id: movie.user_id,
-        //   created_at: movie.created_at,
-        // }
-        movie
-      )
+    return supabase.from('movies').insert(movie).select()
 }
 
 export const deleteMovie = (idMovie: string) => {
-    return supabase.from('movies').delete().eq('id', idMovie);
+    return supabase.from('movies').delete().eq('id', idMovie).select();
 }
 
 export const updateMovie = (idMovie: string, updateData: MovieEdit) => {
-    return supabase.from('movies').update(updateData).eq('id', idMovie);
+    return supabase.from('movies').update(updateData).eq('id', idMovie).select();
 }
 
 
@@ -69,11 +51,12 @@ export const signUpDatabase = (dataUser : UserRegister) =>{
       })
 }
 
-export const detectChanges = ( functionUse : ()=> void ) =>{
-    return supabase.channel('custom-all-chanel').on('postgres_changes', { event: '*', schema: '*', table: 'movies' }, () => {
-        functionUse();
-    }).subscribe();
-}
-export const removeDetectChanges = ( subscription : RealtimeChannel) =>{
-    supabase.removeChannel(subscription);
-}
+export const checkIfMovieExists = async (title: string) => {
+    const { data, error } = await getMovieByTittle(title);
+    if (error) {
+      console.error('Error checking if movie exists:', error);
+      return false;
+    }
+
+    return data.length > 0;
+  };

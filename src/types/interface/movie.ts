@@ -1,3 +1,5 @@
+import { PostgrestError } from "@supabase/supabase-js";
+
 export interface MovieEdit{
     trailer: string | null;
     rating: number | null;
@@ -15,4 +17,7 @@ export interface Movie extends Partial<MovieEdit>{
     user_id?: string; 
     created_at? : Date;
 }
-
+export interface ManageMovieResponse {
+    data: Movie[] | null; 
+    error: PostgrestError | null; 
+}

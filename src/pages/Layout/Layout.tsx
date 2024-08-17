@@ -10,12 +10,8 @@ function Layout(){
 
   return (
     <div className={styles.content}>
-      <header>
-        <NavBar />
-      </header>        
-      <main>
-        <Outlet /> 
-      </main>
+      <NavBar />
+      <Outlet /> 
     </div>
   );
 };

@@ -1,32 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
 
 import toast from 'react-hot-toast';
 
 import { useMovieApi } from "../../hooks/useMovieApi";
-import { useMovieDatabase } from "../../hooks/useMovieDatabase";
 import { useAuth } from "../../hooks/useAuth";
 import { useRating } from "../../hooks/useRating";
 import { Movie } from "../../types/interface";
-import { addMovie } from "../../services/database";
+import { movieContext } from "../../context/MovieContext";
 
 
-function ModalMovie({ show, handleModal }: { show: boolean, handleModal: ()=>void }) {
+function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
-  const {movies,setMovies,findMovies,findMovieById,getMovieDetails } = useMovieApi();
-  const {checkIfMovieExists} = useMovieDatabase();
-  const {session} = useAuth();
-  const {rating,setRatingFromValue,handleValidationRating} = useRating();
-  
+  const { movies, setMovies, findMovies, findMovieById, getMovieDetails } = useMovieApi();
+  const { session } = useAuth();
+  const { rating, setRatingFromValue, handleValidationRating } = useRating();
+  const {saveMovie} = useContext(movieContext)
+
   const [urlTrailer, setUrlTrailer] = useState<string | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [imdbIDOption, setImdbIDOption] = useState<string>('');
   const [showSearchByTitle, setShowSearchByTitle] = useState<boolean>(true);
 
-  
+
   const handleUrlChange = (e: React.FocusEvent<HTMLInputElement>) => setUrlTrailer(e.target.value);
-  
+
   const handleSelectMovie = (movie: Movie) => {
     setSelectedMovie(movie);
     setMovies([]);
@@ -37,35 +36,19 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: ()=>voi
   const handleSave = async () => {
     if (selectedMovie) {
       toast.promise((async () => {
-        if (await checkIfMovieExists(selectedMovie.title) == false) {
-          const movieData = await getMovieDetails(selectedMovie.title, selectedMovie.year ?? null);
 
-          if (!session) throw new Error('No session found');
+        const movieData = await getMovieDetails(selectedMovie.title, selectedMovie.year ?? null);
+        if (movieData) {
+          movieData.trailer = urlTrailer;
+          movieData.rating = rating;
+          movieData.user_id = session;
+          movieData.created_at = new Date(),
 
-          const movieAdd : Movie = {
-              title: movieData.title,
-              year: movieData.year,
-              genre: movieData.genre,
-              director: movieData.director,
-              actors: movieData.actors,
-              plot: movieData.plot,
-              poster: movieData.poster,
-              trailer: urlTrailer,
-              rating: rating,
-              user_id: session,
-              created_at: new Date(),
-          }
-
-          const { error } = await addMovie(movieAdd)
-
-          if (error) {
-            console.log(error)
-            throw new Error('Error inserting the movie');
-          }
+          await saveMovie(movieData);
         }
-        else {
-          throw new Error(`Error! The movie has already been registered.`);
-        }
+
+
+
         setSelectedMovie(null);
         setMovies([]);
         setUrlTrailer(null)
@@ -130,7 +113,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: ()=>voi
 
                   <div>
                     <div className={styles.rating}>
-                      <input type="number" id="rating" name="rating" min="1" max="10" step="0.5" placeholder="6" value={rating == null ? '' : rating} onChange={(e)=> setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} className={styles.ratingInput} />
+                      <input type="number" id="rating" name="rating" min="1" max="10" step="0.5" placeholder="6" value={rating == null ? '' : rating} onChange={(e) => setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} className={styles.ratingInput} />
                     </div>
 
                     <div className={styles.selectedMovie}>
@@ -172,11 +155,11 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: ()=>voi
                     ) : (
                       <div className={styles.contentImdbId}>
                         <input value={imdbIDOption ?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />
-                        <button className={styles.btnSearch} onClick={ (e) => findMovieById(e,imdbIDOption)}>
+                        <button className={styles.btnSearch} onClick={(e) => findMovieById(e, imdbIDOption)}>
                           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" fillRule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
                         </button>
                       </div>
-                      )
+                    )
                     }
 
                     <div className={styles.contentList}>

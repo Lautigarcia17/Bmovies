@@ -1,21 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import styles from './MovieListPage.module.css'
 import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
-import { useQueryFilter } from '../../hooks/useQueryFilter';
-import { useMovie } from '../../hooks/useMovie';
 import ModalMovie from '../../components/ModalMovie/ModalMovie';
 import MovieList from '../../components/MovieList/MovieList';
+import { movieContext } from '../../context/MovieContext';
 
 
 function MovieListPage() {
 
     const [show, setShow] = useState<boolean>(false);
-    const [search, setSearch] = useState<string>('');
-    const { queryFilter, manageQuery } = useQueryFilter();
-    const { listMovies, movieToDisplay, loading } = useMovie(search, queryFilter)
 
+    const {listMovies,movieToDisplay,loading,queryFilter,setSearch,manageQuery} = useContext(movieContext)
     const handleModal = () => setShow(!show);
 
     return (

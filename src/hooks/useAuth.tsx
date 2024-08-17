@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import { UserLogin, UserRegister } from "../types/interface";
 import { UseAuthReturn } from "../types/type";
 
-export const useAuth = () : UseAuthReturn => {
+export const useAuth = () =>{//: UseAuthReturn => {
 
-  const [session,setSession] = useState<string>('');
+  const [session,setSession] = useState<string | null>();
+  const [loadingSession, setLoadingSession] = useState<boolean>(true);
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
     mode: 'onChange'
   });
@@ -75,13 +76,15 @@ export const useAuth = () : UseAuthReturn => {
         setSession(responseApi.data.session?.user.id ?? '');
       } catch (error) {
         console.error('Error fetching session:', error);
+      }finally {
+        setLoadingSession(false); 
       }
     };
 
     loadSession();
   }, []);
 
-  return { session, signIn, signUp,signOut, register, handleSubmit, errors }
+  return { session, loadingSession,signIn, signUp,signOut, register, handleSubmit, errors }
 }
 
  

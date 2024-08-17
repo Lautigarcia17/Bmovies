@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 import { UserLogin, UserRegister } from "../types/interface";
 import { UseAuthReturn } from "../types/type";
 
-export const useAuth = () =>{//: UseAuthReturn => {
+export const useAuth = () : UseAuthReturn => {
 
-  const [session,setSession] = useState<string | null>();
+  const [session,setSession] = useState<string | null>(null);
   const [loadingSession, setLoadingSession] = useState<boolean>(true);
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
     mode: 'onChange'

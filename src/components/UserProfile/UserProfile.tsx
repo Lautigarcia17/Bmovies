@@ -1,4 +1,3 @@
-import styles from './UserProfile.module.css'
 
 function UserProfile(){
     return (

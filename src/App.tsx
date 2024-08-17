@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { supabase } from './supabase/client'
 import MovieListPage from './pages/MovieListPage/MovieListPage';
 import MoviePage from './pages/MoviePage/MoviePage';
-import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 import AuthPage from './pages/AuthPage/AuthPage';
 import PageNotFound from './pages/PageNotFound/PageNotFound';
 import { Toaster } from 'react-hot-toast';

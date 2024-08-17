@@ -1,4 +1,3 @@
-import styles from './PageNotFound.module.css'
 
 function PageNotFound(){
     return (

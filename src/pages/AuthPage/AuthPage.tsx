@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import styles from './AuthPage.module.css'
 import Login from '../../components/Auth/Login/Login';
 import Register from '../../components/Auth/Register/Register';

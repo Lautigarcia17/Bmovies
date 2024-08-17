@@ -5,8 +5,10 @@ export const getSession = () => {
     return supabase.auth.getSession();
 }
 
-export const getMovies = () =>{
-    return supabase.from('movies').select().order('created_at', { ascending: false });
+export const getMovies = (idUser : string) =>{
+    return supabase.from('movies').select()
+    .eq('user_id',idUser)
+    .order('created_at', { ascending: false });
 }
 
 export const getMovieById = (id : string)=>{
@@ -16,7 +18,6 @@ export const getMovieById = (id : string)=>{
 export const getMovieByTittle = (title : string)=>{
     return supabase.from('movies').select().eq('title', title);
 }
-
 
 export const addMovie = (movie: Movie) => {
     return supabase.from('movies').insert(movie).select()
@@ -49,6 +50,10 @@ export const signUpDatabase = (dataUser : UserRegister) =>{
           }
         }
       })
+}
+
+export const logOut = ()=>{
+    return supabase.auth.signOut()
 }
 
 export const checkIfMovieExists = async (title: string) => {

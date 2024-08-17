@@ -6,6 +6,7 @@ export type UseAuthReturn = {
     session: string,
     signIn: (dataUser : UserLogin) => Promise<AuthResponse>,
     signUp: (dataUser : UserRegister) => Promise<AuthResponse>,
+    signOut: () => void,
     register: UseFormRegister<FieldValues>,
     handleSubmit: UseFormHandleSubmit<FieldValues, undefined>,
     errors: FieldErrors<FieldValues>

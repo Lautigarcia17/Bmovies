@@ -42,7 +42,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
           movieData.trailer = urlTrailer;
           movieData.rating = rating;
           movieData.user_id = session;
-          movieData.created_at = new Date(),
+          movieData.created_at = new Date()
 
           await saveMovie(movieData);
         }

@@ -1,13 +1,15 @@
 import styles from './Login.module.css'
 import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
+
+import { authContext } from '../../../context/AuthContext';
+import { useContext } from 'react';
 
 
 
 function Login() {
 
-  const { signIn, register, handleSubmit, errors } = useAuth();
+  const {signIn,register,handleSubmit,errors} = useContext(authContext)
 
   const navigate: NavigateFunction = useNavigate()
 

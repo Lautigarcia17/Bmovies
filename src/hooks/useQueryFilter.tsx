@@ -17,8 +17,8 @@ export const useQueryFilter = (defaultFilter = 'all') : UseQueryFilter =>{
         navigate(`?filter=${query}`)
     }
 
-    useEffect(()=>{
-       if(initialFilter == ''){
+    useEffect(()=>{     
+       if(location.pathname == '/' && initialFilter == ''){
         navigate(`?filter=${defaultFilter}`)
         setQueryFilter(defaultFilter);
        }

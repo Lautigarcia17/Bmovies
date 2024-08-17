@@ -1,13 +1,14 @@
 import styles from './Register.module.css'
 import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
+import { useContext } from 'react';
+import { authContext } from '../../../context/AuthContext';
 
 
 function Register() {
   const navigate : NavigateFunction = useNavigate();
 
-  const {signUp,register,handleSubmit,errors} = useAuth();
+  const {signUp,register,handleSubmit,errors} = useContext(authContext)
 
   const onSubmit = async (dataUser:any)=>{
     const {data,error} = await signUp(dataUser)

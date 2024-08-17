@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { AuthError, AuthResponse} from "@supabase/supabase-js";
-import {getSession, signInDatabase,signUpDatabase} from '../services/database'
+import {getSession, logOut, signInDatabase,signUpDatabase} from '../services/database'
 import { useEffect, useState } from "react";
 import { UserLogin, UserRegister } from "../types/interface";
 import { UseAuthReturn } from "../types/type";
@@ -16,6 +16,7 @@ export const useAuth = () : UseAuthReturn => {
     try {
       if (dataUser.email && dataUser.password) {
         const response = await signInDatabase(dataUser);
+        setSession(response.data.session?.user.id ?? '');
         reset();
 
         return response;
@@ -56,6 +57,16 @@ export const useAuth = () : UseAuthReturn => {
 
   }
 
+  const signOut = async ()=>{
+
+    try {
+      await logOut();
+    } catch (error) {
+      throw new Error(`Error in logout`);
+    }
+
+}
+
   useEffect(() => {
     const loadSession = async () => {
       try {
@@ -69,7 +80,7 @@ export const useAuth = () : UseAuthReturn => {
     loadSession();
   }, []);
 
-  return { session, signIn, signUp, register, handleSubmit, errors }
+  return { session, signIn, signUp,signOut, register, handleSubmit, errors }
 }
 
  

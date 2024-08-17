@@ -61,6 +61,7 @@ export const useAuth = () : UseAuthReturn => {
 
     try {
       await logOut();
+      setSession('');
     } catch (error) {
       throw new Error(`Error in logout`);
     }

@@ -1,20 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
-
 import toast from 'react-hot-toast';
-
 import { useMovieApi } from "../../hooks/useMovieApi";
-import { useAuth } from "../../hooks/useAuth";
 import { useRating } from "../../hooks/useRating";
 import { Movie } from "../../types/interface";
 import { movieContext } from "../../context/MovieContext";
+import { authContext } from "../../context/AuthContext";
 
 
 function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
   const { movies, setMovies, findMovies, findMovieById, getMovieDetails } = useMovieApi();
-  const { session } = useAuth();
+  const { session } = useContext(authContext);
   const { rating, setRatingFromValue, handleValidationRating } = useRating();
   const {saveMovie} = useContext(movieContext)
 

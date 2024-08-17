@@ -12,19 +12,6 @@ import AuthProvider from './context/AuthContext';
 
 
 function App() {
-  const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   const fetchSession = async () => {
-  //     const response = await supabase.auth.getSession();
-  //     if (response.data.session === null) {
-  //       navigate('auth');
-  //     }
-  //   }
-  //   fetchSession();
-  // }, [])
-
-
   return (
     <>
       <AuthProvider>

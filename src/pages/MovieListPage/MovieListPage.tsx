@@ -8,12 +8,15 @@ import MovieList from '../../components/MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
 
 
+
 function MovieListPage() {
-
     const [show, setShow] = useState<boolean>(false);
-
-    const {listMovies,movieToDisplay,loading,queryFilter,setSearch,manageQuery} = useContext(movieContext)
+    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery } = useContext(movieContext)
     const handleModal = () => setShow(!show);
+
+
+
+
 
     return (
         <>

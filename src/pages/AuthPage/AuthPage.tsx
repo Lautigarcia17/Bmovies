@@ -4,23 +4,8 @@ import Login from '../../components/Auth/Login/Login';
 import Register from '../../components/Auth/Register/Register';
 
 
-// import { supabase } from '../../supabase/client';
-// import { NavigateFunction, useNavigate } from 'react-router-dom';
-
 function AuthPage() {
   const [showLogin, setShowLogin] = useState<boolean>(true);
-  // const navigate : NavigateFunction = useNavigate();
-
-  // useEffect(() => {
-  //   const verifyAuth = async () => {
-  //     const { data,error} = await supabase.auth.getUser();
-  //     if (data.user && !error) {
-  //       navigate('/');
-  //     }
-  //   };
-  //   verifyAuth();
-  // }, [navigate]);
-
 
   return (
     <div className={styles.container}>

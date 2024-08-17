@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../types/interface";
-import { addMovie, checkIfMovieExists, deleteMovie, getMovies, getSession, updateMovie } from "../services/database";
+import { addMovie, checkIfMovieExists, deleteMovie, getMovies, updateMovie } from "../services/database";
 import { UseMovieReturn } from "../types/type";
-import { useAuth } from "./useAuth";
 
 
 export const useMovie = (session: string,search: string = '', queryFilter: string = '') : UseMovieReturn => {

@@ -7,7 +7,7 @@ import { UseAuthReturn } from "../types/type";
 
 export const useAuth = () : UseAuthReturn => {
 
-  const [session,setSession] = useState<string | null>(null);
+  const [session,setSession] = useState<string | null | undefined>();
   const [loadingSession, setLoadingSession] = useState<boolean>(true);
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
     mode: 'onChange'

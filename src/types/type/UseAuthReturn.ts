@@ -3,7 +3,7 @@ import { UserLogin, UserRegister } from "../interface"
 import { FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
 
 export type UseAuthReturn = {
-    session: string | null,
+    session: string | null | undefined,
     loadingSession: boolean,
     signIn: (dataUser : UserLogin) => Promise<AuthResponse>,
     signUp: (dataUser : UserRegister) => Promise<AuthResponse>,

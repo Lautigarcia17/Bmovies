@@ -3,7 +3,8 @@ import { useMovie } from "../hooks/useMovie";
 import { useQueryFilter } from "../hooks/useQueryFilter";
 import { authContext } from "./AuthContext";
 import { useGenericContext } from "../hooks/useGenericContext";
-import { MovieContextType } from "../types/type/MovieContextType";
+import { MovieContextType } from "../types/type";
+
 
 export const movieContext = createContext<MovieContextType | undefined>(undefined);
 

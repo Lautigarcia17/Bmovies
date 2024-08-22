@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../types/interface";
 import { getMovieById} from "../services/database";
-import { UseMovieByIdReturn } from "../types/type/UseMovieById";
+import { UseMovieByIdReturn } from "../types/type";
+
 
 export const useMovieById = ( idMovie : string) : UseMovieByIdReturn =>{
     const [movie, setMovie] = useState<Movie | null>(null);

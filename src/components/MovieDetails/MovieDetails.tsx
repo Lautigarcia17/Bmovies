@@ -1,24 +1,31 @@
 import classNames from 'classnames'
 import styles from './MovieDetails.module.css'
-import { useContext, useState } from 'react'
+import {  useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import DropdownDetail from '../DropdownDetail/DropdownDetail'
 import ModalEdit from '../ModalEdit/ModalEdit'
-import { Movie } from '../../types/interface'
+import { Movie, MovieEdit } from '../../types/interface'
 import { movieContext } from '../../context/MovieContext'
+import { useGenericContext } from '../../hooks/useGenericContext'
 
 
-function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : any}) {
-    const [showEdit,setShowEdit] = useState<boolean>(false);
+function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispatch<React.SetStateAction<Movie | null>>}) {
+
+    const {removeMovie,modifyMovie} = useGenericContext(movieContext)
     const navigate = useNavigate();
-    const {removeMovie,modifyMovie} = useContext(movieContext)
-
+    const [showEdit,setShowEdit] = useState<boolean>(false);
     const colour = classNames(styles.rating, {
         [styles.ratingRed]: movie && parseFloat(movie.rating?.toString() || '0') < 5,
         [styles.ratingYellow]: movie && parseFloat(movie.rating?.toString() || '0') >= 5 && parseFloat(movie.rating?.toString() || '0') < 6,
         [styles.ratingGreen]: movie && parseFloat(movie.rating?.toString() || '0') >= 6,
     })
+    const editData : MovieEdit = {
+        rating : movie.rating ?? null,
+        trailer : movie.trailer ?? null,
+    };
+
+
 
     const handleModalEdit= ()=>{
         setShowEdit(!showEdit);
@@ -45,10 +52,10 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : any}) {
 
 
 
-    const handleEdit = async (rating: number | null, trailer: string) => {
+    const handleEdit = async (rating: number | null, trailer: string, isNewMovie : boolean)  => {
         try {
             if(movie.id !== ''){
-                const {data,error} = await modifyMovie(movie.id,rating,trailer);
+                const {data,error} = await modifyMovie(movie.id,rating,trailer,isNewMovie);
 
                 if (error) {
                     toast.error(`Error! The movie was not updated: ${error.message}`, { position: 'top-right', duration: 3000 });
@@ -129,7 +136,7 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : any}) {
 
                                 <div className={styles.actions}>
                                     <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemove}/>
-                                    <ModalEdit show={showEdit} handleModalEdit={handleModalEdit}  handleEdit={handleEdit}/>
+                                    <ModalEdit show={showEdit} handleModalEdit={handleModalEdit}  handleEdit={handleEdit} editData={editData}/>
                                 </div>   
                             </>
                         )}

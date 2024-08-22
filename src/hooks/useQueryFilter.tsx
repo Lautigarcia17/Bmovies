@@ -18,12 +18,12 @@ export const useQueryFilter = (session:string, defaultFilter:string = 'all') : U
     }
 
     useEffect(()=>{     
-       if(session && location.pathname == '/' && initialFilter == ''){
+       if(location.pathname == '/' && initialFilter == ''){
         navigate(`?filter=${defaultFilter}`)
         setQueryFilter(defaultFilter);
        }
         
-    },[session,location.search])
+    },[session,navigate,location])
 
     return {queryFilter,manageQuery}
 }

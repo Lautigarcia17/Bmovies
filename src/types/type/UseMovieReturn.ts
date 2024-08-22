@@ -6,5 +6,5 @@ export type UseMovieReturn = {
     loading: boolean,
     saveMovie: (movie:Movie) => void,
     removeMovie: (id: string) => Promise<ManageMovieResponse | undefined>
-    modifyMovie: (id: string, rating: number | null, trailer: string) => Promise<ManageMovieResponse | undefined>
+    modifyMovie: (id: string, rating: number | null, trailer: string, isNewMovie : boolean) => Promise<ManageMovieResponse | undefined>
 }

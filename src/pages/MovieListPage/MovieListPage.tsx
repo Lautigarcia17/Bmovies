@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import styles from './MovieListPage.module.css'
 import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
@@ -8,13 +8,14 @@ import MovieList from '../../components/MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
 import { authContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useGenericContext } from '../../hooks/useGenericContext';
 
 
 function MovieListPage() {
     const navigate = useNavigate();
-    const { session, loadingSession } = useContext(authContext)
+    const { session, loadingSession } = useGenericContext(authContext)
     const [show, setShow] = useState<boolean>(false);
-    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery } = useContext(movieContext)
+    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
 
 

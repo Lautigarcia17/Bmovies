@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
 import toast from 'react-hot-toast';
@@ -7,14 +7,15 @@ import { useRating } from "../../hooks/useRating";
 import { Movie } from "../../types/interface";
 import { movieContext } from "../../context/MovieContext";
 import { authContext } from "../../context/AuthContext";
+import { useGenericContext } from "../../hooks/useGenericContext";
 
 
 function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
   const { movies, setMovies, findMovies, findMovieById, getMovieDetails } = useMovieApi();
-  const { session } = useContext(authContext);
+  const { session } = useGenericContext(authContext);
   const { rating, setRatingFromValue, handleValidationRating } = useRating();
-  const {saveMovie} = useContext(movieContext)
+  const {saveMovie} = useGenericContext(movieContext)
 
   const [urlTrailer, setUrlTrailer] = useState<string | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
@@ -39,7 +40,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
         if (movieData) {
           movieData.trailer = urlTrailer;
           movieData.rating = rating;
-          movieData.user_id = session;
+          movieData.user_id = session ?? '';
           movieData.created_at = new Date()
 
           await saveMovie(movieData);

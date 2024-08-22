@@ -14,28 +14,28 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
         try {
             setLoading(true)
 
-
-            const { data, error } = await getMovies(session);
-            if (!error) {
-                const moviesDatabase: Movie[] = data.map((movie: any) => ({
-                    id: movie.id,
-                    title: movie.title,
-                    year: movie.year,
-                    genre: movie.genre,
-                    director: movie.director,
-                    actors: movie.actors,
-                    plot: movie.plot,
-                    poster: movie.poster,
-                    trailer: movie.trailer,
-                    rating: movie.rating,
-                    user_id: movie.user_id,
-                    created_at: movie.created_at ? new Date(movie.created_at) : new Date()
-                }))
-                setListMovies(moviesDatabase);
-            } else {
-                console.log(error);
+            if(session){
+                const { data, error } = await getMovies(session);
+                if (!error) {
+                    const moviesDatabase: Movie[] = data.map((movie: any) => ({
+                        id: movie.id,
+                        title: movie.title,
+                        year: movie.year,
+                        genre: movie.genre,
+                        director: movie.director,
+                        actors: movie.actors,
+                        plot: movie.plot,
+                        poster: movie.poster,
+                        trailer: movie.trailer,
+                        rating: movie.rating,
+                        user_id: movie.user_id,
+                        created_at: movie.created_at ? new Date(movie.created_at) : new Date()
+                    }))
+                    setListMovies(moviesDatabase);
+                } else {
+                    console.log(error);
+                }
             }
-
         } catch (error) {
             console.log(error);
         } finally {
@@ -68,16 +68,21 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
         }
     };
 
-    const modifyMovie = async (id: string, rating: number | null, trailer: string) => {
+    const modifyMovie = async (id: string, rating: number | null, trailer: string, isNewMovie : boolean = true) => {
         try {
             if(id !== ''){
                 const updateData: any = {};
-                if (rating !== null) updateData.rating = rating;
-                if (trailer !== '') updateData.trailer = trailer;
-        
+
+                if (isNewMovie) updateData.created_at = new Date();
+                updateData.rating = rating;
+                updateData.trailer = trailer
+
                 if (Object.keys(updateData).length > 0) {
                     const { data,error } = await updateMovie(id ?? '',updateData);
-                    if (!error && data) setListMovies(listMovies.filter((movie)=>movie.id === data[0].id ? data[0] : movie))
+                    if (!error && data){                            
+                        data[0].created_at = new Date(data[0].created_at);
+                        setListMovies(listMovies.map((movie)=> movie.id == data[0].id ? data[0] : movie))
+                    } 
 
                     return {data,error}
                 } 
@@ -122,7 +127,7 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
 
 
     useEffect(() => {
-        if(session !== null){
+        if(session !== undefined && session !== null ){
             fetchData();
         }
     }, [session])

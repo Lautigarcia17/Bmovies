@@ -1,12 +1,13 @@
 import { Link, NavLink } from 'react-router-dom'
 import styles from './NavBar.module.css'
 import logo from '../../assets/Bmovie-removebg-preview.png'
-import { useContext } from 'react'
 import { authContext } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
+import { useGenericContext } from "../../hooks/useGenericContext";
+
 
 function NavBar() {
-    const { session, signOut } = useContext(authContext)
+    const { session, signOut } = useGenericContext(authContext)
 
     const handleLogout = async () => {
         await signOut();

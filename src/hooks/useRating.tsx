@@ -2,8 +2,8 @@ import { useState } from "react";
 import { UseRatingReturn } from "../types/type";
 import { validateRange } from "../utilities/validateNumberRange";
 
-export const useRating = () : UseRatingReturn =>{
-    const [rating, setRating] = useState<number | null>(null);
+export const useRating = (value : number | null = null) : UseRatingReturn =>{
+    const [rating, setRating] = useState<number | null>(value);
 
 
     const setRatingFromValue = (value : string | null) => { 

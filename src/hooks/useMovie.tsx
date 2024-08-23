@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Movie } from "../types/interface";
+import { ManageMovieResponse, Movie } from "../types/interface";
 import { addMovie, checkIfMovieExists, deleteMovie, getMovies, updateMovie } from "../services/database";
 import { UseMovieReturn } from "../types/type";
 
 
-export const useMovie = (session: string,search: string = '', queryFilter: string = '') : UseMovieReturn => {
+export const useMovie = (session: string, search: string = '', queryFilter: string = ''): UseMovieReturn => {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [movieToDisplay, setMovieToDisplay] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -14,7 +14,7 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
         try {
             setLoading(true)
 
-            if(session){
+            if (session) {
                 const { data, error } = await getMovies(session);
                 if (!error) {
                     const moviesDatabase: Movie[] = data.map((movie: any) => ({
@@ -58,38 +58,52 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
         }
     };
 
-    const removeMovie = async (id: string) => {
-        if(id != ''){
-            const {error,data} = await deleteMovie(id)
+    const removeMovie = async (id: string): Promise<ManageMovieResponse> => {
+        if (id != '') {
+            const { error, data } = await deleteMovie(id)
 
-            if (!error && data) setListMovies(listMovies.filter((movie)=>movie.id !== data[0].id))
+            if (!error && data) setListMovies(listMovies.filter((movie) => movie.id !== data[0].id))
 
-            return {data,error};
+            return { data, error };
+        }
+        else {
+            return { data: null, error: new Error('No identification was provided')};
         }
     };
 
-    const modifyMovie = async (id: string, rating: number | null, trailer: string, isNewMovie : boolean = true) => {
+    const modifyMovie = async (id: string, rating: number | null, trailer: string, isNewMovie: boolean = true): Promise<ManageMovieResponse> => {
         try {
-            if(id !== ''){
+            if (id !== '') {
                 const updateData: any = {};
 
-                if (isNewMovie) updateData.created_at = new Date();
-                updateData.rating = rating;
-                updateData.trailer = trailer
+                if (isNewMovie) {
+                    if (rating !== null) {
+                        updateData.created_at = new Date();
+                        updateData.rating = rating;
+                        updateData.trailer = trailer; 
+                    }
+                } else {
+                    updateData.rating = rating;
+                    updateData.trailer = trailer;
+                }
 
                 if (Object.keys(updateData).length > 0) {
-                    const { data,error } = await updateMovie(id ?? '',updateData);
-                    if (!error && data){                            
+                    const { data, error } = await updateMovie(id, updateData);
+                    if (!error && data) {
                         data[0].created_at = new Date(data[0].created_at);
-                        setListMovies(listMovies.map((movie)=> movie.id == data[0].id ? data[0] : movie))
-                    } 
+                        setListMovies(listMovies.map((movie) => (movie.id === data[0].id ? data[0] : movie)));
+                    }
 
-                    return {data,error}
-                } 
+                    return { data, error };
+                } else {
+                    return { data: null, error: new Error('No changes were made') };
+                }
+            } else {
+                return { data: null, error: new Error('No identification was provided')};
             }
-        } catch (error:any) {
+        } catch (error: any) {
             console.error('Update failed:', error);
-            return error;
+            return { data: null, error };
         }
     };
 
@@ -127,7 +141,7 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
 
 
     useEffect(() => {
-        if(session !== undefined && session !== null ){
+        if (session !== undefined && session !== null) {
             fetchData();
         }
     }, [session])
@@ -143,5 +157,5 @@ export const useMovie = (session: string,search: string = '', queryFilter: strin
 
 
 
-    return { listMovies, movieToDisplay, loading, saveMovie, removeMovie, modifyMovie}
+    return { listMovies, movieToDisplay, loading, saveMovie, removeMovie, modifyMovie }
 }

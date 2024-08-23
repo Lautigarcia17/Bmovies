@@ -35,9 +35,9 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
     const handleRemove = async ()=>{
         try {
             if(movie.id != ''){
-                const {error} = await removeMovie(movie.id ?? '')
+                const response = await removeMovie(movie.id ?? '')
     
-                if(error){
+                if(response && response.error){
                     toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
                 }
                 else{
@@ -45,8 +45,9 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
                     navigate('/');
                 }
             }
-        } catch (error) {
+        } catch (error:any) {
             console.log(error);   
+            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 3000 });
         }
     }
 
@@ -55,13 +56,13 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
     const handleEdit = async (rating: number | null, trailer: string, isNewMovie : boolean)  => {
         try {
             if(movie.id !== ''){
-                const {data,error} = await modifyMovie(movie.id,rating,trailer,isNewMovie);
+                const response = await modifyMovie(movie.id ?? '',rating,trailer,isNewMovie);
 
-                if (error) {
-                    toast.error(`Error! The movie was not updated: ${error.message}`, { position: 'top-right', duration: 3000 });
-                } else {
+                if (response && response.data) {
                     toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 3000 });
-                    setMovie(data[0]);
+                    setMovie(response.data[0]);
+                } else {
+                    toast.error(`Error! ${response?.error?.message}`, { position: 'top-right', duration: 3000 });
                 }
 
             }

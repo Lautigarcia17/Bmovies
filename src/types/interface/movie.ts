@@ -19,5 +19,5 @@ export interface Movie extends Partial<MovieEdit>{
 }
 export interface ManageMovieResponse {
     data: Movie[] | null; 
-    error: PostgrestError | null; 
+    error: PostgrestError | Error | null; 
 }

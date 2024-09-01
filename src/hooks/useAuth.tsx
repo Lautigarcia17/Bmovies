@@ -40,7 +40,10 @@ export const useAuth = () : UseAuthReturn => {
     try {
       if (dataUser.email && dataUser.password) {
         const response = await signUpDatabase(dataUser)
+
         reset();
+        if(response && response.data) setSession(response.data.session?.user.id ?? '');
+        
         return response
       }
 

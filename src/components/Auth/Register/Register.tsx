@@ -3,28 +3,33 @@ import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
+import { useState } from 'react';
 
 
 function Register() {
   const navigate : NavigateFunction = useNavigate();
 
   const {signUp,register,handleSubmit,errors} = useGenericContext(authContext)
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (dataUser:any)=>{
-    const {data,error} = await signUp(dataUser)
-
-    if (error) {
-      toast.error(error.message, { position: 'top-right', duration: 3000 });
+  const onSubmit = async (dataUser: any) => {
+    if (dataUser !== null && !isSubmitting) {
+      setIsSubmitting(true);
+      const { data, error } = await signUp(dataUser);
+      setIsSubmitting(false);
+  
+      if (error) {
+        toast.error(error.message, { position: 'top-right', duration: 3000 });
+      } else {
+        toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 3000 });
+        navigate('/');
+      }
     }
-    else {
-      toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 3000 })
-      navigate('/')
-    }
-  }
+  };
 
   return (
         <>
-          <form  className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <form  className={styles.form} aria-disabled={isSubmitting} onSubmit={handleSubmit(onSubmit)}>
 
             <label htmlFor="username">Username</label>
             <input type="text" id='username' className={styles.inputText} placeholder='Enter your username ...' {...register('username', {

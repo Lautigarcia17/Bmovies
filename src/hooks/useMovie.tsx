@@ -50,7 +50,7 @@ export const useMovie = (session: string, search: string = '', queryFilter: stri
             if (error) {
                 throw new Error('Error inserting the movie');
             }
-
+            data[0].created_at = new Date(data[0].created_at);
             setListMovies((prevMovies) => [...data, ...prevMovies]);
         }
         else {

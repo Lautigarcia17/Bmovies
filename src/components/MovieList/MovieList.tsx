@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom'
-import styles from './MovieList.module.css'
 import { Movie } from '../../types/interface'
+import styles from './MovieList.module.css'
 
 function MovieList({ listMovies, movieToDisplay }: {listMovies : Array<Movie>, movieToDisplay : Array<Movie>}) {
+
+
+
     return (
         <>
             <div className={styles.content}>

@@ -1,6 +1,6 @@
 .customToggle {
     background-color: transparent !important;
-    color: white !important;
+    color: #e2eaec !important;
     border: none;
     font-size: 18px;
     outline: none ;
@@ -20,7 +20,7 @@
 }
   
 .customItem {
-    color: white; 
+    color: #e2eaec; 
 }
   
 .customItem:hover {

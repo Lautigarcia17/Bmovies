@@ -93,8 +93,8 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
 
                                 </div>
                                 <div className={styles.movie}>
-                                    <div className={styles.contentTittle}>
-                                        <h2 className={styles.tittleMovie}>{movie.title}</h2>
+                                    <div className={styles.contentTitle}>
+                                        <h2 className={styles.titleMovie}>{movie.title}</h2>
                                     </div>
                                     <div className={styles.movieDetails}>
                                         {movie.year && (

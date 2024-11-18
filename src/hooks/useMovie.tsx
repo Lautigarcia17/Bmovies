@@ -7,7 +7,7 @@ import { UseMovieReturn } from "../types/type";
 export const useMovie = (session: string, search: string = '', queryFilter: string = ''): UseMovieReturn => {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [movieToDisplay, setMovieToDisplay] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
 
     const fetchData = async () => {
@@ -32,13 +32,14 @@ export const useMovie = (session: string, search: string = '', queryFilter: stri
                         created_at: movie.created_at ? new Date(movie.created_at) : new Date()
                     }))
                     setListMovies(moviesDatabase);
+                    setLoading(false);
                 } else {
                     console.log(error);
+                    setLoading(false);
                 }
             }
         } catch (error) {
             console.log(error);
-        } finally {
             setLoading(false);
         }
     }

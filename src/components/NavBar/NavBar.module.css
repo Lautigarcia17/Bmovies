@@ -17,8 +17,7 @@
     color: #919191;
     font-size: 20px;
     border: none;
-    font-family: M PLUS Rounded 1c;
-    font-weight: 100;
+    font-weight: 300;
     cursor: pointer;
     background-color: transparent;
     text-decoration: none;
@@ -28,7 +27,7 @@
 .link:hover,
 .btnWhite
 {
-    color : white;
+    color : #e2eaec;
 }
 
 .logo{

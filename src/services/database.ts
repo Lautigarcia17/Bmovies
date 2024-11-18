@@ -15,7 +15,7 @@ export const getMovieById = (id : string)=>{
     return supabase.from('movies').select().eq('id', id);
 }
 
-export const getMovieByTittle = (title : string)=>{
+export const getMovieByTitle = (title : string)=>{
     return supabase.from('movies').select().eq('title', title);
 }
 
@@ -57,7 +57,7 @@ export const logOut = ()=>{
 }
 
 export const checkIfMovieExists = async (title: string) => {
-    const { data, error } = await getMovieByTittle(title);
+    const { data, error } = await getMovieByTitle(title);
     if (error) {
       console.error('Error checking if movie exists:', error);
       return false;

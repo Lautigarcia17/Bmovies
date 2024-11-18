@@ -2,7 +2,6 @@
 .container{
     height: calc(100vh - 80px);
     width: 100%;
-    font-family: 'M PLUS Rounded 1c';
 }
 
 .content {
@@ -22,11 +21,10 @@
         margin-top: 5%;
   }
   
-    .tittleHeader {
-      color: wheat;
+    .titleHeader {
+      color: #FDE0D3;
       font-weight: 900;
       font-size: 60px;
-      font-family: monospace;
     }
   
   
@@ -34,9 +32,9 @@
       width: 30%;
       background-color: #514949;
       padding: 30px;
-      box-shadow: 0 0 8px wheat;
+      box-shadow: 0 0 8px #FDE0D3;;
       border-radius: 31px;
-      border: 2px solid white;
+      border: 2px solid #e2eaec;
       background-color: #1a1a1a;
    }
     
@@ -48,7 +46,7 @@
   }
 
   .btnSwitch:hover{
-    border: 1px solid white;
+    border: 1px solid #e2eaec;
   }
 
    
@@ -72,7 +70,7 @@
         width: 80%;
       }
 
-      .tittleHeader{
+      .titleHeader{
         font-size: 28px;
       }
     }

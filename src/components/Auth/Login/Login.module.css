@@ -9,8 +9,7 @@
 
   label {
     font-size: 22px;
-    color: white;
-    font-family: monospace;
+    color: #e2eaec;
   }
 
   .inputText {
@@ -32,7 +31,6 @@
     border-radius: 20px;
     cursor: pointer;
     background-color: #61DBFB;
-    font-family: monospace;
     font-weight: 900;
     font-size: 15px;
   }

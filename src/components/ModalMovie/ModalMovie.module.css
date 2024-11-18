@@ -13,7 +13,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    color: wheat;
+    color: #FDE0D3;
     font-size: 35px;
   }
   
@@ -30,9 +30,9 @@
     margin-bottom: 3px;
     text-align: center;
     font-weight: 700;
-    color: wheat;
+    color: #FDE0D3;
     background-color: black;
-    border: 3px solid wheat;
+    border: 3px solid  #FDE0D3;;
   }
 
 
@@ -148,10 +148,9 @@
 
   .label{    
     font-size: 25px;
-    color: white;
+    color: #e2eaec;
     margin-bottom: 5px;
     margin-left: 5px;
-    font-family: 'M PLUS Rounded 1c';
   }
 
   .rating{
@@ -211,7 +210,7 @@ input[type="number"]::-webkit-outer-spin-button {
   border-radius: 8px;
   margin-top: 10px;
   background-color: unset;
-  color: white;
+  color: #e2eaec;
 }
 
 .linkIcon {

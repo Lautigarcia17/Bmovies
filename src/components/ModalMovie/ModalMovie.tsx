@@ -140,8 +140,8 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                   <div className={styles.searchList}>
                     <label className={styles.label}> Select Movie :</label>
                     <div className={styles.radioButtons}>
-                      <input type="radio" id="excelent" name="search" value="Tittle" onClick={() => handleViewOption(true)} defaultChecked />
-                      <label htmlFor="excelent">Tittle</label>
+                      <input type="radio" id="excelent" name="search" value="Title" onClick={() => handleViewOption(true)} defaultChecked />
+                      <label htmlFor="excelent">Title</label>
 
                       <input type="radio" id="good" name="search" value="good" onClick={() => handleViewOption(false)} />
                       <label htmlFor="good">IMDb ID</label>

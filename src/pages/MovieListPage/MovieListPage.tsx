@@ -1,4 +1,4 @@
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './MovieListPage.module.css'
 import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
@@ -26,14 +26,13 @@ function MovieListPage() {
             }
         }
         fetchSession();
-
     }, [session])
 
 
     return (
         <>
             <div className={styles.content}>
-                <h1 className={styles.tittleList}>List Movies</h1>
+                <h1 className={styles.titleList}>List Movies</h1>
 
                 <div className={`${styles.sectionAdd} ${styles.element}`}>
                     <button onClick={handleModal}>
@@ -42,16 +41,12 @@ function MovieListPage() {
                 </div>
                 <ModalMovie show={show} handleModal={handleModal} />
 
-
-                {loading ? (
-
+                {loading && listMovies.length == 0 ? (
                     <div className={styles.spinner}>
                         <Spinner animation="border" variant="light" />
                     </div>
-
                 ) : (
-                    <>
-                        {listMovies.length > 0 && (
+                        listMovies.length > 0 ? (
                             <>
                                 <div className={styles.element}>
                                     <SearchMovie setSearch={setSearch} />
@@ -63,13 +58,16 @@ function MovieListPage() {
                                         <label>{queryFilter}</label>
                                     </div>
                                 </div>
+                                <div className={styles.element}>
+                                    <MovieList movieToDisplay={movieToDisplay} />
+                                </div>
                             </>
-                        )}
-
-                        <div className={styles.element}>
-                            <MovieList listMovies={listMovies} movieToDisplay={movieToDisplay} />
-                        </div>
-                    </>
+                        ) : (
+                            <div className={styles.withoutMovie}>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#f5deb3" d="M14 20h-4v-9l-3.5 3.5l-2.42-2.42L12 4.16l7.92 7.92l-2.42 2.42L14 11z" /></svg>
+                                <h1>Load your first movies!!</h1>
+                            </div>
+                        )
                 )}
             </div>
         </>

@@ -1,7 +1,6 @@
 .container {
     height: 100%;
     width: 100%;
-    font-family: 'M PLUS Rounded 1c';
 }
 
 .content {
@@ -16,9 +15,9 @@
     display: flex;
     width: 45%;
     border-radius: 25px;
-    border: 2px solid white;
+    border: 2px solid #aaa6d3;
     background-color: #1a1a1a;
-    box-shadow: 0 0 15px #efefef;
+    box-shadow: 0 0 15px #aaa6d3;
     position: relative;
 }
 
@@ -35,21 +34,20 @@
     flex-direction: column;
     flex-grow: 1;
     align-items: flex-start;
-    color: white;
+    color: #e2eaec;
 }
 
-.contentTittle{
+.contentTitle{
     display: flex;
     align-items: center;
     width: 100%;
     justify-content: center;
 }
 
-.tittleMovie {
-    font-weight: 900;
+.titleMovie {
+    font-weight: 400;
     font-size: 35px;
-    color: wheat;
-    font-family: 'M PLUS Rounded 1c';
+    color: #aaa6d3;
 }
 
 
@@ -57,15 +55,15 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    color: white;
+    color: #e2eaec;
     border-radius: 50%;
     width: 50px;
     height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
-    font-size: 18px;
+    font-weight: 400;
+    font-size: 25px;
 }
 
 
@@ -83,7 +81,7 @@
 .data Label{
     text-transform: uppercase;
     font-size: 16px;
-    color: #cdd4bc;
+    color: #aaa6d3;
     font-weight: 700;
 }
 .data p{
@@ -106,7 +104,7 @@
 }
 
 .trailerSection label {
-    color: #cdd4bc;
+    color: #aaa6d3;
     font-size: 18px;
     margin-right: 10px;
     font-weight: 700;
@@ -128,16 +126,16 @@
 
 
 .ratingRed{
-    background-color: red;
+    background-color: #a61d24;
 }
 
 .ratingYellow{
-    background-color: yellow;
-    color: black;
+    background-color: #c5c535bf;
+
 }
 
 .ratingGreen{
-    background-color: green;
+    background-color: #4cb518;
 }
 
 .spinner{
@@ -172,7 +170,7 @@
   }
   
   .confirmButton:hover {
-    background-color: #ddd;
+    background-color: #aaa6d3;
   }
 
 
@@ -192,7 +190,6 @@
 
 @media (max-width: 1000px) {
     .card {
-        flex-direction: column-reverse;
         width: 80%;
     }
     .rating{
@@ -208,7 +205,7 @@
         font-size: 15px;
     }
 
-    .tittleMovie{
+    .titleMovie{
         font-size: 28px; 
     }
     .movieDetails{
@@ -234,6 +231,9 @@
 }
 
 @media (max-width: 600px) {
+    .card{
+        flex-direction: column-reverse;
+    }
     .icon{
         width: 25px;
         height: 25px;
@@ -252,7 +252,7 @@
         font-size: 12px;
     }
 
-    .tittleMovie{
+    .titleMovie{
         font-size: 20px; 
         margin-top: 5px;
     }

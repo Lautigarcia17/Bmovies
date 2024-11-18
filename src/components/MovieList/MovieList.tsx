@@ -4,8 +4,6 @@ import styles from './MovieList.module.css'
 
 function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
 
-
-
     return (
         <>
             <div className={styles.content}>

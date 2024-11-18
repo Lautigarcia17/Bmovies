@@ -4,20 +4,45 @@ import logo from '../../assets/Bmovie-removebg-preview.png'
 import { authContext } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 import { useGenericContext } from "../../hooks/useGenericContext";
+import { useEffect, useState } from 'react'
+import { scrollContext } from '../../context/ScrollContext'
 
 
 function NavBar() {
     const { session, signOut } = useGenericContext(authContext)
+    const {scrollRef} = useGenericContext(scrollContext)
+    const [isScrolled,setIsScrolled] = useState(false);
 
     const handleLogout = async () => {
         await signOut();
         toast.success(`You have logged out, see you later !!`, { position: 'top-right', duration: 3000 })
     }
+    useEffect(() => {
+        const scrollElement = scrollRef.current;
+      
+        if (!scrollElement) return; 
+      
+        const handleScroll = () => {
+            if(scrollElement.scrollTop > 400){
+                setIsScrolled(true);
+            }else{
+                setIsScrolled(false);
+            }
+
+          console.log(scrollElement.scrollTop); 
+        };
+      
+        scrollElement.addEventListener('scroll', handleScroll);
+      
+        return () => {
+          scrollElement.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
 
 
     return (
         <>
-            <div className={styles.content}>
+            <div className={`${styles.content} ${isScrolled ? styles.bgScroll : styles.bgTransparent}`}>
                 {session && (
                     <>
                         <div className={styles.logo}>

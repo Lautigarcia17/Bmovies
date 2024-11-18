@@ -9,7 +9,21 @@
 .element{
     width: 365px;
     position: relative;
+
+    /* 
+        position: absolute;
+        top: 12px;
+        z-index: 999;
+    */
 }
+
+.elementScroll{
+    width: 365px;
+    position: absolute;
+    top: 12px;
+    z-index: 999;
+}
+
 
 .iconWrapper {
     position: absolute;

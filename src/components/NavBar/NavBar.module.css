@@ -1,13 +1,22 @@
 .content {
     width: 100%;
-    height: 80px;
+    height: 75px;
     display: flex;
-    gap: 10px;
+
     position: sticky;
     top: 0;
     z-index: 99;
     transition: background-color 0.1s ease;
     align-items: center;
+    /* background: #020913; */
+}
+
+.bgScroll{
+    background-color: #020913;
+}
+
+.bgTransparent{
+    background-color: transparent;
 }
 
 
@@ -32,22 +41,22 @@
 
 .logo{
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    margin-top: 25px;
     margin-left: 50px;
-
 }
 
 .logo img{
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 55px;
 }
 
 .element{
     display: flex;
     justify-content: flex-end;
     gap: 20px;
+    height: 100%;
 }
 
 .iconProfile{

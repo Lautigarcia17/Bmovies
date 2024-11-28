@@ -4,12 +4,13 @@ import styles from './Layout.module.css'
 import { Outlet, useLocation } from 'react-router-dom';
 import { useGenericContext } from '../../hooks/useGenericContext';
 import { scrollContext } from '../../context/ScrollContext';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 
 
 function Layout() {
-  const { scrollRef, scrollPosition, setScrollPosition } = useGenericContext(scrollContext);
+  const { scrollRef, setScrollPosition } = useGenericContext(scrollContext);
+  // const { scrollRef, scrollPosition, setScrollPosition } = useGenericContext(scrollContext);
   const location = useLocation();
 
   useEffect(() => {

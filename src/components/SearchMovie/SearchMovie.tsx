@@ -18,8 +18,6 @@ function SearchMovie( {setSearch} : { setSearch:React.Dispatch<React.SetStateAct
             }else{
                 setIsScrolled(false);
             }
-
-          console.log(scrollElement.scrollTop); 
         };
       
         scrollElement.addEventListener('scroll', handleScroll);

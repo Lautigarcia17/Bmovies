@@ -1,19 +1,51 @@
 
 import NavBar from '../../components/NavBar/NavBar';
 import styles from './Layout.module.css'
-import {Outlet} from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { useGenericContext } from '../../hooks/useGenericContext';
 import { scrollContext } from '../../context/ScrollContext';
+import { useEffect, useState } from 'react';
 
 
 
-function Layout(){
-  const {scrollRef} = useGenericContext(scrollContext);
+function Layout() {
+  const { scrollRef, scrollPosition, setScrollPosition } = useGenericContext(scrollContext);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollRef.current) {
+        setScrollPosition(scrollRef.current.scrollTop);
+      }
+    };
+
+    if (scrollRef.current && location.pathname === '/') {
+      scrollRef.current.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (scrollRef.current) {
+        scrollRef.current.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, [location, scrollRef, setScrollPosition]);
+
+
+  // useEffect(() => {
+
+  //   if (scrollRef.current && location.pathname === '/') {
+  //     scrollRef.current.scrollTo({
+  //       top: scrollPosition,
+  //       behavior: 'auto'
+  //     });
+  //   }
+  // }, [location])
+
 
   return (
     <div className={styles.content} ref={scrollRef}>
       <NavBar/>
-      <Outlet/> 
+      <Outlet />
     </div>
   );
 };

@@ -27,7 +27,8 @@ function NavBar() {
         if (!scrollElement) return; 
       
         const handleScroll = () => {
-            if(scrollElement.scrollTop > 400){
+            const widthLimit = window.innerWidth < 600 ? 200 : 400;
+            if(scrollElement.scrollTop > widthLimit){
                 setIsScrolled(true);
             }else{
                 setIsScrolled(false);

@@ -15,10 +15,10 @@
 
 
 .sectionAdd{
-    width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 100px;
+    position: relative;
+    z-index: 999;
 }
 .sectionAdd button{
     font-size: 16px;
@@ -95,6 +95,9 @@
 }
 
 @media (max-width : 600px) {
+    .sectionAdd{
+        position: unset;
+    }
     .filterQuery{
         margin-left: 20px;
     }

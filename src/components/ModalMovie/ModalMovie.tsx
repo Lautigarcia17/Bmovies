@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import styles from "./ModalMovie.module.css";
 import toast from 'react-hot-toast';
@@ -15,7 +15,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
   const { movies, setMovies, findMovies, findMovieById, getMovieDetails } = useMovieApi();
   const { session } = useGenericContext(authContext);
   const { rating, setRatingFromValue, handleValidationRating } = useRating();
-  const {saveMovie} = useGenericContext(movieContext)
+  const { saveMovie } = useGenericContext(movieContext)
 
   const [urlTrailer, setUrlTrailer] = useState<string | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);

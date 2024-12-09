@@ -15,14 +15,19 @@ function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
 
                                     movieToDisplay.map((movie: Movie) => (
                                         <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
-                                            <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                                            <div className={styles.imageContainer}>
+                                                <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                                            </div>
+                                            <div className={styles.details}>
                                             <h2 className={styles.titleMovie}>{movie.title}</h2>
-                                            {movie.genre && (
-                                                <p className={styles.dataMovie}>{movie.genre}</p>
-                                            )}
-                                            {movie.rating && (
-                                                <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
-                                            )}
+                                                {movie.genre && (
+                                                    <p className={styles.dataMovie}>{movie.genre}</p>
+                                                )}
+                                                {movie.rating && (
+                                                    <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
+                                                )}
+                                            </div>
+  
                                         </Link>
                                     ))
                                 ) :

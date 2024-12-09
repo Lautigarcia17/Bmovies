@@ -1,6 +1,6 @@
 .content {
     width: 100%;
-    height: 75px;
+    height: 85px;
     display: flex;
 
     position: sticky;
@@ -13,6 +13,7 @@
 
 .bgScroll{
     background-color: #020913;
+    border-bottom: 2px solid #e2eaec;
 }
 
 .bgTransparent{
@@ -49,7 +50,7 @@
 
 .logo img{
     width: 70px;
-    height: 60px;
+    height: 57px;
 }
 
 .element{
@@ -64,6 +65,13 @@
     height: 40px;
 }
 
+.logo .buttonHome{
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: 0;
+    padding-top: 5px;
+}
 
 
 @media (max-width: 600px) {

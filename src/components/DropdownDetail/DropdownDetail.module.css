@@ -21,16 +21,34 @@
   
 .customItem {
     color: #e2eaec; 
+    transition: background-color 0.3s ease-in-out;
 }
   
 .customItem:hover {
-    background-color: #ddd; 
-    color: black;
+    background-color: #ddd;  
+     color: black;
 }
 
 .customToggle:after {
     display: none!important;
 }
+
+.customIcon{
+    width: 18px;
+    height: 18px;
+    margin-right: 5px;
+}
+
+
+.customIcon path{
+    fill: #ddd;
+    transition: fill 0.3s ease-in-out;
+}
+
+.customItem:hover .customIcon path{
+    fill: #1d1d1d
+}
+
 
 @media (max-width: 1000px) {
     .customMenu{

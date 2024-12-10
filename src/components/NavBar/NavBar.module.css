@@ -49,8 +49,9 @@
 }
 
 .logo img{
-    width: 70px;
-    height: 57px;
+    width: 62px;
+    height: 64px;
+    object-fit: contain;
 }
 
 .element{

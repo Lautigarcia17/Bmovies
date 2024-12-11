@@ -1,0 +1,60 @@
+.customToggle {
+    background-color: transparent !important;
+    color: #e2eaec !important;
+    border: none;
+    font-size: 18px;
+    outline: none ;
+    box-shadow: none ;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    margin-top: 10px;
+}
+
+  
+.customToggle:hover{
+    background-color: #1d1d1d; 
+    border: 1px solid #ccc !important; 
+}
+.customToggle:focus{
+    background-color: #1d1d1d; 
+    border: 1px solid #ccc !important; 
+}
+
+.customMenu {
+    background-color: #1d1d1d; 
+    border: 1px solid #ccc; 
+}
+  
+.customItem {
+    color: #e2eaec; 
+    transition: background-color 0.3s ease-in-out;
+    margin-bottom: 10px;
+}
+  
+.customItem:hover {
+    background-color: #ddd;  
+     color: black;
+}
+
+.customToggle:after {
+    display: none!important;
+}
+
+.customIcon{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+
+.customIcon path{
+    fill: #ddd;
+    transition: fill 0.3s ease-in-out;
+}
+
+.customItem:hover .customIcon path{
+    fill: #1d1d1d
+}
+
+
+

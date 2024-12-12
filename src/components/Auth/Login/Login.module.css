@@ -13,7 +13,7 @@
   }
 
   .inputText {
-    width: 45%;
+    width: 55%;
     padding: 4px 12px;
     margin: 15px 0px;
     border: 1px solid #ccc;
@@ -30,7 +30,7 @@
     color: black;
     border-radius: 20px;
     cursor: pointer;
-    background-color: #61DBFB;
+    background-color: #95e9ff;
     font-weight: 900;
     font-size: 15px;
   }

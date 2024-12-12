@@ -1,6 +1,7 @@
 
 .container{
-    height: calc(100vh - 80px);
+    /* height: calc(100vh - 80px); */
+    height: calc(100vh - 100px);
     width: 100%;
 }
 
@@ -24,7 +25,8 @@
     .titleHeader {
       color: #FDE0D3;
       font-weight: 900;
-      font-size: 60px;
+      font-size: 55px;
+      text-transform: uppercase;
     }
   
   
@@ -32,9 +34,8 @@
       width: 30%;
       background-color: #514949;
       padding: 30px;
-      box-shadow: 0 0 8px #FDE0D3;;
       border-radius: 31px;
-      border: 2px solid #e2eaec;
+      border: 3px solid #e2eaec;
       background-color: #1a1a1a;
    }
     

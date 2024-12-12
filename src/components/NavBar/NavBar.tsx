@@ -16,7 +16,7 @@ function NavBar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
-
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const handleLogout = async () => {
         await signOut();
@@ -36,10 +36,17 @@ function NavBar() {
             }
         };
 
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleResize);
         scrollElement.addEventListener('scroll', handleScroll);
 
         return () => {
             scrollElement.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleResize);
+
         };
     }, []);
 
@@ -73,7 +80,12 @@ function NavBar() {
                             </button>
                         </div>
                         <div className={styles.element}>
-                            {window.innerWidth > 600 ? (
+                            {windowWidth < 1000 && location.pathname === '/' ? (
+                                <div className={styles.dropdownNav}>
+                                    <DropdownNavbar handleScrollToTop={handleScrollToTop} handleLogout={handleLogout} />
+                                </div>
+
+                            ) :
                                 <>
                                     <button onClick={handleScrollToTop} className={`${styles.btnNav} ${location.pathname === '/' ? styles.btnWhite : ''}`}> Home</button>
                                     <button className={styles.btnNav}>
@@ -87,10 +99,6 @@ function NavBar() {
                                         </NavLink>
                                     </button>
                                 </>
-                            ) :
-                                <div className={styles.dropdownNav}>
-                                    <DropdownNavbar handleScrollToTop={handleScrollToTop} handleLogout={handleLogout} />
-                                </div>
 
                             }
                         </div>

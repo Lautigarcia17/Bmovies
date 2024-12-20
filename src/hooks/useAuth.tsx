@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { AuthError, AuthResponse} from "@supabase/supabase-js";
+import { AuthError, AuthResponse, UserMetadata} from "@supabase/supabase-js";
 import {getSession, logOut, signInDatabase,signUpDatabase} from '../services/database'
 import { useEffect, useState } from "react";
 import { UserLogin, UserRegister } from "../types/interface";
@@ -7,7 +7,8 @@ import { UseAuthReturn } from "../types/type";
 
 export const useAuth = () : UseAuthReturn => {
 
-  const [session,setSession] = useState<string | null | undefined>();
+  const [idSession,setIdSession] = useState<string | null | undefined>();
+  const [userData,setUserData] = useState<UserMetadata>();
   const [loadingSession, setLoadingSession] = useState<boolean>(true);
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
     mode: 'onChange'
@@ -17,7 +18,7 @@ export const useAuth = () : UseAuthReturn => {
     try {
       if (dataUser.email && dataUser.password) {
         const response = await signInDatabase(dataUser);
-        setSession(response.data.session?.user.id ?? '');
+        setIdSession(response.data.session?.user.id ?? '');
         reset();
 
         return response;
@@ -42,7 +43,7 @@ export const useAuth = () : UseAuthReturn => {
         const response = await signUpDatabase(dataUser)
 
         reset();
-        if(response && response.data) setSession(response.data.session?.user.id ?? '');
+        if(response && response.data) setIdSession(response.data.session?.user.id ?? '');
         
         return response
       }
@@ -65,7 +66,7 @@ export const useAuth = () : UseAuthReturn => {
 
     try {
       await logOut();
-      setSession(null);
+      setIdSession(null);
     } catch (error) {
       throw new Error(`Error in logout`);
     }
@@ -77,7 +78,9 @@ export const useAuth = () : UseAuthReturn => {
       try {
         const responseApi = await getSession();
         if(responseApi){
-          setSession(responseApi.data.session?.user.id ?? null);
+          setUserData(responseApi.data.session?.user.user_metadata);
+          console.log(userData);
+          setIdSession(responseApi.data.session?.user.id ?? null);
         }
       } catch (error) {
         console.error('Error fetching session:', error);
@@ -89,7 +92,7 @@ export const useAuth = () : UseAuthReturn => {
     loadSession();
   }, []);
 
-  return { session, loadingSession,signIn, signUp,signOut, register, handleSubmit, errors }
+  return { idSession, userData,loadingSession,signIn, signUp,signOut, register, handleSubmit, errors }
 }
 
  

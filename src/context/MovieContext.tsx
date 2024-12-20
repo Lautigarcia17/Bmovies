@@ -9,10 +9,10 @@ export const movieContext = createContext<MovieContextType | undefined>(undefine
 
 export default function MovieProvider({children} : any){
     const [search, setSearch] = useState<string>('');
-    const {session} = useGenericContext(authContext)
-    const {queryFilter, manageQuery} = useQueryFilter(session ?? '');
+    const {idSession} = useGenericContext(authContext)
+    const {queryFilter, manageQuery} = useQueryFilter(idSession ?? '');
 
-    const {listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie} = useMovie(session ?? '',search,queryFilter);
+    const {listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie} = useMovie(idSession ?? '',search,queryFilter);
     return(
         <movieContext.Provider value={{listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie,queryFilter,setSearch,manageQuery}}>
             {children}

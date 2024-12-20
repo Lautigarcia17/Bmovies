@@ -11,7 +11,7 @@ import DropdownNavbar from '../DropdownNavbar/DropdownNavbar'
 
 
 function NavBar() {
-    const { session, signOut } = useGenericContext(authContext)
+    const { idSession, signOut } = useGenericContext(authContext)
     const { scrollRef } = useGenericContext(scrollContext)
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
@@ -70,7 +70,7 @@ function NavBar() {
     return (
         <>
             <div className={`${styles.content} ${isScrolled ? styles.bgScroll : styles.bgTransparent}`}>
-                {session && (
+                {idSession && (
                     <>
 
 

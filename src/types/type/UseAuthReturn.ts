@@ -1,9 +1,10 @@
-import { AuthResponse } from "@supabase/supabase-js"
-import { UserLogin, UserRegister } from "../interface"
+import { AuthResponse, UserMetadata } from "@supabase/supabase-js"
+import {  UserLogin, UserRegister } from "../interface"
 import { FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
 
 export type UseAuthReturn = {
-    session: string | null | undefined,
+    idSession: string | null | undefined,
+    userData : UserMetadata | undefined,
     loadingSession: boolean,
     signIn: (dataUser : UserLogin) => Promise<AuthResponse>,
     signUp: (dataUser : UserRegister) => Promise<AuthResponse>,

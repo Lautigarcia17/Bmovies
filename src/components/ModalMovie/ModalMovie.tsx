@@ -13,7 +13,7 @@ import { useGenericContext } from "../../hooks/useGenericContext";
 function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
   const { movies, setMovies, findMovies, findMovieById, getMovieDetails } = useMovieApi();
-  const { session } = useGenericContext(authContext);
+  const { idSession } = useGenericContext(authContext);
   const { rating, setRatingFromValue, handleValidationRating } = useRating();
   const { saveMovie } = useGenericContext(movieContext)
 
@@ -40,7 +40,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
         if (movieData) {
           movieData.trailer = urlTrailer;
           movieData.rating = rating;
-          movieData.user_id = session ?? '';
+          movieData.user_id = idSession ?? '';
           movieData.created_at = new Date()
 
           await saveMovie(movieData);

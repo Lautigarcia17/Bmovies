@@ -13,7 +13,7 @@ import { useGenericContext } from '../../hooks/useGenericContext';
 
 function MovieListPage() {
     const navigate = useNavigate();
-    const { session, loadingSession } = useGenericContext(authContext)
+    const { idSession, loadingSession } = useGenericContext(authContext)
     const [show, setShow] = useState<boolean>(false);
     const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
@@ -21,12 +21,12 @@ function MovieListPage() {
 
     useEffect(() => {
         const fetchSession = () => {
-            if (!session && !loadingSession) {
+            if (!idSession && !loadingSession) {
                 navigate('/auth');
             }
         }
         fetchSession();
-    }, [session])
+    }, [idSession])
 
 
     return (

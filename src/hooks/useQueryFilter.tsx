@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { UseQueryFilter } from "../types/type";
 
 
-export const useQueryFilter = (session:string, defaultFilter:string = 'all') : UseQueryFilter =>{
+export const useQueryFilter = (idSession:string, defaultFilter:string = 'all') : UseQueryFilter =>{
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -23,7 +23,7 @@ export const useQueryFilter = (session:string, defaultFilter:string = 'all') : U
         setQueryFilter(defaultFilter);
        }
         
-    },[session,navigate,location])
+    },[idSession,navigate,location])
 
     return {queryFilter,manageQuery}
 }

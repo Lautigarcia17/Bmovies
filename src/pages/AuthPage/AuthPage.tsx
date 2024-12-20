@@ -10,17 +10,17 @@ import { useGenericContext } from '../../hooks/useGenericContext';
 function AuthPage() {
   const [showLogin, setShowLogin] = useState<boolean>(true);
   const navigate = useNavigate();
-  const { session, loadingSession } = useGenericContext(authContext)
+  const { idSession, loadingSession } = useGenericContext(authContext)
 
   useEffect(() => {
       const fetchSession = () => {
-          if (session && !loadingSession) {
+          if (idSession && !loadingSession) {
               navigate('/');
           }
       }
       fetchSession();
 
-  }, [session])
+  }, [idSession])
 
 
   return (

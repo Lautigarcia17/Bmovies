@@ -4,7 +4,7 @@ import { addMovie, checkIfMovieExists, deleteMovie, getMovies, updateMovie } fro
 import { UseMovieReturn } from "../types/type";
 
 
-export const useMovie = (session: string, search: string = '', queryFilter: string = ''): UseMovieReturn => {
+export const useMovie = (idSession: string, search: string = '', queryFilter: string = ''): UseMovieReturn => {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [movieToDisplay, setMovieToDisplay] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -13,9 +13,8 @@ export const useMovie = (session: string, search: string = '', queryFilter: stri
     const fetchData = async () => {
         try {
             setLoading(true)
-
-            if (session) {
-                const { data, error } = await getMovies(session);
+            if (idSession) {
+                const { data, error } = await getMovies(idSession);
                 if (!error) {
                     const moviesDatabase: Movie[] = data.map((movie: any) => ({
                         id: movie.id,
@@ -142,10 +141,10 @@ export const useMovie = (session: string, search: string = '', queryFilter: stri
 
 
     useEffect(() => {
-        if (session !== undefined && session !== null) {
+        if (idSession !== undefined && idSession !== null) {
             fetchData();
         }
-    }, [session])
+    }, [idSession])
 
 
 

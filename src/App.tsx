@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast';
 import MovieProvider from './context/MovieContext';
 import AuthProvider from './context/AuthContext';
 import ScrollProvider from './context/ScrollContext';
+import { ProfilePage } from './pages/ProfilePage/ProfilePage';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                 <Route index element={<MovieListPage />} />
                 <Route path='details/:idMovie' element={<MoviePage />} />
                 <Route path='auth' element={<AuthPage />} />
+                <Route path='profile' element={<ProfilePage />} />
                 <Route path='*' element={<PageNotFound />} />
               </Route>
             </Routes>

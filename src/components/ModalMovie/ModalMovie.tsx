@@ -112,7 +112,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
 
                   <div>
                     <div className={styles.rating}>
-                      <input type="number" id="rating" name="rating" min="1" max="10" step="0.5" placeholder="6" value={rating == null ? '' : rating} onChange={(e) => setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} className={styles.ratingInput} />
+                      <input type="text" id="rating" name="rating" min="1" max="10" step="1" placeholder="6" value={rating == null ? '' : rating} onChange={(e) => setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} className={styles.ratingInput} />
                     </div>
 
                     <div className={styles.selectedMovie}>

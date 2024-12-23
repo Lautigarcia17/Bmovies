@@ -2,12 +2,15 @@ import styles from './ProfilePage.module.css'
 import { Carousel } from "react-bootstrap";
 import { authContext } from "../../context/AuthContext"
 import { useGenericContext } from "../../hooks/useGenericContext"
+import { useStatistics } from '../../hooks/useStatistics';
+import { movieContext } from '../../context/MovieContext';
 
 
 export function ProfilePage() {
 
     const { userData } = useGenericContext(authContext);
-
+    const { listMovies } = useGenericContext(movieContext)
+    const { moviesWatched, moviesToWatch, moviesPerYear, moviesByGenre, moviesByRating, moviesByDecade, moviesByMonth, currentYearOfMonth } = useStatistics(listMovies)
 
     return (
         <>
@@ -15,8 +18,8 @@ export function ProfilePage() {
                 <div className={styles.content}>
                     <div className={styles.dataUser}>
                         <h1>{userData?.username}</h1>
-                        <h2>Movies watched: 220</h2>
-                        <h2>Movies to watch: 10</h2>
+                        <h2>Movies watched: {moviesWatched}</h2>
+                        <h2>Movies to watch: {moviesToWatch}</h2>
                     </div>
 
 
@@ -25,12 +28,16 @@ export function ProfilePage() {
                             <h1 className={styles.titleCarousel}>MOVIES SEEN PER YEAR</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    <Carousel.Item>
-                                        <div className={styles.carouselItem}>
-                                            <h3>2024</h3>
-                                            <p>33</p>
-                                        </div>
-                                    </Carousel.Item>
+                                    {Object.entries(moviesPerYear as Record<number, number>).map(([year, count]) => (
+                                        <Carousel.Item key={year} interval={3000}>
+                                            <div className={styles.carouselItem}>
+                                                <h3>{year}</h3>
+                                                <p>{count} movie(s)</p>
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
+
+
                                 </Carousel>
                             </div>
                         </div>
@@ -39,12 +46,14 @@ export function ProfilePage() {
                             <h1 className={styles.titleCarousel}>MOVIES BY GENRE</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    <Carousel.Item>
-                                        <div className={styles.carouselItem}>
-                                            <h3>HORROR</h3>
-                                            <p>67</p>
-                                        </div>
-                                    </Carousel.Item>
+                                    {Object.entries(moviesByGenre as Record<string, number>).map(([genre, count]) => (
+                                        <Carousel.Item key={genre} interval={3000}>
+                                            <div className={styles.carouselItem}>
+                                                <h3>{genre}</h3>
+                                                <p>{count} movie(s)</p>
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
                                 </Carousel>
                             </div>
                         </div>
@@ -53,12 +62,14 @@ export function ProfilePage() {
                             <h1 className={styles.titleCarousel}>MOVIES BY RATING</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    <Carousel.Item>
-                                        <div className={styles.carouselItem}>
-                                            <h3>7</h3>
-                                            <p>6</p>
-                                        </div>
-                                    </Carousel.Item>
+                                    {moviesByRating.map(({ rating, count }: { rating: number, count: number }) => (
+                                        <Carousel.Item key={rating} interval={3000}>
+                                            <div className={styles.carouselItem}>
+                                                <h3>{rating}</h3>
+                                                <p>{count} movie(s)</p>
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
                                 </Carousel>
                             </div>
                         </div>
@@ -69,35 +80,35 @@ export function ProfilePage() {
                             <h1 className={styles.titleCarousel}>MOVIES BY DECADE</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    <Carousel.Item>
-                                        <div className={styles.carouselItem}>
-                                            <h3>90'</h3>
-                                            <p>10</p>
-                                        </div>
-                                    </Carousel.Item>
+                                    {Object.entries(moviesByDecade as Record<string, number>).map(([decade, count]) => (
+                                        <Carousel.Item key={decade} interval={3000}>
+                                            <div className={styles.carouselItem}>
+                                                <h3>{decade}</h3>
+                                                <p>{count} movie(s)</p>
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
                                 </Carousel>
                             </div>
                         </div>
 
                         <div className={styles.carousel}>
-                            <h1 className={styles.titleCarousel}>MOVIES WATCHED PER MONTH (2024)</h1>
+                            <h1 className={styles.titleCarousel}>MOVIES WATCHED PER MONTH ({currentYearOfMonth})</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    <Carousel.Item>
-                                        <div className={styles.carouselItem}>
-                                            <h3>SEPTEMBER</h3>
-                                            <p>4</p>
-                                        </div>
-                                    </Carousel.Item>
+                                    {Object.entries(moviesByMonth as Record<string, number>).map(([month, count]) => (
+                                        <Carousel.Item key={month} interval={3000}>
+                                            <div className={styles.carouselItem}>
+                                                <h3>{month}</h3>
+                                                <p>{count} movie(s)</p>
+                                            </div>
+                                        </Carousel.Item>
+                                    ))}
                                 </Carousel>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
-
             </div>
         </>
     )

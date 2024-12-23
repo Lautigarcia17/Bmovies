@@ -14,7 +14,7 @@ export default function MovieProvider({children} : any){
 
     const {listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie} = useMovie(idSession ?? '',search,queryFilter);
     return(
-        <movieContext.Provider value={{listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie,queryFilter,setSearch,manageQuery}}>
+        <movieContext.Provider value={{listMovies,movieToDisplay,loading,saveMovie,removeMovie,modifyMovie,queryFilter, search,setSearch,manageQuery}}>
             {children}
         </movieContext.Provider>
     )

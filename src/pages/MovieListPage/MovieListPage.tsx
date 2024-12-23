@@ -15,7 +15,7 @@ function MovieListPage() {
     const navigate = useNavigate();
     const { idSession, loadingSession } = useGenericContext(authContext)
     const [show, setShow] = useState<boolean>(false);
-    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery } = useGenericContext(movieContext)
+    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery, search } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
 
 
@@ -52,7 +52,7 @@ function MovieListPage() {
                         listMovies.length > 0 ? (
                             <>
                                 <div className={styles.element}>
-                                    <SearchMovie setSearch={setSearch} />
+                                    <SearchMovie search={search} setSearch={setSearch} />
                                 </div>
 
                                 <div className={styles.element}>

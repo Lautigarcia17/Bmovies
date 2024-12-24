@@ -83,29 +83,31 @@ label {
 }
 
 .btnSave{
-  color: black;
-  background-color: #42c727;
+  color: #42c727;
+  background-color: #070e05;
   font-weight: 700;
-  border: 2px solid black;
+  border: 2px solid #42c727;
   border-radius: 10px;
   padding: 1px 14px;
   font-size: 16px;
 }
 .btnSave:hover{
-  background-color: #2bff00;
+  background-color: #38722c;
+  color: rgb(36 255 36);
 }
 
 .btnCancel{
-  color: red;
+  color: #F05454;
   background-color: black;
-  border: 2px solid red;
+  border: 2px solid #F05454;
   border-radius: 10px;
   padding: 1px 14px;
   font-size: 16px;
 }
 
 .btnCancel:hover{
-  background-color: #a02121;
+  background-color: #852323b0;
+  color: #ff2121;
 }
 
 

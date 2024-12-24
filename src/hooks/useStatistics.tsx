@@ -76,13 +76,12 @@ export const useStatistics = (listMovies : Movie[]) : any =>{
 
     const calculateMoviesByDecade = ()=>{
         if (listMovies.length > 0) {
-            const resultOrder : Movie[] = listMovies.sort((a : any ,b : any)=> a.year  - b.year); 
+            const resultOrder : Movie[] = [...listMovies].sort((a : any ,b : any)=> a.year  - b.year); 
             
             const result = resultOrder.reduce((acc : Record<string, number>, item : Movie) =>{
                 if (item.year !== null) {
                     
                     const decadeMovie = Math.floor(item.year / 10) * 10;
-                    // const decade = decadeMovie.toString().slice(-2);
                     const decade = `${decadeMovie}-${decadeMovie + 9}`;
 
                     acc[decade] = (acc[decade] || 0) + 1;

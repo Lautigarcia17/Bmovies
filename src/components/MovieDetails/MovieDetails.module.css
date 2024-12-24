@@ -15,7 +15,7 @@
     display: flex;
     width: 45%;
     border-radius: 25px;
-    border: 4px solid #3e3745;
+    border: 4px solid #F05454;
     background-color: #1a1a1a;
     position: relative;
 }
@@ -46,7 +46,7 @@
 .titleMovie {
     font-weight: 400;
     font-size: 35px;
-    color: #aaa6d3;
+    color: #F05454;
 }
 
 
@@ -80,7 +80,7 @@
 .data Label{
     text-transform: uppercase;
     font-size: 16px;
-    color: #aaa6d3;
+    color: #F05454;
     font-weight: 700;
 }
 .data p{
@@ -103,7 +103,7 @@
 }
 
 .trailerSection label {
-    color: #aaa6d3;
+    color: #F05454;
     font-size: 18px;
     margin-right: 10px;
     font-weight: 700;

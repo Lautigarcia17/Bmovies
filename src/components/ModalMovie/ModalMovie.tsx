@@ -101,7 +101,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
 
       <Modal show={show} onHide={handleModal} centered backdrop="static">
         <div className={styles.modalContent}>
-          <Modal.Header className={styles.modalHeader} closeButton>
+          <Modal.Header className={styles.modalHeader} closeButton closeVariant="white">
             <h2 className={styles.modalTitle}>Add Movie</h2>
           </Modal.Header>
           <Modal.Body className={styles.modalBody}>

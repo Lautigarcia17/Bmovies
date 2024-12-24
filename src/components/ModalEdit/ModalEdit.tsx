@@ -24,7 +24,7 @@ function ModalEdit ({ show, handleModalEdit,handleEdit, editData }: { show: bool
     <>
       <Modal show={show} onHide={handleModalEdit} centered backdrop="static">
         <div className={styles.modalContent}>
-          <Modal.Header className={styles.modalHeader} closeButton>
+          <Modal.Header className={styles.modalHeader} closeButton closeVariant="white">
             <h2 className={styles.modalTitle}>Edit Movie</h2>
           </Modal.Header>
           <Modal.Body className={styles.modalBody}>

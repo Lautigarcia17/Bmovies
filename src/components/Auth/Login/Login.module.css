@@ -47,6 +47,10 @@
     margin-bottom: 10px;
   }
 
+  .containerRefButton{
+    width: 100%;
+  }
+
   @media (max-width: 750px) {
 
     label{

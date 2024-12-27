@@ -3,6 +3,8 @@ import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
+import { useRef } from 'react';
+import { useEnterClick } from '../../../hooks/useEnterClick';
 
 
 
@@ -11,9 +13,11 @@ function Login() {
   const {signIn,register,handleSubmit,errors} = useGenericContext(authContext)
 
   const navigate: NavigateFunction = useNavigate()
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  useEnterClick(containerRef);
 
   const onSubmit = async (dataUser: any) => {
-
     const { data, error } = await signIn(dataUser);
 
     if (error) {
@@ -44,7 +48,9 @@ function Login() {
         {errors.password?.type === 'required' && <p className={styles.messageError}>Password is required</p>}
         {errors.password?.type === 'pattern' && <p className={styles.messageError}>Password cannot contain spaces</p>}
 
-        <input type="submit" value="Login" className={styles.submit} />
+        <div ref={containerRef} className={styles.containerRefButton}>
+          <input type="submit" value="Login" className={styles.submit} />
+        </div>
       </form>
     </>
 

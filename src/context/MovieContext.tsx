@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { useMovie } from "../hooks/useMovie";
 import { useQueryFilter } from "../hooks/useQueryFilter";
 import { authContext } from "./AuthContext";
@@ -7,7 +7,7 @@ import { MovieContextType } from "../types/type";
 
 export const movieContext = createContext<MovieContextType | undefined>(undefined);
 
-export default function MovieProvider({children} : any){
+export default function MovieProvider({children} :  {children:ReactNode}){
     const [search, setSearch] = useState<string>('');
     const {idSession} = useGenericContext(authContext)
     const {queryFilter, manageQuery} = useQueryFilter(idSession ?? '');

@@ -20,7 +20,7 @@ function DropdownFilter({handleQuery }: { handleQuery: (query : string) => void 
         <DropdownDivider className={styles.divider}/>
         <Dropdown.Header className={styles.header}>YEAR</Dropdown.Header>
         {listYears.map((year)=> (
-          <Dropdown.Item className={styles.customItem} onClick={()=> handleQuery(year.toString())}>{year}</Dropdown.Item>
+          <Dropdown.Item key={year} className={styles.customItem} onClick={()=> handleQuery(year.toString())}>{year}</Dropdown.Item>
         ))}
         <DropdownDivider className={styles.divider}/>
         <Dropdown.Header className={styles.hearder}>RATING</Dropdown.Header>

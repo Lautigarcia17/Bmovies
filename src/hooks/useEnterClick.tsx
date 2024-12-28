@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-export const useEnterClick = (ref : any) =>{
+export const useEnterClick = (ref: React.RefObject<HTMLDivElement>) =>{
     useEffect(() => {
-        const handleKeydown = (event : any) => {
+        const handleKeydown = (event: KeyboardEvent) => {
           if (event.key === "Enter") {
             const button = ref.current?.querySelector("input");
             if (button && !button.disabled) {

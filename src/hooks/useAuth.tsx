@@ -79,7 +79,6 @@ export const useAuth = () : UseAuthReturn => {
         const responseApi = await getSession();
         if(responseApi){
           setUserData(responseApi.data.session?.user.user_metadata);
-          console.log(userData);
           setIdSession(responseApi.data.session?.user.id ?? null);
         }
       } catch (error) {

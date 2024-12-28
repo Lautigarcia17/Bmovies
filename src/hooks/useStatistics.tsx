@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../types/interface";
 import { sortNameByMonth } from "../utilities/sortNameByMonth";
+import { UseStatistics } from "../types/type/UseStatistics";
 
 
 
-export const useStatistics = (listMovies : Movie[]) : any =>{
+export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     const [moviesWatched, setMoviesWatched] = useState<number>(0);
     const [moviesToWatch, setMoviesToWatch] = useState<number>(0);
@@ -13,7 +14,7 @@ export const useStatistics = (listMovies : Movie[]) : any =>{
     const [moviesByRating, setMoviesByRating] = useState<{rating: number; count: number}[]>([]);
     const [moviesByDecade, setMoviesByDecade] = useState<Record<string, number>>({});
     const [moviesByMonth, setMoviesByMonth] = useState<Record<string, number>>({});
-    const [currentYearOfMonth, setCurrentYearOfMonth] = useState<number>();
+    const [currentYearOfMonth, setCurrentYearOfMonth] = useState<number | undefined>();
 
     const calculateMoviesCount = ()=>{
         if(listMovies.length > 0){

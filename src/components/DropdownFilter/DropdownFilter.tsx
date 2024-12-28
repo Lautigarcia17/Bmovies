@@ -15,6 +15,7 @@ function DropdownFilter({handleQuery }: { handleQuery: (query : string) => void 
 
       <Dropdown.Menu className={styles.customMenu}>
         <Dropdown.Item className={styles.customItem} onClick={()=> handleQuery('all')}>All</Dropdown.Item>
+        <Dropdown.Item className={styles.customItem} onClick={()=> handleQuery('seen')}>Seen</Dropdown.Item>
         <Dropdown.Item className={styles.customItem} onClick={()=> handleQuery('not seen')}>Not seen</Dropdown.Item>
         <DropdownDivider className={styles.divider}/>
         <Dropdown.Header className={styles.header}>YEAR</Dropdown.Header>

@@ -18,8 +18,11 @@ export const useAuth = () : UseAuthReturn => {
     try {
       if (dataUser.email && dataUser.password) {
         const response = await signInDatabase(dataUser);
-        setIdSession(response.data.session?.user.id ?? '');
-        reset();
+        if (response.data.session !== null) {
+          reset();
+          setIdSession(response.data.session?.user.id ?? '');
+        }
+
 
         return response;
       }
@@ -42,8 +45,11 @@ export const useAuth = () : UseAuthReturn => {
       if (dataUser.email && dataUser.password) {
         const response = await signUpDatabase(dataUser)
 
-        reset();
-        if(response && response.data) setIdSession(response.data.session?.user.id ?? '');
+
+        if(response && response.data.session !== null){
+          reset()
+          setIdSession(response.data.session?.user.id ?? '');
+        } 
         
         return response
       }
@@ -91,7 +97,7 @@ export const useAuth = () : UseAuthReturn => {
     loadSession();
   }, []);
 
-  return { idSession, userData,loadingSession,signIn, signUp,signOut, register, handleSubmit, errors }
+  return { idSession, userData,loadingSession,signIn, signUp,signOut, register, handleSubmit, errors, reset }
 }
 
  

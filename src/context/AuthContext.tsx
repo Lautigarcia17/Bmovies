@@ -7,11 +7,11 @@ import { useAuth } from "../hooks/useAuth";
 export const authContext = createContext<UseAuthReturn | undefined>(undefined);
 
 export default function AuthProvider({children} : {children:ReactNode}){
-    const {idSession,userData, loadingSession, signIn, signUp, signOut,register, handleSubmit, errors } = useAuth();
+    const {idSession,userData, loadingSession, signIn, signUp, signOut,register, handleSubmit, errors,reset } = useAuth();
 
 
     return(
-        <authContext.Provider value={{idSession,userData, loadingSession, signIn, signUp, signOut, register, handleSubmit, errors }}>
+        <authContext.Provider value={{idSession,userData, loadingSession, signIn, signUp, signOut, register, handleSubmit, errors,reset }}>
             {children}
         </authContext.Provider>
     )

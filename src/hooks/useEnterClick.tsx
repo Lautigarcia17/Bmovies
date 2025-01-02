@@ -4,6 +4,7 @@ export const useEnterClick = (ref: React.RefObject<HTMLDivElement>) =>{
     useEffect(() => {
         const handleKeydown = (event: KeyboardEvent) => {
           if (event.key === "Enter") {
+            event.preventDefault();
             const button = ref.current?.querySelector("input");
             if (button && !button.disabled) {
               button.click();
@@ -15,9 +16,5 @@ export const useEnterClick = (ref: React.RefObject<HTMLDivElement>) =>{
         return () => {
           document.removeEventListener("keydown", handleKeydown);
         };
-      }, [ref]);
-
-
-
-    
+      }, [ref]);    
 }

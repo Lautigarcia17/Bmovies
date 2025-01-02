@@ -38,16 +38,16 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
                 const response = await removeMovie(movie.id ?? '')
     
                 if(response && response.error){
-                    toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 3000 })     
+                    toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 2000 })     
                 }
                 else{
-                    toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 3000 })
+                    toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 2000 })
                     navigate('/');
                 }
             }
         } catch (error:any) {
             console.log(error);   
-            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 3000 });
+            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 2000 });
         }
     }
 
@@ -59,16 +59,16 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
                 const response = await modifyMovie(movie.id ?? '',rating,trailer,isNewMovie);
 
                 if (response && response.data) {
-                    toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 3000 });
+                    toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 2000 });
                     setMovie(response.data[0]);
                 } else {
-                    toast.error(`Error! ${response?.error?.message}`, { position: 'top-right', duration: 3000 });
+                    toast.error(`Error! ${response?.error?.message}`, { position: 'top-right', duration: 2000 });
                 }
 
             }
         } catch (error:any) {
             console.error('Update failed:', error);
-            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 3000 });
+            toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 2000 });
         }
     };
 

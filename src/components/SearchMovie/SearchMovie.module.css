@@ -30,6 +30,22 @@
     height: 100%;
   }
 
+.clear {
+    position: absolute;
+    top: 1px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+}
+
+.clear .icon:hover path{
+    fill: white;
+}
+
 .search{
     background-color: #191f2b;
     border: 0;
@@ -62,13 +78,16 @@
         left: 15px;
     }
     .icon{
-        width: 12px;
-        height: 12px;
+        /* width: 12px;
+        height: 12px; */
+        width: 15px;
+        height: 15px;
     }
     .search{
-        font-size: 10px;
+        /* font-size: 10px; */
+        font-size: 14px;
         height: 40px;
-        padding: 6px 36px 6px 40px;
+        padding: 6px 36px 6px 50px;
     }
     .withoutMovie h1 {
         font-size: 20px;

@@ -21,10 +21,10 @@ function Login() {
     const { data, error } = await signIn(dataUser);
 
     if (error) {
-      toast.error(error.message, { position: 'top-right', duration: 3000 });
+      toast.error(error.message, { position: 'top-right', duration: 2000 });
     }
     else {
-      toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 3000 })
+      toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 2000 })
       navigate('/')
     }
   }

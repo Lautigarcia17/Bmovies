@@ -20,7 +20,7 @@ function NavBar() {
 
     const handleLogout = async () => {
         await signOut();
-        toast.success(`You have logged out, see you later !!`, { position: 'top-right', duration: 3000 })
+        toast.success(`You have logged out, see you later !!`, { position: 'top-right', duration: 2000 })
     }
     useEffect(() => {
         const scrollElement = scrollRef.current;

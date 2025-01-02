@@ -113,7 +113,7 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: st
     const filter = (): Array<Movie> => {
         if (!listMovies.length) return [];
     
-        let moviesFiltered: Array<Movie> = listMovies;
+        let moviesFiltered: Array<Movie> = listMovies.sort((a : Movie,b : Movie) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
     
         const validYears = getYearsList(2023).map((year) => year.toString());
     

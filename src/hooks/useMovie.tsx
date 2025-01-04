@@ -45,7 +45,7 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: st
     }
 
     const saveMovie = async (movie: Movie) => {
-        if (await checkIfMovieExists(movie.title) == false) {
+        if (await checkIfMovieExists(movie.title) === false) {
             const { error, data } = await addMovie(movie)
 
             if (error) {
@@ -122,9 +122,9 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: st
             if (queryFilter === 'all') {
                 moviesFiltered = listMovies;
             } else if (queryFilter === 'not seen') {
-                moviesFiltered = listMovies.filter((movie) => movie.rating == null);
+                moviesFiltered = listMovies.filter((movie) => movie.rating === null);
             } else if (queryFilter === 'seen') {
-                moviesFiltered = listMovies.filter((movie) => movie.rating != null);
+                moviesFiltered = listMovies.filter((movie) => movie.rating !== null);
             } else if (validYears.includes(queryFilter)) { // Filtrar por años válidos
                 moviesFiltered = listMovies.filter(
                     (movie) =>

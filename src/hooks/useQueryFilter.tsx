@@ -18,7 +18,7 @@ export const useQueryFilter = (idSession:string, defaultFilter:string = 'all') :
     }
 
     useEffect(()=>{     
-       if(location.pathname == '/' && initialFilter == ''){
+       if(location.pathname === '/' && initialFilter === ''){
         navigate(`?filter=${defaultFilter}`)
         setQueryFilter(defaultFilter);
        }

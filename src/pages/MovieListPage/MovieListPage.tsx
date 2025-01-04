@@ -44,7 +44,7 @@ function MovieListPage() {
                 
                 <ModalMovie show={show} handleModal={handleModal} />
 
-                {loading && listMovies.length == 0 ? (
+                {loading && listMovies.length === 0 ? (
                     <div className={styles.spinner}>
                         <Spinner animation="border" variant="light" />
                     </div>

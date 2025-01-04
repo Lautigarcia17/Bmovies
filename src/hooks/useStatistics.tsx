@@ -98,13 +98,13 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
     const calculateMoviesByMonth = ()=>{
         if (listMovies.length > 0) {
             const currentDate = new Date();
-            const currentYear = listMovies.some( (movie : Movie) => movie.created_at?.getFullYear() == currentDate.getFullYear() && movie.rating !== null) 
+            const currentYear = listMovies.some( (movie : Movie) => movie.created_at?.getFullYear() === currentDate.getFullYear() && movie.rating !== null) 
                                 ? currentDate.getFullYear() 
                                 : currentDate.getFullYear() - 1;
 
             const result = listMovies.reduce( (acc : Record<string, number>, item : Movie) =>{
 
-                if (currentYear == item.created_at?.getFullYear()) {
+                if (currentYear === item.created_at?.getFullYear()) {
                     const month = item.created_at.toLocaleString('default', {month: 'long'});
 
                     acc[month] = (acc[month] || 0) + 1; 

@@ -13,7 +13,7 @@ function MoviePage() {
 
 
     useEffect(() => {
-        if (processCompleted && (idMovie == null || movie == null)) {
+        if (processCompleted && (idMovie === null || movie === null)) {
             toast.error(`Error! movie not found`, { position: 'top-right', duration: 2000 })
             navigate('/');
         }

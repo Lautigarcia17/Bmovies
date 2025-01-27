@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { useEffect, useState } from "react";
 import { Movie } from "../types/interface";
 import { sortNameByMonth } from "../utilities/sortNameByMonth";
@@ -9,7 +11,7 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     const [moviesWatched, setMoviesWatched] = useState<number>(0);
     const [moviesToWatch, setMoviesToWatch] = useState<number>(0);
-    const [moviesPerYear, setMoviesPerYear] = useState<Record<number, number>>({});
+    const [moviesPerYear, setMoviesPerYear] = useState<[string,number][]>([]);
     const [moviesByGenre, setMoviesByGenre] = useState<Record<string, number>>({});
     const [moviesByRating, setMoviesByRating] = useState<{rating: number; count: number}[]>([]);
     const [moviesByDecade, setMoviesByDecade] = useState<Record<string, number>>({});
@@ -18,8 +20,8 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     const calculateMoviesCount = ()=>{
         if(listMovies.length > 0){
-            let watched = listMovies.filter(movie => movie.rating !== null).length;
-            let toWatch = listMovies.length - watched;
+            const watched = listMovies.filter(movie => movie.rating !== null).length;
+            const toWatch = listMovies.length - watched;
 
             setMoviesToWatch(toWatch);
             setMoviesWatched(watched);
@@ -28,7 +30,7 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     
     const calculateMoviesPerYear = ()=>{
-        let result = listMovies.reduce((acc : Record<number, number>, item : Movie )=>{
+        const result = listMovies.reduce((acc : Record<number, number>, item : Movie )=>{
             if (item.rating !== null) {
                 const year = item.created_at?.getFullYear() ?? 0;
                 acc[year] = (acc[year] || 0) + 1;
@@ -36,11 +38,16 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
             
             return acc
         },{});
-        setMoviesPerYear(result);
+
+        const moviesPerYear = result !== null 
+                                ? Object.entries(result).sort(([yearA],[yearB])=> Number(yearB) - Number(yearA))
+                                : result
+
+        setMoviesPerYear(moviesPerYear);
     }
 
     const calculateMoviesByGenre = ()=>{
-        let result = listMovies.reduce((acc : Record<string, number>, item : Movie )=>{
+        const result = listMovies.reduce((acc : Record<string, number>, item : Movie )=>{
             if (item.rating !== null) {
                 
                 const arrayGenre : Array<string>  = item.genre?.split(",").map((genre : string)=> genre.trim()) ?? [] ;
@@ -61,7 +68,7 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     
     const calculateMoviesByRating = ()=>{
-        let result = listMovies.reduce((acc : Record<number, number>, item : Movie )=>{
+        const result = listMovies.reduce((acc : Record<number, number>, item : Movie )=>{
  
             if (item.rating !== null) {
                 const rating : number = item.rating ?? 0;
@@ -77,7 +84,7 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
 
     const calculateMoviesByDecade = ()=>{
         if (listMovies.length > 0) {
-            const resultOrder : Movie[] = [...listMovies].sort((a : any ,b : any)=> a.year  - b.year); 
+            const resultOrder : Movie[] = [...listMovies].sort((a : any ,b : any)=> b.year  - a.year); 
             
             const result = resultOrder.reduce((acc : Record<string, number>, item : Movie) =>{
                 if (item.year !== null) {
@@ -105,16 +112,13 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
             const result = listMovies.reduce( (acc : Record<string, number>, item : Movie) =>{
 
                 if (currentYear === item.created_at?.getFullYear()) {
-                    const month = item.created_at.toLocaleString('default', {month: 'long'});
-
+                    const month = item.created_at.toLocaleString('en-US', {month: 'long'});
                     acc[month] = (acc[month] || 0) + 1; 
                 }
-
                 return acc
             },{})
-
-           const sortedResult = sortNameByMonth(result);
-
+            
+            const sortedResult = sortNameByMonth(result);
             setCurrentYearOfMonth(currentYear);
             setMoviesByMonth(sortedResult);
         }
@@ -128,6 +132,7 @@ export const useStatistics = (listMovies : Movie[]) : UseStatistics =>{
         calculateMoviesByRating();
         calculateMoviesByDecade();
         calculateMoviesByMonth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [listMovies])
 
     return {moviesWatched, moviesToWatch, moviesPerYear, moviesByGenre, moviesByRating, moviesByDecade, moviesByMonth, currentYearOfMonth};

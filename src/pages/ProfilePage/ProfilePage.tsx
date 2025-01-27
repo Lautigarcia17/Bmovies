@@ -23,6 +23,7 @@ export function ProfilePage() {
             }
         }
         fetchSession();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [idSession])
 
 
@@ -42,7 +43,7 @@ export function ProfilePage() {
                             <h1 className={styles.titleCarousel}>MOVIES SEEN PER YEAR</h1>
                             <div className={styles.carouselBorder}>
                                 <Carousel>
-                                    {Object.entries(moviesPerYear as Record<number, number>).map(([year, count]) => (
+                                    {moviesPerYear.map(([year, count]: [string, number]) => (
                                         <Carousel.Item key={year} interval={3000}>
                                             <div className={styles.carouselItem}>
                                                 <h3>{year}</h3>
@@ -50,8 +51,6 @@ export function ProfilePage() {
                                             </div>
                                         </Carousel.Item>
                                     ))}
-
-
                                 </Carousel>
                             </div>
                         </div>

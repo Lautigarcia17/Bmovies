@@ -30,10 +30,10 @@ function ModalEdit ({ show, handleModalEdit,handleEdit, editData }: { show: bool
           <Modal.Body className={styles.modalBody}>
             <form className={styles.form}>
               <label htmlFor="rating">Rating</label>
-              <input type="number" min="1" max="10"  id="rating" defaultValue={editData.rating ?? ''}  className={styles.inputNumber} onKeyUp={(e)=> setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} />
+              <input autoComplete="off" type="number" min="1" max="10"  id="rating" defaultValue={editData.rating ?? ''}  className={styles.inputNumber} onKeyUp={(e)=> setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} />
 
               <label htmlFor="trailer">Trailer</label>
-              <input type="text" id='trailer' defaultValue={editData.trailer ?? ''} className={styles.inputText} onKeyUp={(e)=> setTrailer(e.currentTarget.value)}/>
+              <input autoComplete="off" type="text" id='trailer' defaultValue={editData.trailer ?? ''} className={styles.inputText} onKeyUp={(e)=> setTrailer(e.currentTarget.value)}/>
             </form>
           </Modal.Body>
           <Modal.Footer className={styles.modalFooter}>

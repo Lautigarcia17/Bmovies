@@ -33,7 +33,7 @@ function Login() {
     <>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="email">Email</label>
-        <input type="text" id="email" className={styles.inputText} {...register("email", {
+        <input autoComplete='off' type="text" id="email" className={styles.inputText} {...register("email", {
           required: true,
           pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/
         })} />

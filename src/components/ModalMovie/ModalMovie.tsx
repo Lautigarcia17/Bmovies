@@ -150,7 +150,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
 
 
                     {showSearchByTitle ? (
-                      <input type="text" className={styles.search} placeholder="By Title ..." id="movie-search-box" onKeyUp={findMovies} />
+                      <input type="text" className={styles.search} autoComplete="off" placeholder="By Title ..." id="movie-search-box" onKeyUp={findMovies} />
                     ) : (
                       <div className={styles.contentImdbId}>
                         <input value={imdbIDOption ?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />

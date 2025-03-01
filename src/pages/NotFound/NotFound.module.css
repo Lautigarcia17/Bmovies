@@ -1,0 +1,97 @@
+.containerNotFound{
+    width: 100%;
+    height: calc(100vh - 100px);
+    background-color: #060d17;
+}
+
+.contentNotFound{
+    width: 100%;
+    height: 100%;
+    display: flex
+;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textNotFound{
+    margin-top: 15em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0 3em;
+}
+
+.textNotFound h1{
+    font-size: 40px;
+    font-weight: 700;
+    color: #e2eaec;
+    margin: 0;
+    text-align: center;
+}
+
+.textNotFound h2{
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    color: #e2eaec;
+    margin: 0;
+}
+
+.textNotFound h2 .linkToBack{
+    display: inline-block;
+    color: #fde0d3;
+    text-decoration: none;
+}
+
+@media (max-width: 1200px) {
+    .textNotFound h1{
+        font-size: 35px;
+    }
+    .textNotFound h2{
+        font-size: 18px;
+        text-align: center;
+
+    }
+    .textNotFound{
+        margin-top: 10em;
+    }
+}
+
+@media (max-width: 992px) {
+    .textNotFound h1{
+        font-size: 30px;
+    }
+    .textNotFound h2{
+        font-size: 15px;
+    }
+    .textNotFound{
+        margin-top: 8em;
+    }
+}
+
+@media (max-width: 576px) {
+    .textNotFound{
+        padding: 0 1em;
+    }
+    .textNotFound h1{
+        font-size: 25px;
+    }
+    .textNotFound h2{
+        font-size: 12px;
+    }
+    .textNotFound{
+        margin-top: 5em;
+    }
+}
+
+
+@media (max-width: 420px) {
+    .textNotFound h1{
+        font-size: 20px;
+    }
+    .textNotFound h2{
+        font-size: 10px;
+    }
+}

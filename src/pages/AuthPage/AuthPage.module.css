@@ -1,88 +1,199 @@
-
-.container{
-    /* height: calc(100vh - 80px); */
-    height: calc(100vh - 100px);
-    width: 100%;
+.containerAuth {
+  /* height: calc(100vh - 80px); */
+  height: calc(100vh - 100px);
+  width: 100%;
+  background-color: var(--color-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.content {
-
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+.contentAuth {
+  max-width: 800px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
 }
-  
-    .header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 30px;
-        margin-top: 5%;
+
+.headerAuth {
+  margin: 8em 0 2em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.titleHeader {
+  color: var(--color-primary);
+  font-size: 60px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.subtitleHeader {
+  color: var(--color-light);
+  font-size: 22px;
+  font-weight: 200;
+  text-align: center;
+}
+
+
+
+.card {
+  width: 30%;
+  background-color: #514949;
+  padding: 30px;
+  border-radius: 31px;
+  border: 3px solid #e2eaec;
+  background-color: #1a1a1a;
+}
+
+/* FORM */
+
+.form {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+}
+
+label {
+  font-size: 22px;
+  color: #e2eaec;
+
+}
+
+.messageError {
+  font-size: 16px;
+  color: #c23939;
+  margin: 0;
+  height: 15px;
+  visibility: hidden;
+  font-weight: 200;
+  letter-spacing: 1.8px;
+}
+
+.messageError.visible {
+  visibility: visible;
+}
+
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 480px;
+  gap: 10px;
+  margin-bottom: 1em;
+}
+
+.textRedirect {
+  font-size: 20px;
+  color: white;
+  font-weight: 400;
+}
+
+.textRedirect button {
+  font-weight: 700;
+  background-color: transparent;
+  border: none;
+  color: white;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 2px solid transparent;
+}
+
+.textRedirect button:hover {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
+.bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+
+
+/*  */
+@media (max-width: 992px) {
+  .contentAuth{
+    width: 100%;
   }
-  
-    .titleHeader {
-      color: #FDE0D3;
-      font-weight: 900;
-      font-size: 55px;
-      text-transform: uppercase;
-    }
-  
-  
-    .card {
-      width: 30%;
-      background-color: #514949;
-      padding: 30px;
-      border-radius: 31px;
-      border: 3px solid #e2eaec;
-      background-color: #1a1a1a;
-   }
-    
-  .btnSwitch{
-    height: 50px;
-    border-radius: 30px;
-    background: transparent;
-    margin-left: 20px;
+  .titleHeader {
+    font-size: 50px;
   }
 
-  .btnSwitch:hover{
-    border: 1px solid #e2eaec;
+  .subtitleHeader {
+    font-size: 18px;
+  }
+  .textRedirect{
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .titleHeader {
+    font-size: 35px;
   }
 
-  .iconAuth{
-    width: 40px;
-    height: 40px;
+  .subtitleHeader {
+    font-size: 15px;
   }
- 
-    @media (max-width: 1200px) {
-      .card{
-        width: 60%;
-      }
-    }
-  
-    @media (max-width: 750px) {
-      .card{
-        border-radius: 20px;
-  
-      }
-    }
-  
-    @media (max-width: 450px) {
+  .headerAuth{
+    margin: 6em 0 0 0;
+  }
+  .inputs{
+    margin-bottom: 0;
+  }
+  .textRedirect{
+    font-size: 12px;
+  }
+}
 
-      .card{
-        width: 80%;
-      }
+@media (max-width: 420px) {
+  .titleHeader {
+    font-size: 30px;
+  }
 
-      .titleHeader{
-        font-size: 28px;
-      }
+  .subtitleHeader {
+    font-size: 12px;
+  }
+  .headerAuth{
+    margin: 0;
+  }
 
-      .iconAuth{
-        height: 25px;
-        width: 25px;
-      }
-      .btnSwitch{
-        height: 40px;
-      }
-    }
+  .textRedirect{
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 320px) {
+  .titleHeader {
+    font-size: 25px;
+  }
+
+  .subtitleHeader {
+    font-size: 10px;
+  }
+
+  .textRedirect{
+    font-size: 8px;
+  }
+}

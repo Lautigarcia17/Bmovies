@@ -11,7 +11,7 @@ export const useAuth = () : UseAuthReturn => {
   const [userData,setUserData] = useState<UserMetadata>();
   const [loadingSession, setLoadingSession] = useState<boolean>(true);
   const { register, formState: { errors }, reset, handleSubmit } = useForm({
-    mode: 'onChange'
+    mode: 'onSubmit'
   });
 
   const signIn = async (dataUser: UserLogin): Promise<AuthResponse> => {

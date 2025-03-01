@@ -10,7 +10,7 @@ export const useAuth = () : UseAuthReturn => {
   const [idSession,setIdSession] = useState<string | null | undefined>();
   const [userData,setUserData] = useState<UserMetadata>();
   const [loadingSession, setLoadingSession] = useState<boolean>(true);
-  const { register, formState: { errors }, reset, handleSubmit } = useForm({
+  const { register, formState: { errors }, reset, handleSubmit,watch } = useForm({
     mode: 'onSubmit'
   });
 
@@ -97,7 +97,7 @@ export const useAuth = () : UseAuthReturn => {
     loadSession();
   }, []);
 
-  return { idSession, userData,loadingSession,signIn, signUp,signOut, register, handleSubmit, errors, reset }
+  return { idSession, userData,loadingSession,signIn, signUp,signOut, register, handleSubmit, errors, reset, watch }
 }
 
  

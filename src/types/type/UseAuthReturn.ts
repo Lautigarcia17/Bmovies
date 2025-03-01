@@ -1,6 +1,6 @@
 import { AuthResponse, UserMetadata } from "@supabase/supabase-js"
 import {  UserLogin, UserRegister } from "../interface"
-import { FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister, UseFormReset } from "react-hook-form"
+import { FieldErrors, FieldValues, UseFormHandleSubmit, UseFormRegister, UseFormReset, UseFormWatch } from "react-hook-form"
 
 export type UseAuthReturn = {
     idSession: string | null | undefined,
@@ -12,5 +12,6 @@ export type UseAuthReturn = {
     register: UseFormRegister<FieldValues>,
     handleSubmit: UseFormHandleSubmit<FieldValues, undefined>,
     errors: FieldErrors<FieldValues>,
-    reset: UseFormReset<FieldValues>
+    reset: UseFormReset<FieldValues>,
+    watch: UseFormWatch<FieldValues>
 }

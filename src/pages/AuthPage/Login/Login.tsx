@@ -3,19 +3,21 @@ import { toast } from 'react-hot-toast'
 import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useEnterClick } from '../../../hooks/useEnterClick';
-import { Box, Button, createTheme, TextField, ThemeProvider } from '@mui/material';
+import { Box, Button, createTheme, IconButton, InputAdornment, TextField, ThemeProvider } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import SendIcon from '@mui/icons-material/Send';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAction<boolean>> }) {
 
-  const { signIn, register, handleSubmit, errors } = useGenericContext(authContext)
-
+  const { signIn, register, handleSubmit, errors,watch } = useGenericContext(authContext)
   const navigate: NavigateFunction = useNavigate()
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const passwordValue = watch("password");
 
   useEnterClick(containerRef);
 
@@ -134,8 +136,17 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
               <TextField
                 label="Password"
                 variant="standard"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 style={{ width: "100%" }}
+                InputProps={{
+                  endAdornment: passwordValue && (
+                    <InputAdornment position="end">
+                      <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                        {showPassword ? <VisibilityOff sx={{ fontSize: "20px" }} /> : <Visibility sx={{ fontSize: "20px" }} />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
                 {...register("password", {
                   required: true,
                   pattern: /^[^\s]+$/,

@@ -13,10 +13,10 @@
 
 .card {
     display: flex;
-    width: 45%;
+    width: 60%;
     border-radius: 25px;
-    border: 4px solid #F05454;
-    background-color: #1a1a1a;
+    border: 1px solid #1d1d1d;
+    /* background-color: #1a1a1a; */
     position: relative;
 }
 
@@ -36,7 +36,7 @@
     color: #e2eaec;
 }
 
-.contentTitle{
+.contentTitle {
     display: flex;
     align-items: center;
     width: 100%;
@@ -46,7 +46,7 @@
 .titleMovie {
     font-weight: 400;
     font-size: 35px;
-    color: #F05454;
+    color: #bee8e8;
 }
 
 
@@ -67,7 +67,7 @@
 
 
 
-.data{
+.data {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -77,19 +77,20 @@
     align-items: start;
 }
 
-.data Label{
+.data Label {
     text-transform: uppercase;
     font-size: 16px;
-    color: #F05454;
+    color: #bee8e8;
     font-weight: 700;
 }
-.data p{
+
+.data p {
     font-size: 14px;
 }
 
 
 
-.movieDetails{
+.movieDetails {
     margin-top: 20px;
     padding-top: 20px;
     border-top: 1px solid #1c252f;
@@ -103,13 +104,13 @@
 }
 
 .trailerSection label {
-    color: #F05454;
+    color: #bee8e8;
     font-size: 18px;
     margin-right: 10px;
     font-weight: 700;
 }
 
-.icon{
+.icon {
     width: 35px;
     height: 35px;
 }
@@ -124,24 +125,24 @@
 }
 
 
-.ratingRed{
+.ratingRed {
     background-color: #a61d24;
 }
 
-.ratingYellow{
+.ratingYellow {
     background-color: #c5c535bf;
 
 }
 
-.ratingGreen{
+.ratingGreen {
     background-color: #4cb518;
 }
 
-.spinner{
+.spinner {
     height: 100%;
 }
 
-.actions{
+.actions {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -154,30 +155,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .confirmButtons {
+}
+
+.confirmButtons {
     display: flex;
     gap: 10px;
     margin-top: 10px;
-  }
-  
-  .confirmButton {
+}
+
+.confirmButton {
     padding: 5px 10px;
     border: none;
     cursor: pointer;
-  }
-  
-  .confirmButton:hover {
+}
+
+.confirmButton:hover {
     background-color: #aaa6d3;
-  }
+}
 
 
 @media (max-width: 1550px) {
     .card {
         width: 65%;
     }
-    .rating{
+
+    .rating {
         width: 45px;
         height: 45px;
         right: 20px
@@ -191,12 +193,13 @@
     .card {
         width: 90%;
     }
-    .rating{
+
+    .rating {
         right: 20px
     }
 
 
-    .moviePoster{
+    .moviePoster {
         height: 200px;
     }
 
@@ -204,44 +207,48 @@
         font-size: 15px;
     }
 
-    .titleMovie{
-        font-size: 28px; 
-    }
-    .movieDetails{
-        margin-top: 10px;
-        padding-top: 10px;   
+    .titleMovie {
+        font-size: 28px;
     }
 
-    .trailerSection{
+    .movieDetails {
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+
+    .trailerSection {
         margin-bottom: 0px;
     }
 
-    .data label{
+    .data label {
         font-size: 16px;
     }
-    .data p{
+
+    .data p {
         font-size: 12px;
     }
 
-    .actions{
+    .actions {
         margin: 10px 0px 0px 20px;
     }
 
 }
 
 @media (max-width: 600px) {
-    .card{
+    .card {
         flex-direction: column-reverse;
     }
-    .icon{
+
+    .icon {
         width: 25px;
         height: 25px;
     }
 
-    .movie{
+    .movie {
         padding: 5px 20px;
     }
-    .moviePoster{
+
+    .moviePoster {
         padding: 0px;
         border-radius: 0px;
         height: 140px;
@@ -251,24 +258,26 @@
         font-size: 12px;
     }
 
-    .titleMovie{
-        font-size: 20px; 
+    .titleMovie {
+        font-size: 20px;
         margin-top: 5px;
     }
 
 
-    .data{
+    .data {
         gap: 5px;
     }
-    .data label{
+
+    .data label {
         font-size: 12px;
     }
-    .data p{
+
+    .data p {
         font-size: 10px;
         margin-bottom: 0px;
     }
 
-    .rating{
+    .rating {
         width: 35px;
         height: 35px;
         font-size: 14px;

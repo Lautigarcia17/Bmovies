@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 import styles from './MovieDetails.module.css'
-import {  useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import DropdownDetail from '../DropdownDetail/DropdownDetail'
@@ -10,53 +10,53 @@ import { movieContext } from '../../context/MovieContext'
 import { useGenericContext } from '../../hooks/useGenericContext'
 
 
-function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispatch<React.SetStateAction<Movie | null>>}) {
+function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispatch<React.SetStateAction<Movie | null>> }) {
 
-    const {removeMovie,modifyMovie} = useGenericContext(movieContext)
+    const { removeMovie, modifyMovie } = useGenericContext(movieContext)
     const navigate = useNavigate();
-    const [showEdit,setShowEdit] = useState<boolean>(false);
+    const [showEdit, setShowEdit] = useState<boolean>(false);
     const colour = classNames(styles.rating, {
         [styles.ratingRed]: movie && parseFloat(movie.rating?.toString() || '0') < 5,
         [styles.ratingYellow]: movie && parseFloat(movie.rating?.toString() || '0') >= 5 && parseFloat(movie.rating?.toString() || '0') < 6,
         [styles.ratingGreen]: movie && parseFloat(movie.rating?.toString() || '0') >= 6,
     })
-    const editData : MovieEdit = {
-        rating : movie.rating ?? null,
-        trailer : movie.trailer ?? null,
+    const editData: MovieEdit = {
+        rating: movie.rating ?? null,
+        trailer: movie.trailer ?? null,
     };
 
 
 
-    const handleModalEdit= ()=>{
+    const handleModalEdit = () => {
         setShowEdit(!showEdit);
     }
 
 
-    const handleRemove = async ()=>{
+    const handleRemove = async () => {
         try {
-            if(movie.id != ''){
+            if (movie.id != '') {
                 const response = await removeMovie(movie.id ?? '')
-    
-                if(response && response.error){
-                    toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 2000 })     
+
+                if (response && response.error) {
+                    toast.error(`Error! the movie was not removed`, { position: 'top-right', duration: 2000 })
                 }
-                else{
+                else {
                     toast.success(`Congratulations! removed movie`, { position: 'top-right', duration: 2000 })
                     navigate('/');
                 }
             }
-        } catch (error:any) {
-            console.log(error);   
+        } catch (error: any) {
+            console.log(error);
             toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 2000 });
         }
     }
 
 
 
-    const handleEdit = async (rating: number | null, trailer: string, isNewMovie : boolean)  => {
+    const handleEdit = async (rating: number | null, trailer: string, isNewMovie: boolean) => {
         try {
-            if(movie.id !== ''){
-                const response = await modifyMovie(movie.id ?? '',rating,trailer,isNewMovie);
+            if (movie.id !== '') {
+                const response = await modifyMovie(movie.id ?? '', rating, trailer, isNewMovie);
 
                 if (response && response.data) {
                     toast.success(`Congratulations! Movie updated successfully`, { position: 'top-right', duration: 2000 });
@@ -66,7 +66,7 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
                 }
 
             }
-        } catch (error:any) {
+        } catch (error: any) {
             console.error('Update failed:', error);
             toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 2000 });
         }
@@ -143,9 +143,23 @@ function MovieDetails( {movie, setMovie} : {movie:Movie, setMovie : React.Dispat
                         )}
                  
                     </div>
-                    
                 </div>
             </div>
+
+            {/* <div className={styles.container} style={{ backgroundImage: `url(${movie.poster})` }}>
+                <div className={styles.overlay}></div>
+                <div className={styles.contentDetail}>
+                    <h1 className={styles.title}>{movie.title}</h1>
+                    <p className={styles.year}>{movie.year} · {movie.genre}</p>
+                    <p className={styles.director}>Dirigida por: <span>{movie.director}</span></p>
+                    <p className={styles.cast}>Protagonistas: <span>{movie.actors}</span></p>
+                    <p className={styles.description}>{movie.plot}</p>
+                    <button className={styles.trailerButton}>Ver Tráiler</button>
+                </div>
+
+                <div className={styles.rating}>{movie.rating}/10</div>
+            </div> */}
+
         </>
     )
 }

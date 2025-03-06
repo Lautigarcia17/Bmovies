@@ -1,4 +1,4 @@
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, useMatch, useNavigate } from 'react-router-dom'
 import styles from './NavBar.module.css'
 import logo from '../../assets/Bmovie.png'
 import { authContext } from '../../context/AuthContext'
@@ -17,6 +17,8 @@ function NavBar() {
     const location = useLocation();
     const navigate = useNavigate();
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [isPageDetails, setIsPageDetails] = useState(false);
+    const match = !!useMatch("/details/*");
 
     const handleLogout = async () => {
         await signOut();
@@ -65,11 +67,14 @@ function NavBar() {
         }
     }
 
+    useEffect(()=>{
+        setIsPageDetails(match);
+    },[match])
 
 
     return (
         <>
-            <div className={`${styles.content} ${isScrolled ? styles.bgScroll : styles.bgTransparent}`}>
+            <div className={`${styles.content} ${isScrolled || isPageDetails ? styles.bgScroll : styles.bgTransparent}`}>
                 {idSession && (
                     <>
 

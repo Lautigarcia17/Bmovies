@@ -2,7 +2,7 @@
     background-color: transparent !important;
     color: #e2eaec !important;
     border: none;
-    font-size: 18px;
+    font-size: 20px;
     outline: none ;
     box-shadow: none ;
     border: 1px dotted transparent !important; 
@@ -50,12 +50,27 @@
 }
 
 
-@media (max-width: 1000px) {
+@media (max-width: 992px) {
     .customMenu{
         padding: 0px;
     }
 
     .customItem{
         font-size: 14px;
+    }
+}
+
+@media (max-width: 420px) {
+    .customToggle{
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 320px) {
+    .customToggle{
+        font-size: 12px;
+    }
+    .customItem{
+        font-size: 12px;
     }
 }

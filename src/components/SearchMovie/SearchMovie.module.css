@@ -15,7 +15,7 @@
 .elementScroll{
     width: 365px;
     position: absolute;
-    top: 20px;
+    top: 30px;
     z-index: 999;
 }
 
@@ -69,8 +69,8 @@
         width: 315px;
     }
     .elementScroll{
-        width: 205px;
-        top: 28px;
+        width: 280px;
+        top: 35px;
     }
 
     .iconWrapper{
@@ -91,5 +91,43 @@
     }
     .withoutMovie h1 {
         font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .icon{
+        width: 12px;
+        height: 12px;
+    }
+    .elementScroll{
+        width: 240px;
+        top: 18px;
+    }
+    .search{
+        height: 30px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 420px) {
+    .icon{
+        width: 10px;
+        height: 10px;
+    }
+    .elementScroll{
+        width: 190px;
+    }
+    .search{
+        height: 30px;
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 320px) {
+    .search{
+        padding: 6px 0px 6px 35px;
+    }
+    .elementScroll{
+        width: 170px;
     }
 }

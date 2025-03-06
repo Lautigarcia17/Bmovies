@@ -8,3 +8,16 @@
     height: 100%;
     text-align: center;
 }
+
+
+@media (max-width: 576px) {
+    .content{
+        height: calc(100vh - 80px);
+    }
+}
+
+@media (max-width: 420px) {
+    .content{
+        height: calc(100vh - 65px);
+    }
+}

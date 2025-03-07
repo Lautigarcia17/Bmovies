@@ -8,7 +8,7 @@ import { Movie } from "../../types/interface";
 import { movieContext } from "../../context/MovieContext";
 import { authContext } from "../../context/AuthContext";
 import { useGenericContext } from "../../hooks/useGenericContext";
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
@@ -30,6 +30,15 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
     setMovies([]);
   };
 
+  const handleFindMovie = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    findMovies(e.currentTarget.value)
+  }
+  const handleFindMovieById = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (imdbIDOption) {
+      findMovieById(imdbIDOption)
+    }
+  }
 
 
   const handleSave = async () => {
@@ -70,6 +79,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
     setShowSearchByTitle(state)
     setMovies([]);
     setImdbIDOption('');
+    setSelectedMovie(null)
   }
 
 
@@ -123,7 +133,10 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                         <h3>{selectedMovie.title}</h3>
                         <p>{selectedMovie.year}</p>
                       </div>
-                      <button className={styles.closeButton} onClick={() => setSelectedMovie(null)}>
+                      <button className={styles.closeButton} onClick={(e) => {
+                        e.preventDefault(); // Previene la acción predeterminada
+                        handleViewOption(showSearchByTitle); // Llama a la función handleViewOption
+                      }}>
                         &times; {/* Cruz */}
                       </button>
                     </div>
@@ -140,32 +153,39 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                   <div className={styles.searchList}>
                     <label className={styles.label}> Select Movie :</label>
                     <div className={styles.radioButtons}>
-                      <input type="radio" id="excelent" name="search" value="Title" onClick={() => handleViewOption(true)} defaultChecked />
+                      <input type="radio" id="excelent" name="search" value="Title" onChange={() => handleViewOption(true)} checked={showSearchByTitle} />
                       <label htmlFor="excelent">Title</label>
 
-                      <input type="radio" id="good" name="search" value="good" onClick={() => handleViewOption(false)} />
+                      <input type="radio" id="good" name="search" value="good" onChange={() => handleViewOption(false)} checked={!showSearchByTitle}/>
                       <label htmlFor="good">IMDb ID</label>
                     </div>
 
 
 
                     {showSearchByTitle ? (
-                      <input type="text" className={styles.search} autoComplete="off" placeholder="By Title ..." id="movie-search-box" onKeyUp={findMovies} />
-                    ) : (
-                      <div className={styles.contentImdbId}>
-                        <input value={imdbIDOption ?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />
-                        <button className={styles.btnSearch} onClick={(e) => findMovieById(e, imdbIDOption)}>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" fillRule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
-                        </button>
-                      </div>
-                    )
+                      <input type="text" className={styles.search} autoComplete="off" placeholder="By Title ..." id="movie-search-box" onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => handleFindMovie(e)} />
+                      ) : (
+                        <div className={styles.contentImdbId}>
+                          <input value={imdbIDOption ?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />
+                          <button className={styles.btnSearch} onClick={(e) => handleFindMovieById(e)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" fillRule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
+                          </button>
+                        </div>
+                      )
                     }
 
                     <div className={styles.contentList}>
                       {movies.map((movie: Movie, index: number) => (
                         <div key={index} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
                           <div className={styles.searchItemThumbnail}>
-                            <img src={movie.poster} alt={movie.title} />
+
+                            <LazyLoadImage
+                              src={movie.poster}
+                              alt={movie.title}
+                              effect='opacity'>
+                            </LazyLoadImage>
+
+
                           </div>
                           <div className={styles.searchItemInfo}>
                             <h3>{movie.title}</h3>

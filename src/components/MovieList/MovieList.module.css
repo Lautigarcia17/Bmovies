@@ -60,9 +60,9 @@ a {
 .overlayRating {
     position: absolute;
     bottom: 0;
-    right: 0;
+    left: 0;
     background-color: #000000;
-    border-radius: 18px 0px 10px 0px;
+    border-radius: 0px 10px 0px 10px;
     width: 50px;
     height: 50px;
     display: flex;
@@ -113,20 +113,17 @@ a {
 }
 
 .ratingRed {
-    border-left: 2px solid #ff3e26;
-    border-top: 2px solid #ff3e26;
+    border-bottom: 2px solid #ff3e26;
     color: #ff3e26;
 }
 
 .ratingYellow {
-    border-left: 2px solid #ffc226;
-    border-top: 2px solid #ffc226;
+    border-bottom: 2px solid #ffc226;
     color: #ffc226;
 }
 
 .ratingGreen {
-    border-left: 2px solid #26ff3e;
-    border-top: 2px solid #26ff3e;
+    border-bottom: 2px solid #26ff3e;
     color: #26ff3e;
 }
 

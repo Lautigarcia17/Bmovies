@@ -1,38 +1,53 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { UseMovieApiReturn } from "../types/type";
 import { Movie } from "../types/interface";
 import { getFullMovie, getMovieId, getMovieSearch } from "../services/api";
+import { normalizeSearchTerm } from "../utilities/normalizeSearchTerm";
 
 
-export const useMovieApi = (): UseMovieApiReturn=> {
+export const useMovieApi = (): UseMovieApiReturn => {
 
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [lastSearch, setLastSearch] = useState<string>('');
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null); // DEBOUNCE
 
-  const findMovies = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 
-    if (e.currentTarget.value != '') {
-      try {
-        const response = await getMovieSearch(e.currentTarget.value);
-        if (response.data && response.data.Search) {
-          const arrayMovies: Movie[] = response.data.Search.map((data: any) => ({
-            poster: data.Poster,
-            title: data.Title,
-            year: data.Year,
-            imdbID: data.imdbID
-          }))
-          setMovies(arrayMovies);
-        }
-      } catch (error) {
-        throw new Error('Error fetching movie data');
+  const findMovies = async (characterSearch: string) => {
+    if (characterSearch != '') {
+      const normalizedSearch = normalizeSearchTerm(characterSearch);
+      if (normalizedSearch === lastSearch) { //No repeat the same query
+        return;
       }
+      setLastSearch(normalizedSearch);
+
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(async () => {
+        try {
+          const response = await getMovieSearch(normalizedSearch);
+          if (response.data && response.data.Search) {
+            const arrayMovies: Movie[] = response.data.Search.map((data: any) => ({
+              poster: data.Poster,
+              title: data.Title,
+              year: data.Year,
+              imdbID: data.imdbID
+            }))
+            setMovies(arrayMovies);
+          }
+        } catch (error) {
+          throw new Error('Error fetching movie data');
+        }
+      }, 750);
+
     }
     else {
       setMovies([]);
     }
+
   }
 
-  const findMovieById = async (e: React.MouseEvent<HTMLButtonElement>, imdbIDOption: string) => {
-    e.preventDefault();
+  const findMovieById = async (imdbIDOption: string) => {
     if (imdbIDOption != '') {
       try {
         const response = await getMovieId(imdbIDOption)

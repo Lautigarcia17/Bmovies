@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-export function ProfilePage() {
+function ProfilePage() {
 
     const { userData } = useGenericContext(authContext);
     const { listMovies } = useGenericContext(movieContext)
@@ -126,3 +126,5 @@ export function ProfilePage() {
         </>
     )
 }
+
+export default ProfilePage

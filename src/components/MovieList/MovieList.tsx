@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom'
 import { Movie } from '../../types/interface'
 import styles from './MovieList.module.css'
 import classNames from 'classnames'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 
 function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
 
-    const getColourRating = (rating : number)=>{
+    const getColourRating = (rating: number) => {
         return classNames(styles.overlayRating, {
             [styles.ratingRed]: rating && parseFloat(rating?.toString() || '0') < 5,
             [styles.ratingYellow]: rating && parseFloat(rating?.toString() || '0') >= 5 && parseFloat(rating?.toString() || '0') < 6,
@@ -26,11 +28,17 @@ function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
                                     movieToDisplay.map((movie: Movie) => (
                                         <Link to={`details/${movie.id}`} key={movie.id} className={styles.movieItem}>
                                             <div className={styles.imageContainer}>
-                                                <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
+                                                <LazyLoadImage 
+                                                    src={movie.poster} 
+                                                    alt={movie.title} 
+                                                    className={styles.moviePoster} 
+                                                    wrapperClassName={styles.moviePoster} 
+                                                    effect='opacity'>
+                                                </LazyLoadImage>
 
                                             </div>
                                             <div className={styles.details}>
-                                            <h2 className={styles.titleMovie}>{movie.title}</h2>
+                                                <h2 className={styles.titleMovie}>{movie.title}</h2>
                                                 {movie.genre && (
                                                     <p className={styles.dataMovie}>{movie.genre}</p>
                                                 )}
@@ -38,9 +46,9 @@ function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
                                                     <p className={styles.dataMovie}>{movie.created_at?.getFullYear()}</p>
                                                 )}
                                             </div>
-                                            {movie.rating  && 
-                                                    <div className={getColourRating(movie.rating)}>{movie.rating}</div>
-                                                }
+                                            {movie.rating &&
+                                                <div className={getColourRating(movie.rating)}>{movie.rating}</div>
+                                            }
                                         </Link>
                                     ))
                                 ) :

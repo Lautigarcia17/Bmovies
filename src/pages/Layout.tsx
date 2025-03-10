@@ -1,9 +1,9 @@
 
-import NavBar from '../../components/NavBar/NavBar';
+import NavBar from '../components/NavBar/NavBar';
 import styles from './Layout.module.css'
 import { Outlet, useLocation } from 'react-router-dom';
-import { useGenericContext } from '../../hooks/useGenericContext';
-import { scrollContext } from '../../context/ScrollContext';
+import { useGenericContext } from '../hooks/useGenericContext';
+import { scrollContext } from '../context/ScrollContext';
 import { useEffect } from 'react';
 
 

@@ -1,5 +1,5 @@
 import { Routes, Route} from 'react-router-dom'
-import Layout from './pages/Layout/Layout'
+import Layout from './pages/Layout'
 import { Toaster } from 'react-hot-toast';
 import MovieProvider from './context/MovieContext';
 import AuthProvider from './context/AuthContext';

@@ -3,11 +3,12 @@ import styles from './MovieDetails.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
-import DropdownDetail from '../DropdownDetail/DropdownDetail'
-import ModalEdit from '../ModalEdit/ModalEdit'
-import { Movie, MovieEdit } from '../../types/interface'
-import { movieContext } from '../../context/MovieContext'
-import { useGenericContext } from '../../hooks/useGenericContext'
+import { useGenericContext } from '../../../hooks/useGenericContext'
+import { movieContext } from '../../../context/MovieContext'
+import { Movie, MovieEdit } from '../../../types/interface'
+import DropdownDetail from '../../../components/DropdownDetail/DropdownDetail'
+import ModalEdit from '../../../components/ModalEdit/ModalEdit'
+
 
 
 function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispatch<React.SetStateAction<Movie | null>> }) {

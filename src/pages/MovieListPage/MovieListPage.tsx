@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
 import ModalMovie from '../../components/ModalMovie/ModalMovie';
-import MovieList from '../../components/MovieList/MovieList';
+import MovieList from './MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
 import { authContext } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';

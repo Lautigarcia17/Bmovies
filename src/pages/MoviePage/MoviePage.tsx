@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import MovieDetails from '../../components/MovieDetails/MovieDetails'
 import { useMovieById } from '../../hooks/useMovieById'
 import styles from './MoviePage.module.css'
 import { useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import toast from 'react-hot-toast';
+import MovieDetails from './MovieDetails/MovieDetails';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();

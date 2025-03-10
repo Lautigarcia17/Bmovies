@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Movie } from '../../types/interface'
+import { Movie } from '../../../types/interface'
 import styles from './MovieList.module.css'
 import classNames from 'classnames'
 import { LazyLoadImage } from 'react-lazy-load-image-component';

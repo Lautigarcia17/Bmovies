@@ -22,7 +22,8 @@ function MoviePage() {
 
     return (
         <>
-            <div className={styles.content}>
+        <div className={styles.container}>
+        <div className={styles.content}>
                 {loading ? (
                     <div className={styles.spinner}>
                         <Spinner animation="border" variant="light" />
@@ -32,6 +33,8 @@ function MoviePage() {
                     )
                 }
             </div>
+        </div>
+
         </>
     )
 }

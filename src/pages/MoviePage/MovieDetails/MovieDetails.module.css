@@ -355,7 +355,7 @@
         background-size: 30%;
     }
     .imageSection{
-        padding: 10px 0 0 0;
+        padding: 5px 0 0 0;
     }
     .moviePoster {
         max-height: 200px;
@@ -381,7 +381,7 @@
         font-size: 20px;
     }
     .movieDetails{
-        gap: 10px;
+        gap: 5px;
     }
     .data p{
         font-size: 8px;

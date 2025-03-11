@@ -14,9 +14,6 @@ function MovieListPage() {
     const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery, search } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
 
-
-
-
     return (
         <>
             <div className={styles.content}>

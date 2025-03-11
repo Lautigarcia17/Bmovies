@@ -1,6 +1,5 @@
 import styles from '../AuthPage.module.css'
 import { toast } from 'react-hot-toast'
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
 import { useRef, useState } from 'react';
@@ -13,7 +12,6 @@ import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined
 import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
 
 function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const navigate: NavigateFunction = useNavigate();
 
   const { signUp, register, handleSubmit, errors } = useGenericContext(authContext)
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,7 +29,6 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
         toast.error(error.message, { position: 'top-right', duration: 2000 });
       } else {
         toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 2000 });
-        navigate('/');
       }
     }
   };

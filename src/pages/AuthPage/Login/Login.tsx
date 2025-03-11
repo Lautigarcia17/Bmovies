@@ -1,6 +1,5 @@
 import styles from '../AuthPage.module.css'
 import { toast } from 'react-hot-toast'
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
 import { useRef, useState } from 'react';
@@ -13,8 +12,8 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAction<boolean>> }) {
 
-  const { signIn, register, handleSubmit, errors,watch } = useGenericContext(authContext)
-  const navigate: NavigateFunction = useNavigate()
+  const { signIn, register, handleSubmit, errors, watch } = useGenericContext(authContext)
+
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const passwordValue = watch("password");
@@ -29,7 +28,6 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
     }
     else {
       toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 2000 })
-      navigate('/')
     }
   }
 
@@ -190,7 +188,6 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
           }}>
             Log In
           </Button>
-
           <h1 className={styles.textRedirect}>Don't have an account? <button type='button' onClick={() => setShowLogin(false)}>Sign Up</button></h1>
         </div>
       </form>

@@ -10,6 +10,7 @@ export default function AuthProvider({children} : {children:ReactNode}){
     const {idSession,userData, loadingSession, signIn, signUp, signOut,register, handleSubmit, errors,reset, watch } = useAuth();
 
 
+
     return(
         <authContext.Provider value={{idSession,userData, loadingSession, signIn, signUp, signOut, register, handleSubmit, errors,reset, watch }}>
             {children}

@@ -21,7 +21,7 @@ function NavBar() {
     const match = !!useMatch("/details/*");
 
     const handleLogout = async () => {
-        await signOut();
+        signOut();
         toast.success(`You have logged out, see you later !!`, { position: 'top-right', duration: 2000 })
     }
     useEffect(() => {

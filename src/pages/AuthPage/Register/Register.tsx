@@ -17,9 +17,9 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
 
   const { signUp, register, handleSubmit, errors } = useGenericContext(authContext)
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  useEnterClick(containerRef);
+  useEnterClick(buttonRef);
 
   const onSubmit = async (dataUser: any) => {
     if (dataUser !== null && !isSubmitting) {
@@ -65,7 +65,8 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
               borderBottom: '2px solid #525759',
             },
             ['@media (max-width:450px)']: {
-              width: '200px'
+              width: '200px',
+              fontSize: '15px'
             }
           },
         },
@@ -84,10 +85,12 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
             },
             ['@media (max-width:450px)']: {
               fontSize: '15px',
+              transform: 'translate(0, 5px) scale(1)',
               '& + .MuiInput-root': {
                 marginTop: '0px', // Elimina el margin-top cuando la pantalla es menor a 576px
               },
             }
+            
           },
         },
       },
@@ -190,7 +193,7 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
         </ThemeProvider>
         <div className={styles.bottom}>
 
-        <Button type='submit' size='large' variant="contained" endIcon={<SendIcon
+        <Button ref={buttonRef} type='submit' size='large' variant="contained" endIcon={<SendIcon
             sx={(theme) => ({
               fontSize: '20px !important', // Tamaño base
               [theme.breakpoints.up('sm')]: {

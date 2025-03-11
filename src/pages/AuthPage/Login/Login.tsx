@@ -15,11 +15,11 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
 
   const { signIn, register, handleSubmit, errors,watch } = useGenericContext(authContext)
   const navigate: NavigateFunction = useNavigate()
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const passwordValue = watch("password");
 
-  useEnterClick(containerRef);
+  useEnterClick(buttonRef);
 
   const onSubmit = async (dataUser: any) => {
     const { data, error } = await signIn(dataUser);
@@ -62,7 +62,8 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
               borderBottom: '2px solid #525759',
             },
             ['@media (max-width:450px)']: {
-              width: '200px'
+              width: '200px',
+              fontSize: '15px'
             }
           },
         },
@@ -84,7 +85,10 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
               '& + .MuiInput-root': {
                 marginTop: '0px', // Elimina el margin-top cuando la pantalla es menor a 576px
               },
-            }
+            },
+            ['@media (max-width:450px)']: {
+              transform: 'translate(0, 5px) scale(1)',
+            },
           },
         },
       },
@@ -162,7 +166,7 @@ function Login({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAc
         </ThemeProvider>
         <div className={styles.bottom}>
 
-          <Button type='submit' size='large' variant="contained" endIcon={<SendIcon
+          <Button ref={buttonRef} type='submit' size='large' variant="contained" endIcon={<SendIcon
             sx={(theme) => ({
               fontSize: '20px !important', // Tamaño base
               [theme.breakpoints.up('sm')]: {

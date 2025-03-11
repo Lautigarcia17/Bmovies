@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 
 function Layout() {
   const { scrollRef, setScrollPosition } = useGenericContext(scrollContext);
-  // const { scrollRef, scrollPosition, setScrollPosition } = useGenericContext(scrollContext);
   const location = useLocation();
 
   useEffect(() => {
@@ -32,15 +31,6 @@ function Layout() {
   }, [location, scrollRef, setScrollPosition]);
 
 
-  // useEffect(() => {
-
-  //   if (scrollRef.current && location.pathname === '/') {
-  //     scrollRef.current.scrollTo({
-  //       top: scrollPosition,
-  //       behavior: 'auto'
-  //     });
-  //   }
-  // }, [location])
 
 
   return (

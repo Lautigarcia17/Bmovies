@@ -1,4 +1,4 @@
-import { Routes, Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './pages/Layout'
 import { Toaster } from 'react-hot-toast';
 import MovieProvider from './context/MovieContext';
@@ -8,7 +8,8 @@ import { Suspense } from 'react';
 import { MovieListPage, MoviePage, ProfilePage } from './lazyRoutes';
 import AuthPage from './pages/AuthPage/AuthPage';
 import NotFound from './pages/NotFound/NotFound';
-import { Spinner } from 'react-bootstrap';
+import ProtectedRoute from './ProtectedRoute';
+import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
 
 
 function App() {
@@ -17,19 +18,23 @@ function App() {
       <AuthProvider>
         <ScrollProvider>
           <MovieProvider>
-            <Suspense fallback={
-              <div style={{width:'100%', display:'flex', justifyContent:'center', alignItems:'center', marginTop: '4em'}}>
-                <Spinner animation="border" variant="light" />
-
-              </div>
-              
-              }>
+            <Suspense
+              fallback={<LoadingSpinner/>}
+            >
               <Routes>
                 <Route path="/" element={<Layout />}>
-                  <Route index element={<MovieListPage />} />
-                  <Route path="details/:idMovie" element={<MoviePage />} />
-                  <Route path="auth" element={<AuthPage />} />
-                  <Route path="profile" element={<ProfilePage />} />
+                  {/* Protected routes */}
+                  <Route element={<ProtectedRoute redirectTo="/auth" requireAuth={true} />}>
+                    <Route index element={<MovieListPage />} />
+                    <Route path="details/:idMovie" element={<MoviePage />} />
+                    <Route path="profile" element={<ProfilePage />} />
+                  </Route>
+
+                  {/* Authentication path (non-authentication) */}
+                  <Route element={<ProtectedRoute redirectTo="/" requireAuth={false} />}>
+                    <Route path="auth" element={<AuthPage />} />
+                  </Route>
+
                   <Route path="*" element={<NotFound />} />
                 </Route>
               </Routes>

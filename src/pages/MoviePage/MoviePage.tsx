@@ -2,9 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useMovieById } from '../../hooks/useMovieById'
 import styles from './MoviePage.module.css'
 import { useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
 import toast from 'react-hot-toast';
 import MovieDetails from './MovieDetails/MovieDetails';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();
@@ -25,9 +25,7 @@ function MoviePage() {
         <div className={styles.container}>
         <div className={styles.content}>
                 {loading ? (
-                    <div className={styles.spinner}>
-                        <Spinner animation="border" variant="light" />
-                    </div>
+                    <LoadingSpinner/>
                 ) : (movie &&
                         <MovieDetails movie={movie} setMovie={setMovie}/>
                     )

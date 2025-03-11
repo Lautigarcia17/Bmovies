@@ -1,32 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './MovieListPage.module.css'
-import { Spinner } from 'react-bootstrap';
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
 import ModalMovie from '../../components/ModalMovie/ModalMovie';
 import MovieList from './MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
-import { authContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import { useGenericContext } from '../../hooks/useGenericContext';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 
 function MovieListPage() {
-    const navigate = useNavigate();
-    const { idSession, loadingSession } = useGenericContext(authContext)
     const [show, setShow] = useState<boolean>(false);
     const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery, search } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
 
 
-    useEffect(() => {
-        const fetchSession = () => {
-            if (!idSession && !loadingSession) {
-                navigate('/auth');
-            }
-        }
-        fetchSession();
-    }, [idSession])
 
 
     return (
@@ -41,36 +29,32 @@ function MovieListPage() {
                         </button>
                     </div>
                 </div>
-                
+
                 <ModalMovie show={show} handleModal={handleModal} />
 
-                {loading && listMovies.length === 0 ? (
-                    <div className={styles.spinner}>
-                        <Spinner animation="border" variant="light" />
-                    </div>
-                ) : (
-                        listMovies.length > 0 ? (
-                            <>
-                                <div className={styles.element}>
-                                    <SearchMovie search={search} setSearch={setSearch} />
-                                </div>
-
-                                <div className={styles.element}>
-                                    <div className={styles.filterQuery}>
-                                        <DropdownFilter handleQuery={manageQuery} />
-                                        <label>{queryFilter}</label>
-                                    </div>
-                                </div>
-                                <div className={styles.element}>
-                                    <MovieList movieToDisplay={movieToDisplay} />
-                                </div>
-                            </>
-                        ) : (
-                            <div className={styles.withoutMovie}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#f5deb3" d="M14 20h-4v-9l-3.5 3.5l-2.42-2.42L12 4.16l7.92 7.92l-2.42 2.42L14 11z" /></svg>
-                                <h1>Load your first movies!!</h1>
+                {loading && listMovies.length === 0 ? (<LoadingSpinner />) : (
+                    listMovies.length > 0 ? (
+                        <>
+                            <div className={styles.element}>
+                                <SearchMovie search={search} setSearch={setSearch} />
                             </div>
-                        )
+
+                            <div className={styles.element}>
+                                <div className={styles.filterQuery}>
+                                    <DropdownFilter handleQuery={manageQuery} />
+                                    <label>{queryFilter}</label>
+                                </div>
+                            </div>
+                            <div className={styles.element}>
+                                <MovieList movieToDisplay={movieToDisplay} />
+                            </div>
+                        </>
+                    ) : (
+                        <div className={styles.withoutMovie}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#f5deb3" d="M14 20h-4v-9l-3.5 3.5l-2.42-2.42L12 4.16l7.92 7.92l-2.42 2.42L14 11z" /></svg>
+                            <h1>Load your first movies!!</h1>
+                        </div>
+                    )
                 )}
             </div>
         </>

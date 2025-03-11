@@ -15,8 +15,6 @@ function NotFound() {
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }

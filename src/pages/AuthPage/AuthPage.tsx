@@ -1,26 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './AuthPage.module.css'
 import Login from './Login/Login';
 import Register from './Register/Register';
-import { useNavigate } from 'react-router-dom';
 import { authContext } from '../../context/AuthContext';
 import { useGenericContext } from '../../hooks/useGenericContext';
 
 
 function AuthPage() {
   const [showLogin, setShowLogin] = useState<boolean>(true);
-  const navigate = useNavigate();
-  const { idSession, loadingSession, reset } = useGenericContext(authContext)
-
-  useEffect(() => {
-    const fetchSession = () => {
-      if (idSession && !loadingSession) {
-        navigate('/');
-      }
-    }
-    fetchSession();
-
-  }, [idSession])
+  const {reset } = useGenericContext(authContext)
 
   const handleAuth = () => {
     reset()

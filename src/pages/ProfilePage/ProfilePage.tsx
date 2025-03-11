@@ -4,28 +4,12 @@ import { authContext } from "../../context/AuthContext"
 import { useGenericContext } from "../../hooks/useGenericContext"
 import { useStatistics } from '../../hooks/useStatistics';
 import { movieContext } from '../../context/MovieContext';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
 
 function ProfilePage() {
 
     const { userData } = useGenericContext(authContext);
     const { listMovies } = useGenericContext(movieContext)
     const { moviesWatched, moviesToWatch, moviesPerYear, moviesByGenre, moviesByRating, moviesByDecade, moviesByMonth, currentYearOfMonth } = useStatistics(listMovies)
-    const navigate = useNavigate();
-    const { idSession, loadingSession } = useGenericContext(authContext)
-
-    useEffect(() => {
-        const fetchSession = () => {
-            if (!idSession && !loadingSession) {
-                navigate('/auth');
-            }
-        }
-        fetchSession();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [idSession])
-
 
     return (
         <>

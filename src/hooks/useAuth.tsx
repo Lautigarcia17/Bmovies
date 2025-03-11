@@ -21,6 +21,7 @@ export const useAuth = (): UseAuthReturn => {
         if (response.data.session !== null) {
           reset();
           setIdSession(response.data.session?.user.id ?? '');
+          setUserData(response.data.session?.user.user_metadata);
         }
 
 
@@ -49,6 +50,7 @@ export const useAuth = (): UseAuthReturn => {
         if (response && response.data.session !== null) {
           reset()
           setIdSession(response.data.session?.user.id ?? '');
+          setUserData(response.data.session?.user.user_metadata);
         }
 
         return response

@@ -4,7 +4,7 @@ import { useGenericContext } from '../../../hooks/useGenericContext';
 import { useRef, useState } from 'react';
 import { useEnterClick } from '../../../hooks/useEnterClick';
 import { Box, Button, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import { LockOutlined, AlternateEmail, Send, Visibility, VisibilityOff } from '@mui/icons-material';
+import { LockOutlined, AlternateEmail, LoginOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Login({ setShowLogin }: { setShowLogin: () => void }) {
 
@@ -29,7 +29,18 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Typography
+        sx={{
+          color: 'rgba(255, 255, 255, 0.7)',
+          fontSize: '1rem',
+          textAlign: 'center',
+          mb: 1,
+        }}
+      >
+        Welcome back! Please enter your credentials
+      </Typography>
+
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
         <TextField
           fullWidth
           label="Email"
@@ -43,9 +54,24 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <AlternateEmail />
+                <AlternateEmail sx={{ color: 'primary.main' }} />
               </InputAdornment>
             ),
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: 'rgba(253, 224, 211, 0.03)',
+              '& fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.2)',
+              },
+              '&:hover fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.4)',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+                borderWidth: 2,
+              },
+            },
           }}
           {...register("email", {
             required: true,
@@ -66,16 +92,40 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <LockOutlined />
+                <LockOutlined sx={{ color: 'primary.main' }} />
               </InputAdornment>
             ),
             endAdornment: passwordValue && (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                <IconButton 
+                  onClick={() => setShowPassword((prev) => !prev)} 
+                  edge="end"
+                  sx={{
+                    color: 'primary.main',
+                    '&:hover': {
+                      backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                    },
+                  }}
+                >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             ),
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: 'rgba(253, 224, 211, 0.03)',
+              '& fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.2)',
+              },
+              '&:hover fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.4)',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+                borderWidth: 2,
+              },
+            },
           }}
           {...register("password", {
             required: true,
@@ -89,46 +139,69 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
         type='submit'
         size='large'
         variant="contained"
-        endIcon={<Send />}
+        startIcon={<LoginOutlined />}
         fullWidth
         sx={{
-          py: 1.5,
-          fontSize: { xs: '1rem', sm: '1.25rem' },
+          py: 1.8,
+          fontSize: '1.1rem',
           fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: 1.5,
+          backgroundColor: 'primary.main',
+          color: '#060d17',
+          borderRadius: 2,
+          mt: 1,
+          boxShadow: '0 10px 30px rgba(253, 224, 211, 0.3)',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            backgroundColor: 'primary.light',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 15px 40px rgba(253, 224, 211, 0.4)',
+          },
         }}
       >
         Log In
       </Button>
 
-      <Typography
-        variant="body1"
+      <Box
         sx={{
-          textAlign: 'center',
-          color: 'text.primary',
-          fontSize: { xs: '0.875rem', sm: '1rem' },
+          mt: 1,
+          pt: 3,
+          borderTop: '1px solid rgba(253, 224, 211, 0.1)',
         }}
       >
-        Don't have an account?{' '}
-        <Box
-          component="button"
-          type='button'
-          onClick={setShowLogin}
+        <Typography
+          variant="body1"
           sx={{
-            background: 'none',
-            border: 'none',
-            color: 'primary.main',
-            fontWeight: 700,
-            cursor: 'pointer',
-            textDecoration: 'underline',
-            textUnderlineOffset: '4px',
-            '&:hover': {
-              color: 'primary.light',
-            },
+            textAlign: 'center',
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '0.95rem',
           }}
         >
-          Sign Up
-        </Box>
-      </Typography>
+          Don't have an account?{' '}
+          <Box
+            component="button"
+            type='button'
+            onClick={setShowLogin}
+            sx={{
+              background: 'none',
+              border: 'none',
+              color: 'primary.main',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                color: 'primary.light',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+              },
+            }}
+          >
+            Create Account
+          </Box>
+        </Typography>
+      </Box>
     </Box>
   );
 };

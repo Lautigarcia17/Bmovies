@@ -3,14 +3,16 @@ import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
 import { useRef, useState } from 'react';
 import { useEnterClick } from '../../../hooks/useEnterClick';
-import { Box, Button, TextField, Typography, InputAdornment } from '@mui/material';
-import { LockOutlined, AlternateEmail, Send, AssignmentIndOutlined, CakeOutlined } from '@mui/icons-material';
+import { Box, Button, TextField, Typography, InputAdornment, IconButton, Grid } from '@mui/material';
+import { LockOutlined, AlternateEmail, HowToReg, AssignmentIndOutlined, CakeOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 
 function Register({ setShowLogin }: { setShowLogin: () => void }) {
 
-  const { signUp, register, handleSubmit, errors } = useGenericContext(authContext)
+  const { signUp, register, handleSubmit, errors, watch } = useGenericContext(authContext)
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const passwordValue = watch("password");
 
   useEnterClick(buttonRef);
 
@@ -30,46 +32,93 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <TextField
-          fullWidth
-          label="Username"
-          variant="outlined"
-          autoComplete="off"
-          error={!!errors.username}
-          helperText={
-            errors.username?.type === 'required' ? 'Username is required' :
-              errors.username?.type === 'pattern' ? 'Username cannot contain symbols' : ''
-          }
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <AssignmentIndOutlined />
-              </InputAdornment>
-            ),
-          }}
-          {...register('username', {
-            required: true,
-            pattern: /^[a-zA-Z0-9\\s]+$/,
-          })}
-        />
+      <Typography
+        sx={{
+          color: 'rgba(255, 255, 255, 0.7)',
+          fontSize: '1rem',
+          textAlign: 'center',
+          mb: 1,
+        }}
+      >
+        Create your account and start building your collection
+      </Typography>
 
-        <TextField
-          fullWidth
-          label="Age"
-          variant="outlined"
-          type="number"
-          error={!!errors.age}
-          helperText={errors.age?.type === 'required' ? 'Age is required' : ''}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <CakeOutlined />
-              </InputAdornment>
-            ),
-          }}
-          {...register('age', { required: true })}
-        />
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Username"
+              variant="outlined"
+              autoComplete="off"
+              error={!!errors.username}
+              helperText={
+                errors.username?.type === 'required' ? 'Username is required' :
+                  errors.username?.type === 'pattern' ? 'Username cannot contain symbols' : ''
+              }
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AssignmentIndOutlined sx={{ color: 'primary.main' }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(253, 224, 211, 0.03)',
+                  '& fieldset': {
+                    borderColor: 'rgba(253, 224, 211, 0.2)',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'rgba(253, 224, 211, 0.4)',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'primary.main',
+                    borderWidth: 2,
+                  },
+                },
+              }}
+              {...register('username', {
+                required: true,
+                pattern: /^[a-zA-Z0-9\\s]+$/,
+              })}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={6}>
+            <TextField
+              fullWidth
+              label="Age"
+              variant="outlined"
+              type="number"
+              error={!!errors.age}
+              helperText={errors.age?.type === 'required' ? 'Age is required' : ''}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <CakeOutlined sx={{ color: 'primary.main' }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(253, 224, 211, 0.03)',
+                  '& fieldset': {
+                    borderColor: 'rgba(253, 224, 211, 0.2)',
+                  },
+                  '&:hover fieldset': {
+                    borderColor: 'rgba(253, 224, 211, 0.4)',
+                  },
+                  '&.Mui-focused fieldset': {
+                    borderColor: 'primary.main',
+                    borderWidth: 2,
+                  },
+                },
+              }}
+              {...register('age', { required: true })}
+            />
+          </Grid>
+        </Grid>
 
         <TextField
           fullWidth
@@ -84,9 +133,24 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <AlternateEmail />
+                <AlternateEmail sx={{ color: 'primary.main' }} />
               </InputAdornment>
             ),
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: 'rgba(253, 224, 211, 0.03)',
+              '& fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.2)',
+              },
+              '&:hover fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.4)',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+                borderWidth: 2,
+              },
+            },
           }}
           {...register("email", {
             required: true,
@@ -98,7 +162,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           fullWidth
           label="Password"
           variant="outlined"
-          type="password"
+          type={showPassword ? "text" : "password"}
           error={!!errors.password}
           helperText={
             errors.password?.type === 'required' ? 'Password is required' :
@@ -107,9 +171,40 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <LockOutlined />
+                <LockOutlined sx={{ color: 'primary.main' }} />
               </InputAdornment>
             ),
+            endAdornment: passwordValue && (
+              <InputAdornment position="end">
+                <IconButton 
+                  onClick={() => setShowPassword((prev) => !prev)} 
+                  edge="end"
+                  sx={{
+                    color: 'primary.main',
+                    '&:hover': {
+                      backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                    },
+                  }}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              backgroundColor: 'rgba(253, 224, 211, 0.03)',
+              '& fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.2)',
+              },
+              '&:hover fieldset': {
+                borderColor: 'rgba(253, 224, 211, 0.4)',
+              },
+              '&.Mui-focused fieldset': {
+                borderColor: 'primary.main',
+                borderWidth: 2,
+              },
+            },
           }}
           {...register("password", {
             required: true,
@@ -123,47 +218,74 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
         type='submit'
         size='large'
         variant="contained"
-        endIcon={<Send />}
+        startIcon={<HowToReg />}
         fullWidth
         disabled={isSubmitting}
         sx={{
-          py: 1.5,
-          fontSize: { xs: '1rem', sm: '1.25rem' },
+          py: 1.8,
+          fontSize: '1.1rem',
           fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: 1.5,
+          backgroundColor: 'primary.main',
+          color: '#060d17',
+          borderRadius: 2,
+          mt: 1,
+          boxShadow: '0 10px 30px rgba(253, 224, 211, 0.3)',
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            backgroundColor: 'primary.light',
+            transform: 'translateY(-2px)',
+            boxShadow: '0 15px 40px rgba(253, 224, 211, 0.4)',
+          },
+          '&:disabled': {
+            backgroundColor: 'rgba(253, 224, 211, 0.3)',
+            color: 'rgba(6, 13, 23, 0.5)',
+          },
         }}
       >
-        Sign Up
+        {isSubmitting ? 'Creating Account...' : 'Create Account'}
       </Button>
 
-      <Typography
-        variant="body1"
+      <Box
         sx={{
-          textAlign: 'center',
-          color: 'text.primary',
-          fontSize: { xs: '0.875rem', sm: '1rem' },
+          mt: 1,
+          pt: 3,
+          borderTop: '1px solid rgba(253, 224, 211, 0.1)',
         }}
       >
-        Do you have an account?{' '}
-        <Box
-          component="button"
-          type='button'
-          onClick={setShowLogin}
+        <Typography
+          variant="body1"
           sx={{
-            background: 'none',
-            border: 'none',
-            color: 'primary.main',
-            fontWeight: 700,
-            cursor: 'pointer',
-            textDecoration: 'underline',
-            textUnderlineOffset: '4px',
-            '&:hover': {
-              color: 'primary.light',
-            },
+            textAlign: 'center',
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '0.95rem',
           }}
         >
-          Log In
-        </Box>
-      </Typography>
+          Already have an account?{' '}
+          <Box
+            component="button"
+            type='button'
+            onClick={setShowLogin}
+            sx={{
+              background: 'none',
+              border: 'none',
+              color: 'primary.main',
+              fontWeight: 700,
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                color: 'primary.light',
+                textDecoration: 'underline',
+                textUnderlineOffset: '3px',
+              },
+            }}
+          >
+            Sign In
+          </Box>
+        </Typography>
+      </Box>
     </Box>
   );
 };

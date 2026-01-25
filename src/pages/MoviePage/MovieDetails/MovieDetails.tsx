@@ -1,5 +1,4 @@
 import classNames from 'classnames'
-import styles from './MovieDetails.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -8,6 +7,8 @@ import { movieContext } from '../../../context/MovieContext'
 import { Movie, MovieEdit } from '../../../types/interface'
 import DropdownDetail from '../../../components/DropdownDetail/DropdownDetail'
 import ModalEdit from '../../../components/ModalEdit/ModalEdit'
+import { Box, Paper, Typography, Chip, Button } from '@mui/material'
+import { PlayArrow, CalendarToday, TheaterComedy, Movie as MovieIcon } from '@mui/icons-material'
 
 
 
@@ -16,22 +17,21 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
     const { removeMovie, modifyMovie } = useGenericContext(movieContext)
     const navigate = useNavigate();
     const [showEdit, setShowEdit] = useState<boolean>(false);
-    const colour = classNames(styles.rating, {
-        [styles.ratingRed]: movie && parseFloat(movie.rating?.toString() || '0') < 5,
-        [styles.ratingYellow]: movie && parseFloat(movie.rating?.toString() || '0') >= 5 && parseFloat(movie.rating?.toString() || '0') < 6,
-        [styles.ratingGreen]: movie && parseFloat(movie.rating?.toString() || '0') >= 6,
-    })
+
+    const getRatingColor = (rating: number) => {
+        if (rating < 5) return '#ff3e26';
+        if (rating >= 5 && rating < 6) return '#ffc226';
+        return '#26ff3e';
+    };
+
     const editData: MovieEdit = {
         rating: movie.rating ?? null,
         trailer: movie.trailer ?? null,
     };
 
-
-
     const handleModalEdit = () => {
         setShowEdit(!showEdit);
     }
-
 
     const handleRemove = async () => {
         try {
@@ -51,8 +51,6 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
             toast.error(`Error! An unexpected error occurred: ${error.message}`, { position: 'top-right', duration: 2000 });
         }
     }
-
-
 
     const handleEdit = async (rating: number | null, trailer: string, isNewMovie: boolean) => {
         try {
@@ -74,80 +72,194 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
     };
 
     return (
-        <>
-            <div className={styles.container} style={{ backgroundImage: `url(${movie.poster})` }}>
-                <div className={styles.content} >
-                    <div className={styles.overlay}></div>
+        <Box
+            sx={{
+                position: 'relative',
+                width: '100%',
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundImage: `url(${movie.poster})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'repeat',
+                backgroundSize: '10%',
+                py: 4,
+            }}
+        >
+            <Box
+                sx={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(to right, rgba(0, 0, 0, 0.85) 15%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.5))',
+                    top: 0,
+                    left: 0,
+                }}
+            />
 
-                    <div className={styles.card}>
-                        {movie && (
-                            <>
-                                <div className={styles.imageSection}>
-                                    <img src={movie.poster} alt={movie.title} className={styles.moviePoster} />
-                                </div>
-                                <div className={styles.movie}>
-                                    {movie.title && (
-                                        <div className={styles.contentTitle}>
-                                            <h2 className={styles.titleMovie}>{movie.title}</h2>
-                                        </div>
-                                    )}
+            <Paper
+                elevation={8}
+                sx={{
+                    position: 'relative',
+                    display: 'flex',
+                    flexDirection: { xs: 'column', md: 'row' },
+                    maxWidth: 1000,
+                    mx: { xs: 2, sm: 4 },
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    backdropFilter: 'blur(10px)',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    borderRadius: 4,
+                    overflow: 'hidden',
+                }}
+            >
+                <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemove} />
 
-                                    <div className={styles.movieDetails}>
-                                        {(movie.year || movie.genre) && (
-                                            <div className={styles.data}>
-                                                <p className={styles.opacity}>{movie.year} · {movie.genre}</p>
-                                            </div>
-                                        )}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        p: { xs: 2, md: 3 },
+                    }}
+                >
+                    <Box
+                        component="img"
+                        src={movie.poster}
+                        alt={movie.title}
+                        sx={{
+                            maxWidth: { xs: 200, sm: 250 },
+                            maxHeight: { xs: 300, sm: 370 },
+                            borderRadius: 2,
+                            boxShadow: 6,
+                            objectFit: 'cover',
+                        }}
+                    />
+                </Box>
 
-                                        {movie.director && (
-                                            <div className={styles.data}>
-                                                <p ><span className={styles.emoji}>🎬 </span>Directed by: <span className={styles.dataFontWeigth}> {movie.director} </span></p>
-                                            </div>
-                                        )}
+                <Box
+                    sx={{
+                        flex: 1,
+                        p: { xs: 2, md: 3 },
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 2,
+                        position: 'relative',
+                    }}
+                >
+                    {movie.rating && (
+                        <Chip
+                            label={movie.rating}
+                            sx={{
+                                position: 'absolute',
+                                top: { xs: -10, md: 16 },
+                                right: { xs: 8, md: 60 },
+                                backgroundColor: 'transparent',
+                                color: getRatingColor(movie.rating),
+                                border: `4px solid ${getRatingColor(movie.rating)}`,
+                                fontWeight: 600,
+                                fontSize: '1.75rem',
+                                height: 70,
+                                minWidth: 70,
+                                borderRadius: '50%',
+                                zIndex: 5,
+                            }}
+                        />
+                    )}
 
-                                        {movie.actors && (
-                                            <div className={styles.data}>
-                                                <p> <span className={styles.emoji}>🎭</span> Cast: <span className={styles.dataFontWeigth}>{movie.actors}</span></p>
-                                            </div>
-                                        )}
+                    {movie.title && (
+                        <Typography
+                            variant="h2"
+                            sx={{
+                                color: 'primary.main',
+                                fontWeight: 600,
+                                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+                                mt: { xs: 4, md: 0 },
+                            }}
+                        >
+                            {movie.title}
+                        </Typography>
+                    )}
 
-                                        {movie.plot && (
-                                            <div className={styles.data}>
-                                                <p> <span className={styles.emoji}>📝</span>{movie.plot}</p>
-                                            </div>
-                                        )}
+                    {(movie.year || movie.genre) && (
+                        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
+                            {movie.year && (
+                                <Chip
+                                    icon={<CalendarToday sx={{ fontSize: 16 }} />}
+                                    label={movie.year}
+                                    size="small"
+                                    sx={{ backgroundColor: 'rgba(253, 224, 211, 0.2)', color: 'text.primary' }}
+                                />
+                            )}
+                            {movie.genre && (
+                                <Chip
+                                    icon={<TheaterComedy sx={{ fontSize: 16 }} />}
+                                    label={movie.genre}
+                                    size="small"
+                                    sx={{ backgroundColor: 'rgba(253, 224, 211, 0.2)', color: 'text.primary' }}
+                                />
+                            )}
+                        </Box>
+                    )}
 
+                    {movie.director && (
+                        <Typography variant="body1" sx={{ color: 'text.primary' }}>
+                            <Box component="span" sx={{ opacity: 0.7 }}>🎬 Directed by:</Box>{' '}
+                            <Box component="span" sx={{ fontWeight: 500 }}>{movie.director}</Box>
+                        </Typography>
+                    )}
 
-                                        {movie.trailer && (
-                                            <div className={styles.trailerSection}>
-                                                <a href={movie.trailer ?? ''} target='_blank' className={styles.trailerButton}>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className={styles.icon} viewBox="0 0 24 24"><g fillRule="evenodd" clipRule="evenodd"><path d="M10.386 8.357A.75.75 0 0 0 9.25 9v6a.75.75 0 0 0 1.136.643l5-3a.75.75 0 0 0 0-1.286zM13.542 12l-2.792 1.675v-3.35z" /><path d="M17.03 4.641a64.499 64.499 0 0 0-10.06 0l-2.241.176a2.975 2.975 0 0 0-2.703 2.475a28.566 28.566 0 0 0 0 9.416a2.975 2.975 0 0 0 2.703 2.475l2.24.176c3.349.262 6.713.262 10.062 0l2.24-.176a2.975 2.975 0 0 0 2.703-2.475c.52-3.117.52-6.299 0-9.416a2.975 2.975 0 0 0-2.703-2.475zM7.087 6.137a62.998 62.998 0 0 1 9.828 0l2.24.175c.676.053 1.229.56 1.34 1.228a27.066 27.066 0 0 1 0 8.92a1.475 1.475 0 0 1-1.34 1.228l-2.24.175a62.98 62.98 0 0 1-9.828 0l-2.24-.175a1.475 1.475 0 0 1-1.34-1.228a27.066 27.066 0 0 1 0-8.92a1.475 1.475 0 0 1 1.34-1.228z" /></g></svg>
-                                                    Watch Trailer
-                                                </a>
-                                            </div>
-                                        )}
+                    {movie.actors && (
+                        <Typography variant="body1" sx={{ color: 'text.primary' }}>
+                            <Box component="span" sx={{ opacity: 0.7 }}>🎭 Cast:</Box>{' '}
+                            <Box component="span" sx={{ fontWeight: 500 }}>{movie.actors}</Box>
+                        </Typography>
+                    )}
 
-                                    </div>
+                    {movie.plot && (
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                color: 'text.primary',
+                                opacity: 0.9,
+                                lineHeight: 1.6,
+                            }}
+                        >
+                            📝 {movie.plot}
+                        </Typography>
+                    )}
 
-                                    {movie.rating && (
-                                        <div className={colour}>{movie.rating}</div>
-                                    )}
-                                </div>
+                    {movie.trailer && (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                            <Button
+                                variant="outlined"
+                                startIcon={<PlayArrow />}
+                                href={movie.trailer}
+                                target="_blank"
+                                sx={{
+                                    color: 'secondary.main',
+                                    borderColor: 'secondary.main',
+                                    borderWidth: 2,
+                                    '&:hover': {
+                                        backgroundColor: 'secondary.main',
+                                        color: 'background.default',
+                                        borderWidth: 2,
+                                    },
+                                    px: 3,
+                                    py: 1,
+                                    fontSize: '1rem',
+                                }}
+                            >
+                                Watch Trailer
+                            </Button>
+                        </Box>
+                    )}
+                </Box>
 
-                                <div className={styles.actions}>
-                                    <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemove} />
-                                    <ModalEdit show={showEdit} handleModalEdit={handleModalEdit} handleEdit={handleEdit} editData={editData} />
-                                </div>
-                            </>
-                        )}
-
-                    </div>
-                </div>
-            </div>
-
-
-
-        </>
+                <ModalEdit show={showEdit} handleModalEdit={handleModalEdit} handleEdit={handleEdit} editData={editData} />
+            </Paper>
+        </Box>
     )
 }
 

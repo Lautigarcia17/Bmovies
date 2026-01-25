@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Modal } from "react-bootstrap";
-import styles from "./ModalMovie.module.css";
 import toast from 'react-hot-toast';
 import { useMovieApi } from "../../hooks/useMovieApi";
 import { useRating } from "../../hooks/useRating";
@@ -9,6 +7,24 @@ import { movieContext } from "../../context/MovieContext";
 import { authContext } from "../../context/AuthContext";
 import { useGenericContext } from "../../hooks/useGenericContext";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Box,
+  ToggleButtonGroup,
+  ToggleButton,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  IconButton,
+  Divider,
+} from '@mui/material';
+import { Add, Close, Save, Search } from '@mui/icons-material';
 
 function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => void }) {
 
@@ -22,9 +38,6 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
   const [imdbIDOption, setImdbIDOption] = useState<string>('');
   const [showSearchByTitle, setShowSearchByTitle] = useState<boolean>(true);
 
-
-  const handleUrlChange = (e: React.FocusEvent<HTMLInputElement>) => setUrlTrailer(e.target.value);
-
   const handleSelectMovie = (movie: Movie) => {
     setSelectedMovie(movie);
     setMovies([]);
@@ -33,6 +46,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
   const handleFindMovie = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     findMovies(e.currentTarget.value)
   }
+
   const handleFindMovieById = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (imdbIDOption) {
@@ -40,11 +54,9 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
     }
   }
 
-
   const handleSave = async () => {
     if (selectedMovie) {
       toast.promise((async () => {
-
         const movieData = await getMovieDetails(selectedMovie.title, selectedMovie.year ?? null);
         if (movieData) {
           movieData.trailer = urlTrailer;
@@ -55,13 +67,10 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
           await saveMovie(movieData);
         }
 
-
-
         setSelectedMovie(null);
         setMovies([]);
         setUrlTrailer(null)
         setRatingFromValue(null);
-
       })(),
         {
           loading: 'Saving ...',
@@ -82,9 +91,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
     setSelectedMovie(null)
   }
 
-
   useEffect(() => {
-
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
         event.preventDefault();
@@ -104,113 +111,201 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
     setImdbIDOption('');
   }, [show])
 
-
-
   return (
-    <>
+    <Dialog
+      open={show}
+      onClose={handleModal}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{
+        sx: {
+          backgroundColor: 'background.paper',
+          border: '2px solid',
+          borderColor: 'primary.main',
+          maxHeight: '90vh',
+        },
+      }}
+    >
+      <DialogTitle
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+          color: 'primary.main',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <Add />
+        Add Movie
+      </DialogTitle>
 
-      <Modal show={show} onHide={handleModal} centered backdrop="static">
-        <div className={styles.modalContent}>
-          <Modal.Header className={styles.modalHeader} closeButton closeVariant="white">
-            <h2 className={styles.modalTitle}>Add Movie</h2>
-          </Modal.Header>
-          <Modal.Body className={styles.modalBody}>
-            <form className={styles.formControl}>
-              <div className={styles.searchElement}>
+      <DialogContent sx={{ pt: 3 }}>
+        {selectedMovie ? (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <TextField
+              fullWidth
+              label="Rating"
+              type="number"
+              inputProps={{ min: 1, max: 10, step: 0.1 }}
+              placeholder="6"
+              value={rating === null ? '' : rating}
+              onChange={(e) => setRatingFromValue(e.currentTarget.value)}
+              onBlur={handleValidationRating}
+              variant="outlined"
+            />
 
-                {selectedMovie ? (
+            <Card
+              sx={{
+                display: 'flex',
+                position: 'relative',
+                backgroundColor: 'rgba(253, 224, 211, 0.05)',
+              }}
+            >
+              <CardMedia
+                component="img"
+                sx={{ width: 100, objectFit: 'cover' }}
+                image={selectedMovie.poster}
+                alt={selectedMovie.title}
+              />
+              <CardContent sx={{ flex: 1 }}>
+                <Typography variant="h6" sx={{ color: 'text.primary' }}>
+                  {selectedMovie.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                  {selectedMovie.year}
+                </Typography>
+              </CardContent>
+              <IconButton
+                onClick={() => handleViewOption(showSearchByTitle)}
+                sx={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                }}
+              >
+                <Close />
+              </IconButton>
+            </Card>
 
-                  <div>
-                    <div className={styles.rating}>
-                      <input type="text" id="rating" name="rating" min="1" max="10" step="1" placeholder="6" value={rating === null ? '' : rating} onChange={(e) => setRatingFromValue(e.currentTarget.value)} onBlur={handleValidationRating} className={styles.ratingInput} />
-                    </div>
+            <TextField
+              fullWidth
+              label="Trailer URL"
+              type="text"
+              value={urlTrailer === null ? '' : urlTrailer}
+              placeholder="https://youtube.com/..."
+              onChange={(e) => setUrlTrailer(e.target.value)}
+              variant="outlined"
+            />
+          </Box>
+        ) : (
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+            <Box>
+              <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
+                Select Movie:
+              </Typography>
+              <ToggleButtonGroup
+                value={showSearchByTitle ? 'title' : 'imdb'}
+                exclusive
+                onChange={(_, value) => {
+                  if (value !== null) {
+                    handleViewOption(value === 'title');
+                  }
+                }}
+                fullWidth
+                sx={{ mb: 2 }}
+              >
+                <ToggleButton value="title">By Title</ToggleButton>
+                <ToggleButton value="imdb">By IMDb ID</ToggleButton>
+              </ToggleButtonGroup>
 
-                    <div className={styles.selectedMovie}>
-                      <div className={styles.searchItemThumbnail}>
-                        <img src={selectedMovie.poster} alt={selectedMovie.title} />
-                      </div>
-                      <div className={styles.searchItemInfo}>
-                        <h3>{selectedMovie.title}</h3>
-                        <p>{selectedMovie.year}</p>
-                      </div>
-                      <button className={styles.closeButton} onClick={(e) => {
-                        e.preventDefault(); // Previene la acción predeterminada
-                        handleViewOption(showSearchByTitle); // Llama a la función handleViewOption
-                      }}>
-                        &times; {/* Cruz */}
-                      </button>
-                    </div>
+              {showSearchByTitle ? (
+                <TextField
+                  fullWidth
+                  placeholder="Search by title..."
+                  autoComplete="off"
+                  onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => handleFindMovie(e)}
+                  variant="outlined"
+                />
+              ) : (
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                  <TextField
+                    fullWidth
+                    value={imdbIDOption ?? ''}
+                    onChange={(e) => setImdbIDOption(e.target.value)}
+                    placeholder="Enter IMDb ID..."
+                    variant="outlined"
+                  />
+                  <Button
+                    variant="contained"
+                    onClick={(e) => handleFindMovieById(e)}
+                    sx={{ minWidth: 'auto', px: 2 }}
+                  >
+                    <Search />
+                  </Button>
+                </Box>
+              )}
+            </Box>
 
-                    <div className={styles.linkInputContainer}>
-                      <input type="text" className={styles.linkInput} value={urlTrailer === null ? '' : urlTrailer} placeholder="enter URL TRAILER..." onChange={handleUrlChange} />
-                      <span className={styles.linkIcon}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 16 16"><path fill="#000000" d="M0 2v12h16V2zm3 11H1v-2h2zm0-4H1V7h2zm0-4H1V3h2zm9 8H4V3h8zm3 0h-2v-2h2zm0-4h-2V7h2zm0-4h-2V3h2zM6 5v6l4-3z" /></svg>
-                      </span>
-                    </div>
-                  </div>
-                ) : (
+            <Divider />
 
-                  <div className={styles.searchList}>
-                    <label className={styles.label}> Select Movie :</label>
-                    <div className={styles.radioButtons}>
-                      <input type="radio" id="excelent" name="search" value="Title" onChange={() => handleViewOption(true)} checked={showSearchByTitle} />
-                      <label htmlFor="excelent">Title</label>
+            <Box sx={{ maxHeight: 400, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {movies.map((movie: Movie, index: number) => (
+                <Card
+                  key={index}
+                  onClick={() => handleSelectMovie(movie)}
+                  sx={{
+                    display: 'flex',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    '&:hover': {
+                      backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                      transform: 'translateX(8px)',
+                    },
+                  }}
+                >
+                  <CardMedia
+                    component={LazyLoadImage}
+                    sx={{ width: 80, objectFit: 'cover' }}
+                    image={movie.poster}
+                    alt={movie.title}
+                    effect='opacity'
+                  />
+                  <CardContent>
+                    <Typography variant="subtitle1" sx={{ color: 'text.primary' }}>
+                      {movie.title}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                      {movie.year}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+          </Box>
+        )}
+      </DialogContent>
 
-                      <input type="radio" id="good" name="search" value="good" onChange={() => handleViewOption(false)} checked={!showSearchByTitle}/>
-                      <label htmlFor="good">IMDb ID</label>
-                    </div>
-
-
-
-                    {showSearchByTitle ? (
-                      <input type="text" className={styles.search} autoComplete="off" placeholder="By Title ..." id="movie-search-box" onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => handleFindMovie(e)} />
-                      ) : (
-                        <div className={styles.contentImdbId}>
-                          <input value={imdbIDOption ?? ''} type="text" className={styles.searchById} onChange={(e) => setImdbIDOption(e.target.value)} placeholder="By IMDb ID ..." />
-                          <button className={styles.btnSearch} onClick={(e) => handleFindMovieById(e)}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" fillRule="evenodd" d="m16.325 14.899l5.38 5.38a1.008 1.008 0 0 1-1.427 1.426l-5.38-5.38a8 8 0 1 1 1.426-1.426M10 16a6 6 0 1 0 0-12a6 6 0 0 0 0 12" /></svg>
-                          </button>
-                        </div>
-                      )
-                    }
-
-                    <div className={styles.contentList}>
-                      {movies.map((movie: Movie, index: number) => (
-                        <div key={index} className={styles.searchListItem} onClick={() => handleSelectMovie(movie)}>
-                          <div className={styles.searchItemThumbnail}>
-
-                            <LazyLoadImage
-                              src={movie.poster}
-                              alt={movie.title}
-                              effect='opacity'>
-                            </LazyLoadImage>
-
-
-                          </div>
-                          <div className={styles.searchItemInfo}>
-                            <h3>{movie.title}</h3>
-                            <p>{movie.year}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                )}
-              </div>
-            </form>
-          </Modal.Body>
-          <Modal.Footer className={styles.modalFooter}>
-            <button className={styles.btnCancel} onClick={handleModal}>
-              Close
-            </button>
-            <button className={styles.btnSave} onClick={handleSave}>
-              Save
-            </button>
-          </Modal.Footer>
-        </div>
-      </Modal>
-    </>
+      <DialogActions sx={{ p: 2, gap: 1, borderTop: '1px solid', borderColor: 'divider' }}>
+        <Button
+          onClick={handleModal}
+          startIcon={<Close />}
+          variant="outlined"
+          color="secondary"
+        >
+          Close
+        </Button>
+        <Button
+          onClick={handleSave}
+          startIcon={<Save />}
+          variant="contained"
+          color="primary"
+          disabled={!selectedMovie}
+        >
+          Save
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

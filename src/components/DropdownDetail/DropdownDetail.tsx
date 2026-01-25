@@ -1,21 +1,80 @@
-import { Dropdown } from "react-bootstrap"
-import styles from './DropdownDetail.module.css'
+import { useState } from 'react';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { MoreVert, Delete, Edit } from '@mui/icons-material';
 
-function DropdownDetail ({handleRemove, handleModalEdit} : {handleRemove: ()=> void, handleModalEdit: ()=> void}){
-  return (
-    <Dropdown drop="up">
-      <Dropdown.Toggle id="dropdown-basic" className={styles.customToggle}>
-        <span>&bull;</span>
-        <span>&bull;</span>
-        <span>&bull;</span>
-      </Dropdown.Toggle>
+function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () => void, handleModalEdit: () => void }) {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const open = Boolean(anchorEl);
 
-      <Dropdown.Menu className={styles.customMenu}>
-        <Dropdown.Item onClick={handleRemove} className={styles.customItem}><svg xmlns="http://www.w3.org/2000/svg" className={styles.customIcon}  viewBox="0 0 24 24"><path fill="none" stroke="#000000" d="M12 8.465L18.965 1.5l.177.177l.152.228a10.1 10.1 0 0 0 2.8 2.801l.23.153l.176.177L15.536 12l6.964 6.965l-.177.176l-.228.153a10.1 10.1 0 0 0-2.801 2.8l-.153.23l-.176.176L12 15.536L5.036 22.5l-.177-.177l-.153-.228a10.1 10.1 0 0 0-2.8-2.801l-.23-.153l-.176-.176L8.465 12L1.5 5.036l.177-.177l.229-.153a10.1 10.1 0 0 0 2.8-2.8l.153-.23l.177-.176z"/></svg> Remove Movie</Dropdown.Item>
-        <Dropdown.Item onClick={handleModalEdit} className={styles.customItem}><svg xmlns="http://www.w3.org/2000/svg" className={styles.customIcon}  viewBox="0 0 24 24"><path fill="#000000" d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-2 2v-4.25L17.625 2.175L21.8 6.45L7.25 21zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"/></svg> Edit Movie</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  )
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleRemoveClick = () => {
+        handleRemove();
+        handleClose();
+    };
+
+    const handleEditClick = () => {
+        handleModalEdit();
+        handleClose();
+    };
+
+    return (
+        <>
+            <IconButton
+                onClick={handleClick}
+                sx={{
+                    color: 'text.primary',
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    zIndex: 10,
+                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    '&:hover': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    },
+                }}
+            >
+                <MoreVert />
+            </IconButton>
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                PaperProps={{
+                    sx: {
+                        backgroundColor: 'background.paper',
+                    },
+                }}
+            >
+                <MenuItem onClick={handleEditClick}>
+                    <ListItemIcon>
+                        <Edit fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Edit Movie</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={handleRemoveClick}>
+                    <ListItemIcon>
+                        <Delete fontSize="small" sx={{ color: 'error.main' }} />
+                    </ListItemIcon>
+                    <ListItemText sx={{ color: 'error.main' }}>Remove Movie</ListItemText>
+                </MenuItem>
+            </Menu>
+        </>
+    )
 }
 
 export default DropdownDetail

@@ -1,5 +1,4 @@
 import { NavLink, useLocation, useMatch, useNavigate } from 'react-router-dom'
-import styles from './NavBar.module.css'
 import logo from '../../assets/Bmovie.png'
 import { authContext } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
@@ -7,7 +6,8 @@ import { useGenericContext } from "../../hooks/useGenericContext";
 import { useEffect, useState } from 'react'
 import { scrollContext } from '../../context/ScrollContext'
 import DropdownNavbar from '../DropdownNavbar/DropdownNavbar'
-
+import { AppBar, Toolbar, Box, IconButton, Button, useMediaQuery, useTheme, Typography } from '@mui/material'
+import { Home, Person, ExitToApp } from '@mui/icons-material'
 
 
 function NavBar() {
@@ -16,14 +16,15 @@ function NavBar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [isPageDetails, setIsPageDetails] = useState(false);
     const match = !!useMatch("/details/*");
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleLogout = async () => {
         signOut();
         toast.success(`You have logged out, see you later !!`, { position: 'top-right', duration: 2000 })
     }
+
     useEffect(() => {
         const scrollElement = scrollRef.current;
 
@@ -38,23 +39,15 @@ function NavBar() {
             }
         };
 
-        const handleResize = () => {
-            setWindowWidth(window.innerWidth);
-        };
-
-        window.addEventListener('resize', handleResize);
         scrollElement.addEventListener('scroll', handleScroll);
 
         return () => {
             scrollElement.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleResize);
-
         };
     }, []);
 
     const handleScrollToTop = () => {
         if (scrollRef.current) {
-
             if (location.pathname !== '/') {
                 navigate('/');
             }
@@ -67,51 +60,160 @@ function NavBar() {
         }
     }
 
-    useEffect(()=>{
-        setIsPageDetails(match);
-    },[match])
-
-
     return (
-        <>
-            <div className={`${styles.content} ${isScrolled || isPageDetails ? styles.bgScroll : styles.bgTransparent}`}>
-                {idSession && (
-                    <>
+        <AppBar 
+            position="sticky" 
+            elevation={0}
+            sx={{
+                backgroundColor: isScrolled || match ? 'rgba(6, 13, 23, 0.98)' : 'rgba(6, 13, 23, 0.8)',
+                backdropFilter: 'blur(20px) saturate(180%)',
+                borderBottom: isScrolled || match ? '2px solid' : '1px solid',
+                borderColor: isScrolled || match ? 'primary.main' : 'rgba(253, 224, 211, 0.1)',
+                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: isScrolled || match ? '0 8px 32px rgba(253, 224, 211, 0.15)' : 'none',
+            }}
+        >
+            {idSession && (
+                <Toolbar sx={{ 
+                    justifyContent: 'space-between', 
+                    py: { xs: 1.5, md: 2 },
+                    px: { xs: 2, sm: 4, md: 6 },
+                    maxWidth: '1600px',
+                    width: '100%',
+                    margin: '0 auto',
+                }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <IconButton
+                            onClick={handleScrollToTop}
+                            sx={{ 
+                                p: 0,
+                                transition: 'transform 0.3s ease',
+                                '&:hover': {
+                                    transform: 'scale(1.1) rotate(-5deg)',
+                                }
+                            }}
+                        >
+                            <Box
+                                component="img"
+                                src={logo}
+                                alt="logo"
+                                sx={{
+                                    width: { xs: 50, sm: 65, md: 80 },
+                                    height: { xs: 50, sm: 65, md: 80 },
+                                    objectFit: 'contain',
+                                    filter: 'drop-shadow(0 0 10px rgba(253, 224, 211, 0.3))',
+                                }}
+                            />
+                        </IconButton>
+                        <Box sx={{ 
+                            display: { xs: 'none', sm: 'block' },
+                            borderLeft: '2px solid',
+                            borderColor: 'primary.main',
+                            pl: 2,
+                        }}>
+                            <Typography sx={{ 
+                                fontSize: { sm: '1.25rem', md: '1.5rem' },
+                                fontWeight: 800,
+                                background: 'linear-gradient(45deg, #FDE0D3 30%, #ffffff 90%)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                letterSpacing: '0.5px',
+                            }}>
+                                BMOVIES
+                            </Typography>
+                        </Box>
+                    </Box>
 
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, md: 2 } }}>
+                        {isMobile && location.pathname === '/' ? (
+                            <DropdownNavbar handleScrollToTop={handleScrollToTop} handleLogout={handleLogout} />
+                        ) : (
+                            <>
+                                <Button
+                                    onClick={handleScrollToTop}
+                                    startIcon={<Home sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    sx={{
+                                        color: location.pathname === '/' ? 'primary.main' : 'text.secondary',
+                                        backgroundColor: location.pathname === '/' ? 'rgba(253, 224, 211, 0.1)' : 'transparent',
+                                        border: location.pathname === '/' ? '2px solid' : '2px solid transparent',
+                                        borderColor: location.pathname === '/' ? 'primary.main' : 'transparent',
+                                        '&:hover': {
+                                            color: 'primary.main',
+                                            backgroundColor: 'rgba(253, 224, 211, 0.15)',
+                                            borderColor: 'primary.main',
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        px: { xs: 1.5, md: 2.5 },
+                                        py: { xs: 0.75, md: 1 },
+                                        borderRadius: 2,
+                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    }}
+                                >
+                                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>Home</Box>
+                                </Button>
+                                
+                                <Button
+                                    component={NavLink}
+                                    to='/profile'
+                                    startIcon={<Person sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    sx={{
+                                        color: location.pathname === '/profile' ? 'primary.main' : 'text.secondary',
+                                        backgroundColor: location.pathname === '/profile' ? 'rgba(253, 224, 211, 0.1)' : 'transparent',
+                                        border: location.pathname === '/profile' ? '2px solid' : '2px solid transparent',
+                                        borderColor: location.pathname === '/profile' ? 'primary.main' : 'transparent',
+                                        '&:hover': {
+                                            color: 'primary.main',
+                                            backgroundColor: 'rgba(253, 224, 211, 0.15)',
+                                            borderColor: 'primary.main',
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        px: { xs: 1.5, md: 2.5 },
+                                        py: { xs: 0.75, md: 1 },
+                                        borderRadius: 2,
+                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    }}
+                                >
+                                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>Profile</Box>
+                                </Button>
 
-                        <div className={styles.logo}>
-                            <button className={styles.buttonHome} onClick={handleScrollToTop}>
-                                <img src={logo} alt="logo" />
-                            </button>
-                        </div>
-                        <div className={styles.element}>
-                            {windowWidth < 1000 && location.pathname === '/' ? (
-                                <div className={styles.dropdownNav}>
-                                    <DropdownNavbar handleScrollToTop={handleScrollToTop} handleLogout={handleLogout} />
-                                </div>
-
-                            ) :
-                                <>
-                                    <button onClick={handleScrollToTop} className={`${styles.btnNav} ${location.pathname === '/' ? styles.btnWhite : ''}`}> Home</button>
-                                    <button className={styles.btnNav}>
-                                        <NavLink to='/profile' className={({ isActive }) => `${styles.link} ${isActive ? styles.btnWhite : ''}`}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" className={styles.iconProfile} viewBox="0 0 24 24"><path fill="currentColor" fillRule="evenodd" d="M12 4a8 8 0 0 0-6.96 11.947A4.99 4.99 0 0 1 9 14h6a4.99 4.99 0 0 1 3.96 1.947A8 8 0 0 0 12 4m7.943 14.076A9.959 9.959 0 0 0 22 12c0-5.523-4.477-10-10-10S2 6.477 2 12a9.958 9.958 0 0 0 2.057 6.076l-.005.018l.355.413A9.98 9.98 0 0 0 12 22a9.947 9.947 0 0 0 5.675-1.765a10.055 10.055 0 0 0 1.918-1.728l.355-.413zM12 6a3 3 0 1 0 0 6a3 3 0 0 0 0-6" clipRule="evenodd" /></svg>
-                                        </NavLink>
-                                    </button>
-                                    <button className={styles.btnNav} onClick={handleLogout}>
-                                        <NavLink to='/auth' className={styles.link}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="#ffffff" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h7v2H5v14h7v2zm11-4l-1.375-1.45l2.55-2.55H9v-2h8.175l-2.55-2.55L16 7l5 5z" /></svg>
-                                        </NavLink>
-                                    </button>
-                                </>
-
-                            }
-                        </div>
-                    </>
-                )}
-
-            </div>
-        </>
+                                <Button
+                                    onClick={handleLogout}
+                                    startIcon={<ExitToApp sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    sx={{
+                                        color: 'text.secondary',
+                                        border: '2px solid transparent',
+                                        '&:hover': {
+                                            color: '#ff3e26',
+                                            backgroundColor: 'rgba(255, 62, 38, 0.1)',
+                                            borderColor: '#ff3e26',
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: '0 4px 12px rgba(255, 62, 38, 0.25)',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        px: { xs: 1.5, md: 2.5 },
+                                        py: { xs: 0.75, md: 1 },
+                                        borderRadius: 2,
+                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    }}
+                                >
+                                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>Logout</Box>
+                                </Button>
+                            </>
+                        )}
+                    </Box>
+                </Toolbar>
+            )}
+        </AppBar>
     )
 }
 

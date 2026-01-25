@@ -10,11 +10,15 @@ import AuthPage from './pages/AuthPage/AuthPage';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme/theme';
 
 
 function App() {
   return (
-    <>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <AuthProvider>
         <ScrollProvider>
           <MovieProvider>
@@ -23,14 +27,12 @@ function App() {
             >
               <Routes>
                 <Route path="/" element={<Layout />}>
-                  {/* Protected routes */}
                   <Route element={<ProtectedRoute redirectTo="/auth" requireAuth={true} />}>
                     <Route index element={<MovieListPage />} />
                     <Route path="details/:idMovie" element={<MoviePage />} />
                     <Route path="profile" element={<ProfilePage />} />
                   </Route>
 
-                  {/* Authentication path (non-authentication) */}
                   <Route element={<ProtectedRoute redirectTo="/" requireAuth={false} />}>
                     <Route path="auth" element={<AuthPage />} />
                   </Route>
@@ -43,8 +45,7 @@ function App() {
           </MovieProvider>
         </ScrollProvider>
       </AuthProvider>
-
-    </>
+    </ThemeProvider>
   )
 }
 

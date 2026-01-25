@@ -1,17 +1,12 @@
-import styles from '../AuthPage.module.css'
 import { toast } from 'react-hot-toast'
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
 import { useRef, useState } from 'react';
 import { useEnterClick } from '../../../hooks/useEnterClick';
-import { Box, Button, createTheme, TextField, ThemeProvider } from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
-import SendIcon from '@mui/icons-material/Send';
-import AssignmentIndOutlinedIcon from '@mui/icons-material/AssignmentIndOutlined';
-import CakeOutlinedIcon from '@mui/icons-material/CakeOutlined';
+import { Box, Button, TextField, Typography, InputAdornment } from '@mui/material';
+import { LockOutlined, AlternateEmail, Send, AssignmentIndOutlined, CakeOutlined } from '@mui/icons-material';
 
-function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStateAction<boolean>> }) {
+function Register({ setShowLogin }: { setShowLogin: () => void }) {
 
   const { signUp, register, handleSubmit, errors } = useGenericContext(authContext)
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,191 +28,143 @@ function Register({ setShowLogin }: { setShowLogin: React.Dispatch<React.SetStat
     }
   };
 
-
-  const theme = createTheme({
-    breakpoints: {
-      values: {
-        xs: 0,
-        sm: 450,
-        md: 768,
-        lg: 1024,
-        xl: 1200,
-      },
-    },
-    components: {
-      MuiInput: {
-        styleOverrides: {
-          root: {
-            fontSize: '20px',
-            color: '#e2eaec',
-            backgroundColor: 'transparent',
-            // width: '300px',
-            '&:before': {
-              borderBottom: '2px solid #525759',
-            },
-            '&:hover:not(.Mui-disabled):before': {
-              borderBottom: '2px solid #525759',
-            },
-            '&:after': {
-              borderBottom: '2px solid #525759',
-            },
-            ['@media (max-width:450px)']: {
-              width: '200px',
-              fontSize: '15px'
-            }
-          },
-        },
-      },
-      MuiInputLabel: {
-        styleOverrides: {
-          root: {
-            color: '#e2eaec',
-            fontSize: '28px',
-            transform: 'translate(0, 10px) scale(1)',
-            '&.Mui-focused': {
-              color: '#e2eaec',
-            },
-            '&.MuiInputLabel-shrink': {
-              transform: 'translate(0, -20px) scale(0.85)',
-            },
-            ['@media (max-width:450px)']: {
-              fontSize: '15px',
-              transform: 'translate(0, 5px) scale(1)',
-              '& + .MuiInput-root': {
-                marginTop: '0px', // Elimina el margin-top cuando la pantalla es menor a 576px
-              },
-            }
-            
-          },
-        },
-      },
-      MuiSvgIcon: {
-        styleOverrides: {
-          root: {
-            color: '#525759',
-            fontSize: '35px',
-            marginRight: '15px',
-            ['@media(max-width:576px)']: {
-              fontSize: '25px'
-            }
-          }
-        }
-      }
-    },
-  });
-
-
   return (
-    <>
-      <form className={styles.form} aria-disabled={isSubmitting} onSubmit={handleSubmit(onSubmit)}>
-        <ThemeProvider theme={theme}>
+    <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <TextField
+          fullWidth
+          label="Username"
+          variant="outlined"
+          autoComplete="off"
+          error={!!errors.username}
+          helperText={
+            errors.username?.type === 'required' ? 'Username is required' :
+              errors.username?.type === 'pattern' ? 'Username cannot contain symbols' : ''
+          }
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AssignmentIndOutlined />
+              </InputAdornment>
+            ),
+          }}
+          {...register('username', {
+            required: true,
+            pattern: /^[a-zA-Z0-9\\s]+$/,
+          })}
+        />
 
-          <div className={styles.inputs}>
-            {/* Username */}
-            <Box sx={{ display: "flex", alignItems: "flex-end", width: { sm: '350px', md: '400px', lg: '100%' } }}>
-              <AssignmentIndOutlinedIcon />
-              <TextField
-                label="Username"
-                variant="standard"
-                 autoComplete="off"
-                style={{ width: "100%" }}
-                {...register('username', {
-                  required: true,
-                  pattern:  /^[a-zA-Z0-9\s]+$/,
-                })}
-              />
-            </Box>
-            <p className={`${styles.messageError} ${errors.username ? styles.visible : ''}`}>
-              {errors.username?.type === 'required' && 'Username is required'}
-              {errors.username?.type === 'pattern' && 'Username cannot contain symbols'}
-            </p>
+        <TextField
+          fullWidth
+          label="Age"
+          variant="outlined"
+          type="number"
+          error={!!errors.age}
+          helperText={errors.age?.type === 'required' ? 'Age is required' : ''}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <CakeOutlined />
+              </InputAdornment>
+            ),
+          }}
+          {...register('age', { required: true })}
+        />
 
-            {/* Age */}
-            <Box sx={{ display: "flex", alignItems: "flex-end", width: { sm: '350px', md: '400px', lg: '100%' } }}>
-              <CakeOutlinedIcon />
-              <TextField
-                label="Age"
-                variant="standard"
-                type="number"
-                style={{ width: "100%" }}
-                {...register('age', { required: true })}
-              />
-            </Box>
-            <p className={`${styles.messageError} ${errors.age ? styles.visible : ''}`}>
-              {errors.age?.type === 'required' && 'Age is required'}
-            </p>
+        <TextField
+          fullWidth
+          label="Email"
+          variant="outlined"
+          autoComplete="off"
+          error={!!errors.email}
+          helperText={
+            errors.email?.type === 'required' ? 'Email is required' :
+              errors.email?.type === 'pattern' ? 'Invalid email format' : ''
+          }
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <AlternateEmail />
+              </InputAdornment>
+            ),
+          }}
+          {...register("email", {
+            required: true,
+            pattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+          })}
+        />
 
-            {/* Email */}
-            <Box sx={{ display: "flex", alignItems: "flex-end", width: { sm: '350px', md: '400px', lg: '100%' } }}>
-              <AlternateEmailIcon />
-              <TextField
-                label="Email"
-                variant="standard"
-                autoComplete="off"
-                style={{ width: "100%" }}
-                {...register("email", {
-                  required: true,
-                  pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                })}
-              />
-            </Box>
-            <p className={`${styles.messageError} ${errors.email ? styles.visible : ''}`}>
-              {errors.email?.type === 'required' && 'Email is required'}
-              {errors.email?.type === 'pattern' && 'Invalid email format'}
-            </p>
+        <TextField
+          fullWidth
+          label="Password"
+          variant="outlined"
+          type="password"
+          error={!!errors.password}
+          helperText={
+            errors.password?.type === 'required' ? 'Password is required' :
+              errors.password?.type === 'pattern' ? 'Password cannot contain spaces' : ''
+          }
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <LockOutlined />
+              </InputAdornment>
+            ),
+          }}
+          {...register("password", {
+            required: true,
+            pattern: /^[^\\s]+$/,
+          })}
+        />
+      </Box>
 
-            {/* Password */}
-            <Box sx={{ display: "flex", alignItems: "flex-end", width: { sm: '350px', md: '400px', lg: '100%' } }}>
-              <LockOutlinedIcon />
-              <TextField
-                label="Password"
-                variant="standard"
-                type="password"
-                style={{ width: "100%" }}
-                {...register("password", {
-                  required: true,
-                  pattern: /^[^\s]+$/,
-                })}
-              />
-            </Box>
+      <Button
+        ref={buttonRef}
+        type='submit'
+        size='large'
+        variant="contained"
+        endIcon={<Send />}
+        fullWidth
+        disabled={isSubmitting}
+        sx={{
+          py: 1.5,
+          fontSize: { xs: '1rem', sm: '1.25rem' },
+          fontWeight: 700,
+        }}
+      >
+        Sign Up
+      </Button>
 
-            <p className={`${styles.messageError} ${errors.password ? styles.visible : ''}`}>
-              {errors.password?.type === 'required' && 'Password is required'}
-              {errors.password?.type === 'pattern' && 'Password cannot contain spaces'}
-            </p>
-          </div>
-
-        </ThemeProvider>
-        <div className={styles.bottom}>
-
-        <Button ref={buttonRef} type='submit' size='large' variant="contained" endIcon={<SendIcon
-            sx={(theme) => ({
-              fontSize: '20px !important', // Tamaño base
-              [theme.breakpoints.up('sm')]: {
-                fontSize: '30px !important', // Tamaño para pantallas medianas en adelante
-              },
-            })}
-          />} sx={{
-          backgroundColor: 'transparent',
-          border: '1px solid #e2eaec',
-          color: '#e2eaec',
-          marginBottom: '0',
-          width: { xs: '200px',sm: '250px', md: '300px', lg: '400px'},
-          fontSize: { xs: '16px', sm: '25px' },
-          fontWeight: '700',
-          padding: { xs: '6px', sm: '15px 10px' },
-          '&:hover': {
-            backgroundColor: '#e2eaec',
-            color: '#060d17'
-          },
-        }}>
-            Sign Up
-          </Button>
-          <h1 className={styles.textRedirect}>Do you have an account? <button type='button' onClick={()=> setShowLogin(true)}>Log In</button></h1>
-            </div>
-      </form>
-    </>
-
+      <Typography
+        variant="body1"
+        sx={{
+          textAlign: 'center',
+          color: 'text.primary',
+          fontSize: { xs: '0.875rem', sm: '1rem' },
+        }}
+      >
+        Do you have an account?{' '}
+        <Box
+          component="button"
+          type='button'
+          onClick={setShowLogin}
+          sx={{
+            background: 'none',
+            border: 'none',
+            color: 'primary.main',
+            fontWeight: 700,
+            cursor: 'pointer',
+            textDecoration: 'underline',
+            textUnderlineOffset: '4px',
+            '&:hover': {
+              color: 'primary.light',
+            },
+          }}
+        >
+          Log In
+        </Box>
+      </Typography>
+    </Box>
   );
 };
 

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import styles from './MovieListPage.module.css'
 import SearchMovie from '../../components/SearchMovie/SearchMovie';
 import DropdownFilter from '../../components/DropdownFilter/DropdownFilter';
 import ModalMovie from '../../components/ModalMovie/ModalMovie';
@@ -7,6 +6,8 @@ import MovieList from './MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
 import { useGenericContext } from '../../hooks/useGenericContext';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { Container, Box, Typography, Fab, Chip } from '@mui/material';
+import { Add, TrendingUp } from '@mui/icons-material';
 
 
 function MovieListPage() {
@@ -15,46 +16,210 @@ function MovieListPage() {
     const handleModal = () => setShow(!show);
 
     return (
-        <>
-            <div className={styles.content}>
-                <h1 className={styles.titleList}>List Movies</h1>
+        <Box sx={{ 
+            minHeight: '100vh',
+            background: 'linear-gradient(180deg, rgba(6,13,23,1) 0%, rgba(15,25,40,1) 100%)',
+        }}>
+            <Container maxWidth="xl" sx={{ pt: { xs: 4, md: 6 }, pb: 8 }}>
+                <Box sx={{ 
+                    textAlign: 'center', 
+                    mb: { xs: 4, md: 6 },
+                    position: 'relative',
+                }}>
+                    <Box sx={{
+                        position: 'absolute',
+                        top: -40,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '300px',
+                        height: '300px',
+                        background: 'radial-gradient(circle, rgba(253,224,211,0.15) 0%, transparent 70%)',
+                        filter: 'blur(60px)',
+                        pointerEvents: 'none',
+                        zIndex: 0,
+                    }} />
+                    
+                    <Typography 
+                        variant="h1" 
+                        sx={{ 
+                            fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
+                            fontWeight: 900,
+                            background: 'linear-gradient(135deg, #FDE0D3 0%, #ffffff 50%, #FDE0D3 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            textTransform: 'uppercase',
+                            letterSpacing: { xs: '2px', md: '4px' },
+                            mb: 2,
+                            position: 'relative',
+                            textShadow: '0 0 80px rgba(253, 224, 211, 0.3)',
+                            '&::after': {
+                                content: '""',
+                                position: 'absolute',
+                                bottom: -10,
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                width: { xs: '150px', md: '250px' },
+                                height: '4px',
+                                background: 'linear-gradient(90deg, transparent, #FDE0D3, transparent)',
+                                borderRadius: '2px',
+                            }
+                        }}
+                    >
+                        My Collection
+                    </Typography>
 
-                <div>
-                    <div className={`${styles.sectionAdd} ${styles.element}`}>
-                        <button onClick={handleModal}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#ffffff" d="m19.65 6.5l-2.74-3.54l3.93-.78l.78 3.92zm-2.94.57l-2.74-3.53l-1.97.39l2.75 3.53zM19 13c1.1 0 2.12.3 3 .81V10H2v10a2 2 0 0 0 2 2h9.81c-.51-.88-.81-1.9-.81-3c0-3.31 2.69-6 6-6m-7.19-4.95L9.07 4.5l-1.97.41l2.75 3.53zM4.16 5.5l-.98.19a2.01 2.01 0 0 0-1.57 2.35L2 10l4.9-.97zM20 18v-3h-2v3h-3v2h3v3h2v-3h3v-2z" /></svg>
-                        </button>
-                    </div>
-                </div>
+                    <Typography
+                        variant="h6"
+                        sx={{
+                            color: 'rgba(253, 224, 211, 0.7)',
+                            fontSize: { xs: '0.875rem', md: '1.125rem' },
+                            fontWeight: 400,
+                            mb: 4,
+                            letterSpacing: '1px',
+                        }}
+                    >
+                        Discover, Track & Enjoy Your Favorite Movies
+                    </Typography>
+
+                    <Fab
+                        color="primary"
+                        onClick={handleModal}
+                        sx={{
+                            width: { xs: 56, md: 72 },
+                            height: { xs: 56, md: 72 },
+                            boxShadow: '0 8px 32px rgba(253, 224, 211, 0.4)',
+                            border: '3px solid',
+                            borderColor: 'background.default',
+                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            '&:hover': {
+                                transform: 'scale(1.15) rotate(90deg)',
+                                boxShadow: '0 12px 48px rgba(253, 224, 211, 0.6)',
+                            },
+                        }}
+                    >
+                        <Add sx={{ fontSize: { xs: 28, md: 36 } }} />
+                    </Fab>
+                </Box>
 
                 <ModalMovie show={show} handleModal={handleModal} />
 
-                {loading && listMovies.length === 0 ? (<LoadingSpinner />) : (
-                    listMovies.length > 0 ? (
-                        <>
-                            <div className={styles.element}>
-                                <SearchMovie search={search} setSearch={setSearch} />
-                            </div>
+                {loading && listMovies.length === 0 ? (
+                    <LoadingSpinner />
+                ) : listMovies.length > 0 ? (
+                    <>
+                        <SearchMovie search={search} setSearch={setSearch} />
 
-                            <div className={styles.element}>
-                                <div className={styles.filterQuery}>
-                                    <DropdownFilter handleQuery={manageQuery} />
-                                    <label>{queryFilter}</label>
-                                </div>
-                            </div>
-                            <div className={styles.element}>
-                                <MovieList movieToDisplay={movieToDisplay} />
-                            </div>
-                        </>
-                    ) : (
-                        <div className={styles.withoutMovie}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path fill="#f5deb3" d="M14 20h-4v-9l-3.5 3.5l-2.42-2.42L12 4.16l7.92 7.92l-2.42 2.42L14 11z" /></svg>
-                            <h1>Load your first movies!!</h1>
-                        </div>
-                    )
+                        <Box sx={{ 
+                            display: 'flex', 
+                            flexDirection: { xs: 'column', sm: 'row' },
+                            alignItems: { xs: 'stretch', sm: 'center' },
+                            justifyContent: 'space-between',
+                            gap: 2, 
+                            mb: { xs: 4, md: 6 },
+                            px: { xs: 2, sm: 4, md: 6 },
+                            py: 3,
+                            backgroundColor: 'rgba(25, 31, 43, 0.5)',
+                            backdropFilter: 'blur(10px)',
+                            borderRadius: 4,
+                            border: '1px solid rgba(253, 224, 211, 0.1)',
+                        }}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                                <Typography sx={{
+                                    fontSize: { xs: '0.875rem', md: '1rem' },
+                                    color: 'text.secondary',
+                                    fontWeight: 600,
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px',
+                                }}>
+                                    Filter by:
+                                </Typography>
+                                <DropdownFilter handleQuery={manageQuery} />
+                            </Box>
+                            
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                <Chip 
+                                    label={queryFilter} 
+                                    icon={<TrendingUp />}
+                                    sx={{
+                                        backgroundColor: 'rgba(253, 224, 211, 0.15)',
+                                        color: 'primary.main',
+                                        fontWeight: 700,
+                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        textTransform: 'capitalize',
+                                        border: '2px solid',
+                                        borderColor: 'primary.main',
+                                        px: 1,
+                                        height: { xs: 36, md: 40 },
+                                        boxShadow: '0 4px 12px rgba(253, 224, 211, 0.2)',
+                                        '& .MuiChip-icon': {
+                                            color: 'primary.main',
+                                        }
+                                    }}
+                                />
+                                <Typography sx={{
+                                    fontSize: { xs: '0.875rem', md: '1rem' },
+                                    color: 'text.secondary',
+                                    fontWeight: 500,
+                                }}>
+                                    {movieToDisplay.length} {movieToDisplay.length === 1 ? 'movie' : 'movies'}
+                                </Typography>
+                            </Box>
+                        </Box>
+
+                        <MovieList movieToDisplay={movieToDisplay} />
+                    </>
+                ) : (
+                    <Box sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        alignItems: 'center', 
+                        gap: 3,
+                        mt: 10,
+                        p: 6,
+                        backgroundColor: 'rgba(25, 31, 43, 0.5)',
+                        backdropFilter: 'blur(10px)',
+                        borderRadius: 4,
+                        border: '2px dashed rgba(253, 224, 211, 0.3)',
+                    }}>
+                        <Box sx={{
+                            width: { xs: 80, md: 100 },
+                            height: { xs: 80, md: 100 },
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '3px solid',
+                            borderColor: 'primary.main',
+                        }}>
+                            <TrendingUp sx={{ fontSize: { xs: 40, md: 60 }, color: 'primary.main' }} />
+                        </Box>
+                        <Typography 
+                            variant="h4" 
+                            sx={{ 
+                                color: 'primary.main', 
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                fontSize: { xs: '1.5rem', md: '2rem' },
+                                textAlign: 'center',
+                            }}
+                        >
+                            Start Your Collection
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: 'text.secondary',
+                                fontSize: { xs: '1rem', md: '1.125rem' },
+                                textAlign: 'center',
+                                maxWidth: '500px',
+                            }}
+                        >
+                            Click the + button above to add your first movie and begin tracking your favorites!
+                        </Typography>
+                    </Box>
                 )}
-            </div>
-        </>
+            </Container>
+        </Box>
     )
 }
 

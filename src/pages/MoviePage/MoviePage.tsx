@@ -1,16 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMovieById } from '../../hooks/useMovieById'
-import styles from './MoviePage.module.css'
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import MovieDetails from './MovieDetails/MovieDetails';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
+import { Container } from '@mui/material';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();
-    const { movie,setMovie, loading, processCompleted } = useMovieById(idMovie || '');
+    const { movie, setMovie, loading, processCompleted } = useMovieById(idMovie || '');
     const navigate = useNavigate();
-
 
     useEffect(() => {
         if (processCompleted && (idMovie === null || movie === null)) {
@@ -19,21 +18,14 @@ function MoviePage() {
         }
     }, [movie, processCompleted])
 
-
     return (
-        <>
-        <div className={styles.container}>
-        <div className={styles.content}>
-                {loading ? (
-                    <LoadingSpinner/>
-                ) : (movie &&
-                        <MovieDetails movie={movie} setMovie={setMovie}/>
-                    )
-                }
-            </div>
-        </div>
-
-        </>
+        <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh' }}>
+            {loading ? (
+                <LoadingSpinner />
+            ) : (movie &&
+                <MovieDetails movie={movie} setMovie={setMovie} />
+            )}
+        </Container>
     )
 }
 

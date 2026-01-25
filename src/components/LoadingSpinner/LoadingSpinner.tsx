@@ -1,18 +1,18 @@
-import { Spinner } from "react-bootstrap";
+import { Box, CircularProgress } from "@mui/material";
 
 function LoadingSpinner() {
     return (
-        <div
-            style={{
+        <Box
+            sx={{
                 width: "100%",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                marginTop: "4em",
+                minHeight: "50vh",
             }}
         >
-            <Spinner animation="border" variant="light" />
-        </div>
+            <CircularProgress size={60} thickness={4} sx={{ color: 'primary.main' }} />
+        </Box>
     )
 }
 

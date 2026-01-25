@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -8,8 +7,8 @@ import { Movie, MovieEdit } from '../../../types/interface'
 import DropdownDetail from '../../../components/DropdownDetail/DropdownDetail'
 import ModalEdit from '../../../components/ModalEdit/ModalEdit'
 import ConfirmDialog from '../../../components/ConfirmDialog/ConfirmDialog'
-import { Box, Paper, Typography, Chip, Button } from '@mui/material'
-import { PlayArrow, CalendarToday, TheaterComedy, Movie as MovieIcon } from '@mui/icons-material'
+import { Box, Typography, Chip, Button } from '@mui/material'
+import { PlayArrow } from '@mui/icons-material'
 
 
 

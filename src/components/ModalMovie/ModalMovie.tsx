@@ -209,8 +209,11 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                   <CardMedia
                     component="img"
                     sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    image={selectedMovie.poster}
+                    image={selectedMovie.poster || '/no-poster.svg'}
                     alt={selectedMovie.title}
+                    onError={(e: any) => {
+                      e.target.src = '/no-poster.svg';
+                    }}
                   />
                 </Box>
                 
@@ -437,9 +440,12 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                           overflow: 'hidden',
                         }}>
                           <LazyLoadImage
-                            src={movie.poster}
+                            src={movie.poster || '/no-poster.svg'}
                             alt={movie.title}
                             effect='opacity'
+                            onError={(e: any) => {
+                              e.target.src = '/no-poster.svg';
+                            }}
                             style={{
                               width: '100%',
                               height: '100%',

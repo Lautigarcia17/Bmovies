@@ -63,9 +63,12 @@ const MovieList = memo(({ movieToDisplay }: { movieToDisplay: Array<Movie> }) =>
                                 }}
                             >
                                 <LazyLoadImage
-                                    src={movie.poster}
+                                    src={movie.poster || '/no-poster.svg'}
                                     alt={movie.title}
                                     effect="opacity"
+                                    onError={(e: any) => {
+                                        e.target.src = '/no-poster.svg';
+                                    }}
                                     style={{
                                         position: 'absolute',
                                         top: 0,

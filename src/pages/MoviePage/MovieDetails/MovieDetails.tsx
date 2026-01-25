@@ -149,8 +149,11 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                     >
                         <Box
                             component="img"
-                            src={movie.poster}
+                            src={movie.poster || '/no-poster.svg'}
                             alt={movie.title}
+                            onError={(e: any) => {
+                                e.target.src = '/no-poster.svg';
+                            }}
                             sx={{
                                 width: '100%',
                                 height: 'auto',

@@ -1,0 +1,58 @@
+<svg width="400" height="600" viewBox="0 0 400 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="600" fill="#060d17"/>
+  
+  <!-- Film strip decoration -->
+  <g opacity="0.15">
+    <rect x="20" y="0" width="40" height="600" fill="#FDE0D3"/>
+    <rect x="340" y="0" width="40" height="600" fill="#FDE0D3"/>
+    <!-- Film holes -->
+    <circle cx="40" cy="50" r="8" fill="#060d17"/>
+    <circle cx="40" cy="130" r="8" fill="#060d17"/>
+    <circle cx="40" cy="210" r="8" fill="#060d17"/>
+    <circle cx="40" cy="290" r="8" fill="#060d17"/>
+    <circle cx="40" cy="370" r="8" fill="#060d17"/>
+    <circle cx="40" cy="450" r="8" fill="#060d17"/>
+    <circle cx="40" cy="530" r="8" fill="#060d17"/>
+    <circle cx="360" cy="50" r="8" fill="#060d17"/>
+    <circle cx="360" cy="130" r="8" fill="#060d17"/>
+    <circle cx="360" cy="210" r="8" fill="#060d17"/>
+    <circle cx="360" cy="290" r="8" fill="#060d17"/>
+    <circle cx="360" cy="370" r="8" fill="#060d17"/>
+    <circle cx="360" cy="450" r="8" fill="#060d17"/>
+    <circle cx="360" cy="530" r="8" fill="#060d17"/>
+  </g>
+  
+  <!-- Movie camera icon -->
+  <g transform="translate(200, 300)">
+    <!-- Camera body -->
+    <rect x="-60" y="-30" width="120" height="80" rx="8" fill="#0a1929" stroke="#FDE0D3" stroke-width="3" opacity="0.8"/>
+    
+    <!-- Lens -->
+    <circle cx="-15" cy="10" r="28" fill="#0a1929" stroke="#FDE0D3" stroke-width="3"/>
+    <circle cx="-15" cy="10" r="18" fill="none" stroke="#FDE0D3" stroke-width="2" opacity="0.5"/>
+    <circle cx="-15" cy="10" r="10" fill="#FDE0D3" opacity="0.3"/>
+    
+    <!-- Viewfinder -->
+    <rect x="25" y="-10" width="28" height="22" rx="3" fill="none" stroke="#FDE0D3" stroke-width="2" opacity="0.6"/>
+    
+    <!-- Film reels -->
+    <circle cx="-55" cy="-60" r="25" fill="none" stroke="#FDE0D3" stroke-width="3" opacity="0.6"/>
+    <circle cx="-55" cy="-60" r="15" fill="none" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+    <line x1="-55" y1="-75" x2="-55" y2="-45" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+    <line x1="-70" y1="-60" x2="-40" y2="-60" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+    
+    <circle cx="25" cy="-60" r="25" fill="none" stroke="#FDE0D3" stroke-width="3" opacity="0.6"/>
+    <circle cx="25" cy="-60" r="15" fill="none" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+    <line x1="25" y1="-75" x2="25" y2="-45" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+    <line x1="10" y1="-60" x2="40" y2="-60" stroke="#FDE0D3" stroke-width="2" opacity="0.4"/>
+  </g>
+  
+  <!-- Decorative stars -->
+  <g opacity="0.3" fill="#FDE0D3">
+    <polygon points="120,120 123,128 131,128 125,133 127,141 120,136 113,141 115,133 109,128 117,128" />
+    <polygon points="280,150 282,156 288,156 283,160 285,166 280,162 275,166 277,160 272,156 278,156" />
+    <polygon points="150,480 153,488 161,488 155,493 157,501 150,496 143,501 145,493 139,488 147,488" />
+    <polygon points="310,420 312,426 318,426 313,430 315,436 310,432 305,436 307,430 302,426 308,426" />
+  </g>
+</svg>

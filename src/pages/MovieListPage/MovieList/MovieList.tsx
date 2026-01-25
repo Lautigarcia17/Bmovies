@@ -11,7 +11,6 @@ function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
         if (rating >= 5 && rating < 6) return '#ffc226';
         return '#26ff3e';
     }
-    console.log(movieToDisplay)
     return (
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
             {movieToDisplay.length !== 0 ? (

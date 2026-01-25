@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo, useCallback } from "react";
 import { ManageMovieResponse, Movie } from "../types/interface";
 import { addMovie, checkIfMovieExists, deleteMovie, getMovies, updateMovie } from "../services/database";
 import { UseMovieReturn } from "../types/type";
@@ -6,13 +6,13 @@ import { getYearsList } from "../utilities/getYearList";
 import { FilterState } from "./useQueryFilter";
 
 
-export const useMovie = (idSession: string, search: string = '', queryFilter: FilterState = {},  manageQuery: (filterType: 'status' | 'year' | 'rating', value: string) => void): UseMovieReturn => {
+export const useMovie = (idSession: string, search: string = '', queryFilter: FilterState = {},  _manageQuery: (filterType: 'status' | 'year' | 'rating', value: string) => void): UseMovieReturn => {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [movieToDisplay, setMovieToDisplay] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
 
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             setLoading(true)
             if (idSession) {
@@ -43,9 +43,9 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
             console.log(error);
             setLoading(false);
         }
-    }
+    }, [idSession]);
 
-    const saveMovie = async (movie: Movie) => {
+    const saveMovie = useCallback(async (movie: Movie) => {
         if (await checkIfMovieExists(movie.title) === false) {
             const { error, data } = await addMovie(movie)
 
@@ -58,9 +58,9 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
         else {
             throw new Error(`Error! The movie has already been registered.`);
         }
-    };
+    }, []);
 
-    const removeMovie = async (id: string): Promise<ManageMovieResponse> => {
+    const removeMovie = useCallback(async (id: string): Promise<ManageMovieResponse> => {
         if (id != '') {
             const { error, data } = await deleteMovie(id)
 
@@ -71,9 +71,9 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
         else {
             return { data: null, error: new Error('No identification was provided')};
         }
-    };
+    }, [listMovies]);
 
-    const modifyMovie = async (id: string, rating: number | null, trailer: string, isNewMovie: boolean = true): Promise<ManageMovieResponse> => {
+    const modifyMovie = useCallback(async (id: string, rating: number | null, trailer: string, isNewMovie: boolean = true): Promise<ManageMovieResponse> => {
         try {
             if (id !== '') {
                 const updateData: any = {};
@@ -107,14 +107,14 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
             console.error('Update failed:', error);
             return { data: null, error };
         }
-    };
+    }, [listMovies]);
 
 
 
-    const filter = (): Array<Movie> => {
+    const filteredMovies = useMemo(() => {
         if (!listMovies.length) return [];
     
-        let moviesFiltered: Array<Movie> = listMovies.sort((a : Movie,b : Movie) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
+        let moviesFiltered: Array<Movie> = [...listMovies].sort((a : Movie,b : Movie) => new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime());
     
         const validYears = getYearsList(2023).map((year) => year.toString());
     
@@ -153,7 +153,7 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
         }
     
         return moviesFiltered;
-    };
+    }, [listMovies, search, queryFilter]);
 
 
 
@@ -161,18 +161,11 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: Fi
         if (idSession !== undefined && idSession !== null) {
             fetchData();
         }
-    }, [idSession])
-
-
-
+    }, [idSession, fetchData])
 
     useEffect(() => {
-        setMovieToDisplay(filter());
-    }, [listMovies, search, queryFilter])
-
-
-
-
+        setMovieToDisplay(filteredMovies);
+    }, [filteredMovies])
 
     return { listMovies, movieToDisplay, loading, saveMovie, removeMovie, modifyMovie }
 }

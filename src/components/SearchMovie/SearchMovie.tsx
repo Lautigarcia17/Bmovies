@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { useGenericContext } from '../../hooks/useGenericContext';
 import { scrollContext } from '../../context/ScrollContext';
 import { TextField, InputAdornment, IconButton, Box } from '@mui/material';
 import { Search, Clear } from '@mui/icons-material';
 
-function SearchMovie({ search, setSearch }: { search: string, setSearch: React.Dispatch<React.SetStateAction<string>> }) {
+const SearchMovie = memo(({ search, setSearch }: { search: string, setSearch: React.Dispatch<React.SetStateAction<string>> }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const { scrollRef } = useGenericContext(scrollContext)
 
@@ -27,7 +27,7 @@ function SearchMovie({ search, setSearch }: { search: string, setSearch: React.D
         return () => {
             scrollElement.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scrollRef]);
 
     return (
         <Box
@@ -144,6 +144,6 @@ function SearchMovie({ search, setSearch }: { search: string, setSearch: React.D
             </Box>
         </Box>
     )
-}
+});
 
 export default SearchMovie

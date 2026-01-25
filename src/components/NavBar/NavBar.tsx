@@ -44,7 +44,7 @@ function NavBar() {
         return () => {
             scrollElement.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scrollRef]);
 
     const handleScrollToTop = () => {
         if (scrollRef.current) {

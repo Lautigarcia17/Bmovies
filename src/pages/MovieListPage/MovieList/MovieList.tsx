@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom'
 import { Movie } from '../../../types/interface'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Box, Grid, Card, Typography, Chip } from '@mui/material';
+import { memo } from 'react';
 
 
-function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
+const MovieList = memo(({ movieToDisplay }: { movieToDisplay: Array<Movie> }) => {
 
     const getRatingColor = (rating: number) => {
         if (rating < 5) return '#ff3e26';
@@ -243,6 +244,6 @@ function MovieList({ movieToDisplay }: { movieToDisplay: Array<Movie> }) {
             )}
         </Box>
     )
-}
+});
 
-export default MovieList
+export default MovieList;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UseQueryFilter } from "../types/type";
 
@@ -8,7 +8,7 @@ export interface FilterState {
     rating?: string;
 }
 
-export const useQueryFilter = (idSession:string) : UseQueryFilter =>{
+export const useQueryFilter = (_idSession:string) : UseQueryFilter =>{
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -24,8 +24,9 @@ export const useQueryFilter = (idSession:string) : UseQueryFilter =>{
     };
 
     const [queryFilter, setQueryFilter] = useState<FilterState>(parseFilter(initialFilterParam));
+    const isInitialMount = useRef(true);
 
-    const manageQuery = (filterType: 'status' | 'year' | 'rating', value: string) => {
+    const manageQuery = useCallback((filterType: 'status' | 'year' | 'rating', value: string) => {
         const newFilter = { ...queryFilter };
         
         if (filterType === 'status' && value === 'all') {
@@ -36,27 +37,28 @@ export const useQueryFilter = (idSession:string) : UseQueryFilter =>{
         
         setQueryFilter(newFilter);
         navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
-    };
+    }, [queryFilter, navigate]);
 
-    const removeFilter = (filterType: 'status' | 'year' | 'rating') => {
+    const removeFilter = useCallback((filterType: 'status' | 'year' | 'rating') => {
         const newFilter = { ...queryFilter };
         delete newFilter[filterType];
         setQueryFilter(newFilter);
         navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
-    };
+    }, [queryFilter, navigate]);
 
-    const clearAllFilters = () => {
+    const clearAllFilters = useCallback(() => {
         setQueryFilter({});
         navigate(`?filter=${encodeURIComponent(JSON.stringify({}))}`);
-    };
+    }, [navigate]);
 
-    useEffect(()=>{     
-       if(location.pathname === '/' && initialFilterParam === '{}'){
+    useEffect(()=> {     
+       if(isInitialMount.current && location.pathname === '/' && initialFilterParam === '{}'){
+        isInitialMount.current = false;
         const defaultFilter = {};
-        navigate(`?filter=${encodeURIComponent(JSON.stringify(defaultFilter))}`);
+        navigate(`?filter=${encodeURIComponent(JSON.stringify(defaultFilter))}`, { replace: true });
         setQueryFilter(defaultFilter);
        }
-    },[idSession,navigate,location])
+    },[]);
 
     return {queryFilter, manageQuery, removeFilter, clearAllFilters}
 }

@@ -28,17 +28,17 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
         >
             <Box
                 sx={{
-                    p: 4,
-                    pb: 3,
+                    p: { xs: 3, sm: 3.5, md: 4 },
+                    pb: { xs: 2.5, sm: 3 },
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 2,
+                    gap: { xs: 1.5, sm: 2 },
                 }}
             >
                 <Box
                     sx={{
-                        width: 60,
-                        height: 60,
+                        width: { xs: 50, sm: 55, md: 60 },
+                        height: { xs: 50, sm: 55, md: 60 },
                         borderRadius: '50%',
                         backgroundColor: 'rgba(255, 62, 38, 0.15)',
                         display: 'flex',
@@ -47,14 +47,14 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                         border: '2px solid rgba(255, 62, 38, 0.3)',
                     }}
                 >
-                    <Warning sx={{ color: 'error.main', fontSize: 32 }} />
+                    <Warning sx={{ color: 'error.main', fontSize: { xs: 26, sm: 28, md: 32 } }} />
                 </Box>
                 <Typography
                     variant="h4"
                     sx={{
                         color: 'error.main',
                         fontWeight: 700,
-                        fontSize: '1.75rem',
+                        fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
                         letterSpacing: 0.5,
                         flex: 1,
                     }}
@@ -65,11 +65,11 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
 
             <Divider sx={{ borderColor: 'rgba(255, 62, 38, 0.2)' }} />
 
-            <DialogContent sx={{ p: 4 }}>
+            <DialogContent sx={{ p: { xs: 3, sm: 3.5, md: 4 } }}>
                 <Typography
                     sx={{
                         color: 'rgba(255, 255, 255, 0.9)',
-                        fontSize: '1.15rem',
+                        fontSize: { xs: '0.95rem', sm: '1.05rem', md: '1.15rem' },
                         lineHeight: 1.7,
                         textAlign: 'center',
                     }}
@@ -94,10 +94,11 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
 
             <Box
                 sx={{
-                    p: 3,
+                    p: { xs: 2.5, sm: 3 },
                     display: 'flex',
-                    gap: 2,
+                    gap: { xs: 1.5, sm: 2 },
                     justifyContent: 'center',
+                    flexDirection: { xs: 'column', sm: 'row' },
                 }}
             >
                 <Button
@@ -109,13 +110,13 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                         borderColor: 'rgba(255, 255, 255, 0.3)',
                         borderWidth: 2,
                         borderRadius: 2,
-                        px: 4,
-                        py: 1.5,
-                        fontSize: '1rem',
+                        px: { xs: 3, sm: 4 },
+                        py: { xs: 1.25, sm: 1.5 },
+                        fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
                         fontWeight: 600,
                         textTransform: 'uppercase',
-                        letterSpacing: 1,
-                        minWidth: 140,
+                        letterSpacing: { xs: 0.5, sm: 1 },
+                        minWidth: { xs: 'auto', sm: 140 },
                         '&:hover': {
                             borderWidth: 2,
                             borderColor: 'rgba(255, 255, 255, 0.5)',
@@ -127,19 +128,19 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                 </Button>
                 <Button
                     onClick={onConfirm}
-                    startIcon={<Delete sx={{ fontSize: 24 }} />}
+                    startIcon={<Delete sx={{ fontSize: { xs: 20, sm: 22, md: 24 } }} />}
                     variant="contained"
                     sx={{
                         backgroundColor: 'error.main',
                         color: '#ffffff',
                         borderRadius: 2,
-                        px: 4,
-                        py: 1.5,
-                        fontSize: '1rem',
+                        px: { xs: 3, sm: 4 },
+                        py: { xs: 1.25, sm: 1.5 },
+                        fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
                         fontWeight: 700,
                         textTransform: 'uppercase',
-                        letterSpacing: 1,
-                        minWidth: 140,
+                        letterSpacing: { xs: 0.5, sm: 1 },
+                        minWidth: { xs: 'auto', sm: 140 },
                         boxShadow: '0 8px 24px rgba(255, 62, 38, 0.4)',
                         '&:hover': {
                             backgroundColor: 'error.dark',

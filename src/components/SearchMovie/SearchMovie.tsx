@@ -41,9 +41,10 @@ function SearchMovie({ search, setSearch }: { search: string, setSearch: React.D
         >
             <Box
                 sx={{
-                    width: { xs: '90%', sm: '500px', md: '600px', lg: '700px' },
+                    width: { xs: '95%', sm: '85%', md: '600px', lg: '700px' },
+                    maxWidth: { xs: '100%', sm: '500px', md: '600px', lg: '700px' },
                     position: isScrolled ? 'fixed' : 'relative',
-                    top: isScrolled ? { xs: 60, sm: 70, md: 90 } : 'auto',
+                    top: isScrolled ? { xs: 56, sm: 64, md: 80 } : 'auto',
                     zIndex: 1000,
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
@@ -60,13 +61,15 @@ function SearchMovie({ search, setSearch }: { search: string, setSearch: React.D
                                 ? 'rgba(6, 13, 23, 0.95)' 
                                 : 'rgba(25, 31, 43, 0.8)',
                             backdropFilter: 'blur(20px) saturate(180%)',
-                            borderRadius: '50px',
+                            borderRadius: { xs: '40px', sm: '50px' },
                             border: '2px solid',
                             borderColor: search.length > 0 ? 'primary.main' : 'rgba(253, 224, 211, 0.2)',
                             boxShadow: search.length > 0 
                                 ? '0 8px 32px rgba(253, 224, 211, 0.25)'
                                 : '0 4px 16px rgba(0, 0, 0, 0.3)',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            fontSize: { xs: '0.875rem', sm: '1rem' },
+                            py: { xs: 0.5, sm: 1 },
                             '&:hover': {
                                 borderColor: 'primary.main',
                                 boxShadow: '0 8px 32px rgba(253, 224, 211, 0.3)',

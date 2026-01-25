@@ -184,9 +184,9 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                         sx={{
                                             color: 'primary.main',
                                             fontWeight: 800,
-                                            fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '4rem' },
+                                            fontSize: { xs: '2rem', sm: '2.5rem', md: '3.5rem', lg: '4rem' },
                                             lineHeight: 1.1,
-                                            letterSpacing: -1,
+                                            letterSpacing: { xs: -0.5, md: -1 },
                                             mb: 2,
                                         }}
                                     >
@@ -204,9 +204,9 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                                     border: '2px solid',
                                                     borderColor: 'primary.main',
                                                     fontWeight: 700,
-                                                    fontSize: '1rem',
-                                                    height: 38,
-                                                    px: 1,
+                                                    fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
+                                                    height: { xs: 32, sm: 36, md: 38 },
+                                                    px: { xs: 0.5, sm: 1 },
                                                 }}
                                             />
                                         )}
@@ -214,10 +214,10 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                             <Typography
                                                 sx={{
                                                     color: 'rgba(255, 255, 255, 0.7)',
-                                                    fontSize: '1.1rem',
+                                                    fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1.1rem' },
                                                     fontWeight: 500,
                                                     textTransform: 'uppercase',
-                                                    letterSpacing: 2,
+                                                    letterSpacing: { xs: 1, md: 2 },
                                                 }}
                                             >
                                                 {movie.genre}
@@ -231,8 +231,8 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                 <Box
                                     sx={{
                                         flexShrink: 0,
-                                        width: 140,
-                                        height: 140,
+                                        width: { xs: 100, sm: 120, md: 140 },
+                                        height: { xs: 100, sm: 120, md: 140 },
                                         borderRadius: '50%',
                                         background: `conic-gradient(${getRatingColor(movie.rating)} ${movie.rating * 10}%, rgba(255, 255, 255, 0.1) 0)`,
                                         display: 'flex',
@@ -244,8 +244,8 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                 >
                                     <Box
                                         sx={{
-                                            width: 116,
-                                            height: 116,
+                                            width: { xs: 80, sm: 100, md: 116 },
+                                            height: { xs: 80, sm: 100, md: 116 },
                                             borderRadius: '50%',
                                             backgroundColor: 'rgba(6, 13, 23, 0.95)',
                                             display: 'flex',
@@ -259,7 +259,7 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                             sx={{
                                                 color: getRatingColor(movie.rating),
                                                 fontWeight: 900,
-                                                fontSize: '3rem',
+                                                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                                                 lineHeight: 1,
                                                 textShadow: `0 0 25px ${getRatingColor(movie.rating)}90`,
                                             }}
@@ -317,10 +317,10 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                     <Typography
                                         sx={{
                                             color: 'rgba(255, 255, 255, 0.5)',
-                                            fontSize: '0.85rem',
+                                            fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
                                             fontWeight: 600,
                                             textTransform: 'uppercase',
-                                            letterSpacing: 2,
+                                            letterSpacing: { xs: 1, md: 2 },
                                             mb: 1,
                                         }}
                                     >
@@ -329,7 +329,7 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                     <Typography
                                         sx={{
                                             color: 'text.primary',
-                                            fontSize: '1.15rem',
+                                            fontSize: { xs: '1rem', sm: '1.1rem', md: '1.15rem' },
                                             fontWeight: 600,
                                         }}
                                     >
@@ -343,10 +343,10 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                     <Typography
                                         sx={{
                                             color: 'rgba(255, 255, 255, 0.5)',
-                                            fontSize: '0.85rem',
+                                            fontSize: { xs: '0.75rem', sm: '0.8rem', md: '0.85rem' },
                                             fontWeight: 600,
                                             textTransform: 'uppercase',
-                                            letterSpacing: 2,
+                                            letterSpacing: { xs: 1, md: 2 },
                                             mb: 1,
                                         }}
                                     >
@@ -378,19 +378,19 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                             {movie.trailer && (
                                 <Button
                                     variant="contained"
-                                    startIcon={<PlayArrow sx={{ fontSize: 32 }} />}
+                                    startIcon={<PlayArrow sx={{ fontSize: { xs: 24, sm: 28, md: 32 } }} />}
                                     href={movie.trailer}
                                     target="_blank"
                                     sx={{
                                         backgroundColor: 'primary.main',
                                         color: '#060d17',
                                         borderRadius: 2,
-                                        px: 5,
-                                        py: 2,
-                                        fontSize: '1.15rem',
+                                        px: { xs: 3, sm: 4, md: 5 },
+                                        py: { xs: 1.5, sm: 1.75, md: 2 },
+                                        fontSize: { xs: '0.875rem', sm: '1rem', md: '1.15rem' },
                                         fontWeight: 700,
                                         textTransform: 'uppercase',
-                                        letterSpacing: 1.5,
+                                        letterSpacing: { xs: 1, md: 1.5 },
                                         boxShadow: '0 10px 30px rgba(253, 224, 211, 0.4)',
                                         transition: 'all 0.3s ease',
                                         '&:hover': {

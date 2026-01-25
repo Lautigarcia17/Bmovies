@@ -181,13 +181,13 @@ function MovieListPage() {
                                 <Box sx={{ 
                                     display: 'flex', 
                                     alignItems: 'center', 
-                                    gap: 1.5, 
+                                    gap: { xs: 1, sm: 1.5 }, 
                                     flexWrap: 'wrap',
                                     pt: 2,
                                     borderTop: '1px solid rgba(253, 224, 211, 0.1)',
                                 }}>
                                     <Typography sx={{
-                                        fontSize: '0.875rem',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
                                         color: 'text.secondary',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
@@ -205,11 +205,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('status', queryFilter.status).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: '0.9rem',
+                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
+                                                height: { xs: 28, sm: 32, md: 36 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('status', queryFilter.status).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
+                                                    fontSize: { xs: 16, sm: 18 },
                                                     '&:hover': {
                                                         color: getFilterColor('status', queryFilter.status).border,
                                                     },
@@ -227,11 +229,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('year', queryFilter.year).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: '0.9rem',
+                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
+                                                height: { xs: 28, sm: 32, md: 36 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('year', queryFilter.year).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
+                                                    fontSize: { xs: 16, sm: 18 },
                                                     '&:hover': {
                                                         color: 'primary.main',
                                                     },
@@ -249,11 +253,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('rating', queryFilter.rating).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: '0.9rem',
+                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
+                                                height: { xs: 28, sm: 32, md: 36 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('rating', queryFilter.rating).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
+                                                    fontSize: { xs: 16, sm: 18 },
                                                     '&:hover': {
                                                         color: getFilterColor('rating', queryFilter.rating).border,
                                                     },
@@ -266,9 +272,11 @@ function MovieListPage() {
                                         onClick={clearAllFilters}
                                         size="small"
                                         sx={{
-                                            ml: 1,
+                                            ml: { xs: 0.5, sm: 1 },
                                             color: '#ff3e26',
                                             border: '1px solid rgba(255, 62, 38, 0.3)',
+                                            width: { xs: 28, sm: 32 },
+                                            height: { xs: 28, sm: 32 },
                                             '&:hover': {
                                                 backgroundColor: 'rgba(255, 62, 38, 0.1)',
                                                 borderColor: '#ff3e26',

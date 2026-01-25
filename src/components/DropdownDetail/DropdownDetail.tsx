@@ -19,12 +19,12 @@ function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () =>
                     borderColor: 'primary.main',
                     borderWidth: 2,
                     borderRadius: 2,
-                    px: 3,
-                    py: 1.5,
-                    fontSize: '1rem',
+                    px: { xs: 2, sm: 3 },
+                    py: { xs: 1.25, sm: 1.5 },
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: 1,
+                    letterSpacing: { xs: 0.5, sm: 1 },
                     '&:hover': {
                         backgroundColor: 'rgba(253, 224, 211, 0.1)',
                         borderWidth: 2,
@@ -34,7 +34,7 @@ function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () =>
                     transition: 'all 0.3s ease',
                 }}
             >
-                Edit Movie
+                Edit
             </Button>
             <Button
                 variant="outlined"
@@ -45,12 +45,12 @@ function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () =>
                     borderColor: 'error.main',
                     borderWidth: 2,
                     borderRadius: 2,
-                    px: 3,
-                    py: 1.5,
-                    fontSize: '1rem',
+                    px: { xs: 2, sm: 3 },
+                    py: { xs: 1.25, sm: 1.5 },
+                    fontSize: { xs: '0.875rem', sm: '1rem' },
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: 1,
+                    letterSpacing: { xs: 0.5, sm: 1 },
                     '&:hover': {
                         backgroundColor: 'rgba(255, 62, 38, 0.1)',
                         borderWidth: 2,

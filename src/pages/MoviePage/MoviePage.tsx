@@ -12,11 +12,11 @@ function MoviePage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (processCompleted && (idMovie === null || movie === null)) {
+        if (processCompleted && !loading && !movie) {
             toast.error(`Error! movie not found`, { position: 'top-right', duration: 2000 })
             navigate('/');
         }
-    }, [movie, processCompleted])
+    }, [movie, processCompleted, loading, navigate])
 
     return (
         <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh' }}>

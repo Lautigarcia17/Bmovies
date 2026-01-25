@@ -100,7 +100,7 @@ function AuthPage() {
             variant="h2"
             sx={{
               color: 'primary.main',
-              fontSize: '2.5rem',
+              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
               fontWeight: 700,
               mb: 3,
               lineHeight: 1.2,
@@ -112,7 +112,7 @@ function AuthPage() {
           <Typography
             sx={{
               color: 'rgba(255, 255, 255, 0.7)',
-              fontSize: '1.2rem',
+              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
               lineHeight: 1.8,
               mb: 4,
             }}
@@ -120,7 +120,7 @@ function AuthPage() {
             Save, rate, and organize the movies that shaped your story. Create your personal cinema archive.
           </Typography>
 
-          <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+          <Box sx={{ display: 'flex', gap: { xs: 2, sm: 3 }, flexWrap: 'wrap' }}>
             {[
               { icon: LocalMovies, text: 'Track Movies' },
               { icon: Theaters, text: 'Rate & Review' },
@@ -131,16 +131,16 @@ function AuthPage() {
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1.5,
-                  px: 3,
-                  py: 1.5,
+                  gap: { xs: 1, sm: 1.5 },
+                  px: { xs: 2, sm: 2.5, md: 3 },
+                  py: { xs: 1, sm: 1.25, md: 1.5 },
                   borderRadius: 2,
                   backgroundColor: 'rgba(253, 224, 211, 0.08)',
                   border: '1px solid rgba(253, 224, 211, 0.2)',
                 }}
               >
-                <Icon sx={{ color: 'primary.main', fontSize: 28 }} />
-                <Typography sx={{ color: 'text.primary', fontWeight: 600, fontSize: '1.1rem' }}>
+                <Icon sx={{ color: 'primary.main', fontSize: { xs: 24, sm: 26, md: 28 } }} />
+                <Typography sx={{ color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' } }}>
                   {text}
                 </Typography>
               </Box>

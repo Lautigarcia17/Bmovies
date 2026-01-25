@@ -222,11 +222,11 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
         fullWidth
         disabled={isSubmitting}
         sx={{
-          py: 1.8,
-          fontSize: '1.1rem',
+          py: { xs: 1.5, sm: 1.7, md: 1.8 },
+          fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
           fontWeight: 700,
           textTransform: 'uppercase',
-          letterSpacing: 1.5,
+          letterSpacing: { xs: 1, md: 1.5 },
           backgroundColor: 'primary.main',
           color: '#060d17',
           borderRadius: 2,

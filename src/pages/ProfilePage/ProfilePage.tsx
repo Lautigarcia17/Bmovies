@@ -58,7 +58,7 @@ function ProfilePage() {
                         <Typography
                             sx={{
                                 color: 'rgba(255, 255, 255, 0.7)',
-                                fontSize: '1.1rem',
+                                fontSize: { xs: '0.875rem', sm: '1rem', md: '1.1rem' },
                                 mb: 3,
                             }}
                         >
@@ -68,30 +68,30 @@ function ProfilePage() {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={4}>
                                 <Box>
-                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem', mb: 1 }}>
+                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
                                         Total Movies
                                     </Typography>
-                                    <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 700 }}>
+                                    <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
                                         {totalMovies}
                                     </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={4}>
                                 <Box>
-                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem', mb: 1 }}>
+                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
                                         Watched
                                     </Typography>
-                                    <Typography variant="h3" sx={{ color: '#26ff3e', fontWeight: 700 }}>
+                                    <Typography variant="h3" sx={{ color: '#26ff3e', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
                                         {moviesWatched}
                                     </Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={4}>
                                 <Box>
-                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.9rem', mb: 1 }}>
+                                    <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
                                         To Watch
                                     </Typography>
-                                    <Typography variant="h3" sx={{ color: '#ffc226', fontWeight: 700 }}>
+                                    <Typography variant="h3" sx={{ color: '#ffc226', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
                                         {moviesToWatch}
                                     </Typography>
                                 </Box>

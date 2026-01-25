@@ -392,6 +392,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                 <Box sx={{ 
                   maxHeight: 450, 
                   overflowY: 'auto',
+                  overflowX: 'hidden',
                   pr: 1,
                   '&::-webkit-scrollbar': {
                     width: '8px',
@@ -408,7 +409,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                     },
                   },
                 }}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, pr: 1, py: 0.5, pl: 0.5 }}>
                     {movies.map((movie: MovieType, index: number) => (
                       <Card
                         key={index}
@@ -424,7 +425,6 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                           '&:hover': {
                             backgroundColor: 'rgba(253, 224, 211, 0.1)',
                             borderColor: 'primary.main',
-                            transform: 'translateX(12px) scale(1.02)',
                             boxShadow: '0 8px 24px rgba(253, 224, 211, 0.3)',
                           },
                         }}

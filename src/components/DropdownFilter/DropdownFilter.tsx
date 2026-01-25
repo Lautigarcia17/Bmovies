@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getYearsList } from "../../utilities/getYearList";
 import { Button, Popover, Box, Typography, Chip, Tabs, Tab, Grid } from '@mui/material';
 import { FilterList, CheckCircle, Cancel, Star, CalendarMonth } from '@mui/icons-material';
+import { FilterState } from '../../hooks/useQueryFilter';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -18,7 +19,12 @@ function TabPanel(props: TabPanelProps) {
     );
 }
 
-function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void }) {
+interface DropdownFilterProps {
+    handleQuery: (filterType: 'status' | 'year' | 'rating', value: string) => void;
+    currentFilters: FilterState;
+}
+
+function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [tabValue, setTabValue] = useState(0);
     const open = Boolean(anchorEl);
@@ -35,13 +41,16 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
         setTabValue(0);
     };
 
-    const handleFilterClick = (query: string) => {
-        handleQuery(query);
-        handleClose();
+    const handleFilterClick = (filterType: 'status' | 'year' | 'rating', value: string) => {
+        handleQuery(filterType, value);
     };
 
     const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
+    };
+
+    const isFilterActive = (filterType: 'status' | 'year' | 'rating', value: string): boolean => {
+        return currentFilters[filterType] === value;
     };
 
     return (
@@ -71,7 +80,7 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                     },
                 }}
             >
-                Filter
+                Add Filter
             </Button>
             <Popover
                 open={open}
@@ -144,12 +153,13 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
                                 <Chip
                                     label="All Movies"
-                                    onClick={() => handleFilterClick('all')}
+                                    onClick={() => handleFilterClick('status', 'all')}
                                     sx={{
-                                        backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                                        backgroundColor: !currentFilters.status ? 'rgba(253, 224, 211, 0.3)' : 'rgba(253, 224, 211, 0.1)',
                                         color: 'text.primary',
-                                        border: '2px solid rgba(253, 224, 211, 0.3)',
-                                        fontWeight: 600,
+                                        border: '2px solid',
+                                        borderColor: !currentFilters.status ? 'primary.main' : 'rgba(253, 224, 211, 0.3)',
+                                        fontWeight: !currentFilters.status ? 700 : 600,
                                         fontSize: '1rem',
                                         py: 2.5,
                                         cursor: 'pointer',
@@ -164,13 +174,14 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                                 />
                                 <Chip
                                     label="Watched"
-                                    icon={<CheckCircle sx={{ color: '#26ff3e !important' }} />}
-                                    onClick={() => handleFilterClick('seen')}
+                                    icon={<CheckCircle sx={{ color: isFilterActive('status', 'seen') ? '#26ff3e !important' : 'inherit' }} />}
+                                    onClick={() => handleFilterClick('status', 'seen')}
                                     sx={{
-                                        backgroundColor: 'rgba(38, 255, 62, 0.1)',
+                                        backgroundColor: isFilterActive('status', 'seen') ? 'rgba(38, 255, 62, 0.3)' : 'rgba(38, 255, 62, 0.1)',
                                         color: 'text.primary',
-                                        border: '2px solid rgba(38, 255, 62, 0.3)',
-                                        fontWeight: 600,
+                                        border: '2px solid',
+                                        borderColor: isFilterActive('status', 'seen') ? '#26ff3e' : 'rgba(38, 255, 62, 0.3)',
+                                        fontWeight: isFilterActive('status', 'seen') ? 700 : 600,
                                         fontSize: '1rem',
                                         py: 2.5,
                                         cursor: 'pointer',
@@ -185,13 +196,14 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                                 />
                                 <Chip
                                     label="Not Watched"
-                                    icon={<Cancel sx={{ color: '#ff3e26 !important' }} />}
-                                    onClick={() => handleFilterClick('not seen')}
+                                    icon={<Cancel sx={{ color: isFilterActive('status', 'not seen') ? '#ff3e26 !important' : 'inherit' }} />}
+                                    onClick={() => handleFilterClick('status', 'not seen')}
                                     sx={{
-                                        backgroundColor: 'rgba(255, 62, 38, 0.1)',
+                                        backgroundColor: isFilterActive('status', 'not seen') ? 'rgba(255, 62, 38, 0.3)' : 'rgba(255, 62, 38, 0.1)',
                                         color: 'text.primary',
-                                        border: '2px solid rgba(255, 62, 38, 0.3)',
-                                        fontWeight: 600,
+                                        border: '2px solid',
+                                        borderColor: isFilterActive('status', 'not seen') ? '#ff3e26' : 'rgba(255, 62, 38, 0.3)',
+                                        fontWeight: isFilterActive('status', 'not seen') ? 700 : 600,
                                         fontSize: '1rem',
                                         py: 2.5,
                                         cursor: 'pointer',
@@ -225,13 +237,14 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                                     <Grid item xs={4} sm={3} key={year}>
                                         <Chip
                                             label={year}
-                                            onClick={() => handleFilterClick(year.toString())}
+                                            onClick={() => handleFilterClick('year', year.toString())}
                                             sx={{
                                                 width: '100%',
-                                                backgroundColor: 'rgba(253, 224, 211, 0.1)',
-                                                color: 'text.primary',
-                                                border: '2px solid rgba(253, 224, 211, 0.2)',
-                                                fontWeight: 600,
+                                                backgroundColor: isFilterActive('year', year.toString()) ? 'primary.main' : 'rgba(253, 224, 211, 0.1)',
+                                                color: isFilterActive('year', year.toString()) ? 'background.default' : 'text.primary',
+                                                border: '2px solid',
+                                                borderColor: isFilterActive('year', year.toString()) ? 'primary.main' : 'rgba(253, 224, 211, 0.2)',
+                                                fontWeight: isFilterActive('year', year.toString()) ? 700 : 600,
                                                 fontSize: { xs: '0.875rem', md: '0.95rem' },
                                                 py: 2,
                                                 cursor: 'pointer',
@@ -263,49 +276,50 @@ function DropdownFilter({ handleQuery }: { handleQuery: (query: string) => void 
                                 Filter by Rating
                             </Typography>
                             <Grid container spacing={1.5}>
-                                {rating.map((item) => (
-                                    <Grid item xs={4} sm={2.4} key={item}>
-                                        <Chip
-                                            label={`${item} ⭐`}
-                                            onClick={() => handleFilterClick(item.toString())}
-                                            sx={{
-                                                width: '100%',
-                                                backgroundColor: item >= 7 
-                                                    ? 'rgba(38, 255, 62, 0.1)' 
-                                                    : item >= 5 
-                                                    ? 'rgba(255, 194, 38, 0.1)' 
-                                                    : 'rgba(255, 62, 38, 0.1)',
-                                                color: 'text.primary',
-                                                border: '2px solid',
-                                                borderColor: item >= 7 
-                                                    ? 'rgba(38, 255, 62, 0.3)' 
-                                                    : item >= 5 
-                                                    ? 'rgba(255, 194, 38, 0.3)' 
-                                                    : 'rgba(255, 62, 38, 0.3)',
-                                                fontWeight: 600,
-                                                fontSize: { xs: '0.875rem', md: '0.95rem' },
-                                                py: 2,
-                                                cursor: 'pointer',
-                                                transition: 'all 0.3s ease',
-                                                '&:hover': {
-                                                    backgroundColor: item >= 7 
-                                                        ? '#26ff3e' 
+                                {rating.map((item) => {
+                                    const isActive = isFilterActive('rating', item.toString());
+                                    const baseColor = item >= 7 ? '#26ff3e' : item >= 5 ? '#ffc226' : '#ff3e26';
+                                    
+                                    return (
+                                        <Grid item xs={4} sm={2.4} key={item}>
+                                            <Chip
+                                                label={`${item} ⭐`}
+                                                onClick={() => handleFilterClick('rating', item.toString())}
+                                                sx={{
+                                                    width: '100%',
+                                                    backgroundColor: isActive 
+                                                        ? baseColor
+                                                        : item >= 7 
+                                                        ? 'rgba(38, 255, 62, 0.1)' 
                                                         : item >= 5 
-                                                        ? '#ffc226' 
-                                                        : '#ff3e26',
-                                                    borderColor: item >= 7 
-                                                        ? '#26ff3e' 
+                                                        ? 'rgba(255, 194, 38, 0.1)' 
+                                                        : 'rgba(255, 62, 38, 0.1)',
+                                                    color: isActive ? '#000' : 'text.primary',
+                                                    border: '2px solid',
+                                                    borderColor: isActive 
+                                                        ? baseColor
+                                                        : item >= 7 
+                                                        ? 'rgba(38, 255, 62, 0.3)' 
                                                         : item >= 5 
-                                                        ? '#ffc226' 
-                                                        : '#ff3e26',
-                                                    color: '#000',
-                                                    transform: 'scale(1.08)',
-                                                    fontWeight: 800,
-                                                },
-                                            }}
-                                        />
-                                    </Grid>
-                                ))}
+                                                        ? 'rgba(255, 194, 38, 0.3)' 
+                                                        : 'rgba(255, 62, 38, 0.3)',
+                                                    fontWeight: isActive ? 800 : 600,
+                                                    fontSize: { xs: '0.875rem', md: '0.95rem' },
+                                                    py: 2,
+                                                    cursor: 'pointer',
+                                                    transition: 'all 0.3s ease',
+                                                    '&:hover': {
+                                                        backgroundColor: baseColor,
+                                                        borderColor: baseColor,
+                                                        color: '#000',
+                                                        transform: 'scale(1.08)',
+                                                        fontWeight: 800,
+                                                    },
+                                                }}
+                                            />
+                                        </Grid>
+                                    );
+                                })}
                             </Grid>
                         </Box>
                     </TabPanel>

@@ -3,9 +3,10 @@ import { ManageMovieResponse, Movie } from "../types/interface";
 import { addMovie, checkIfMovieExists, deleteMovie, getMovies, updateMovie } from "../services/database";
 import { UseMovieReturn } from "../types/type";
 import { getYearsList } from "../utilities/getYearList";
+import { FilterState } from "./useQueryFilter";
 
 
-export const useMovie = (idSession: string, search: string = '', queryFilter: string = '',  manageQuery: (query : string) => void): UseMovieReturn => {
+export const useMovie = (idSession: string, search: string = '', queryFilter: FilterState = {},  manageQuery: (filterType: 'status' | 'year' | 'rating', value: string) => void): UseMovieReturn => {
     const [listMovies, setListMovies] = useState<Movie[]>([]);
     const [movieToDisplay, setMovieToDisplay] = useState<Movie[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -117,38 +118,34 @@ export const useMovie = (idSession: string, search: string = '', queryFilter: st
     
         const validYears = getYearsList(2023).map((year) => year.toString());
     
-        if (queryFilter) {
-            // Filtrado según el queryFilter
-            if (queryFilter === 'all') {
-                moviesFiltered = listMovies;
-            } else if (queryFilter === 'not seen') {
-                moviesFiltered = listMovies.filter((movie) => movie.rating === null);
-            } else if (queryFilter === 'seen') {
-                moviesFiltered = listMovies.filter((movie) => movie.rating !== null);
-            } else if (validYears.includes(queryFilter)) { // Filtrar por años válidos
-                moviesFiltered = listMovies.filter(
-                    (movie) =>
-                        movie.created_at?.getFullYear().toString() === queryFilter && movie.rating != null
+        // Aplicar filtro de status
+        if (queryFilter.status) {
+            if (queryFilter.status === 'not seen') {
+                moviesFiltered = moviesFiltered.filter((movie) => movie.rating === null);
+            } else if (queryFilter.status === 'seen') {
+                moviesFiltered = moviesFiltered.filter((movie) => movie.rating !== null);
+            }
+        }
+        
+        // Aplicar filtro de año
+        if (queryFilter.year && validYears.includes(queryFilter.year)) {
+            moviesFiltered = moviesFiltered.filter(
+                (movie) =>
+                    movie.created_at?.getFullYear().toString() === queryFilter.year && movie.rating != null
+            );
+        }
+        
+        // Aplicar filtro de rating
+        if (queryFilter.rating && /^\d{1,2}$/.test(queryFilter.rating)) {
+            const rating = parseInt(queryFilter.rating, 10);
+            if (rating >= 1 && rating <= 10) {
+                moviesFiltered = moviesFiltered.filter(
+                    (movie) => movie.rating && Math.ceil(movie.rating) === rating
                 );
-            } else if (/^\d{1,2}$/.test(queryFilter)) { // Filtrar por rating (1-10)
-                const rating = parseInt(queryFilter, 10);
-                if (rating >= 1 && rating <= 10) {
-                    moviesFiltered = listMovies.filter(
-                        (movie) => movie.rating && Math.ceil(movie.rating) === rating
-                    );
-                } else {
-                    
-                    queryFilter = 'all';
-                    manageQuery(queryFilter);
-                    moviesFiltered = listMovies;
-                }
-            } else {
-                queryFilter = 'all';
-                manageQuery(queryFilter);
-                moviesFiltered = listMovies;
             }
         }
     
+        // Aplicar búsqueda por texto
         if (search) {
             moviesFiltered = moviesFiltered.filter((item) =>
                 item.title.toLowerCase().includes(search.toLowerCase())

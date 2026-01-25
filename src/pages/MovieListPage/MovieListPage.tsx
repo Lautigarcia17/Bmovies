@@ -6,14 +6,39 @@ import MovieList from './MovieList/MovieList';
 import { movieContext } from '../../context/MovieContext';
 import { useGenericContext } from '../../hooks/useGenericContext';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import { Container, Box, Typography, Fab, Chip } from '@mui/material';
-import { Add, TrendingUp } from '@mui/icons-material';
+import { Container, Box, Typography, Fab, Chip, IconButton } from '@mui/material';
+import { Add, TrendingUp, Close, FilterAltOff } from '@mui/icons-material';
 
 
 function MovieListPage() {
     const [show, setShow] = useState<boolean>(false);
-    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery, search } = useGenericContext(movieContext)
+    const { listMovies, movieToDisplay, loading, queryFilter, setSearch, manageQuery, search, removeFilter, clearAllFilters } = useGenericContext(movieContext)
     const handleModal = () => setShow(!show);
+
+    const getFilterLabel = (type: 'status' | 'year' | 'rating', value: string): string => {
+        if (type === 'status') {
+            return value === 'seen' ? 'Watched' : value === 'not seen' ? 'Not Watched' : value;
+        }
+        if (type === 'year') return `Year: ${value}`;
+        if (type === 'rating') return `Rating: ${value}⭐`;
+        return value;
+    };
+
+    const getFilterColor = (type: 'status' | 'year' | 'rating', value: string) => {
+        if (type === 'status') {
+            if (value === 'seen') return { bg: 'rgba(38, 255, 62, 0.2)', border: '#26ff3e' };
+            if (value === 'not seen') return { bg: 'rgba(255, 62, 38, 0.2)', border: '#ff3e26' };
+        }
+        if (type === 'rating') {
+            const rating = parseInt(value);
+            if (rating >= 7) return { bg: 'rgba(38, 255, 62, 0.2)', border: '#26ff3e' };
+            if (rating >= 5) return { bg: 'rgba(255, 194, 38, 0.2)', border: '#ffc226' };
+            return { bg: 'rgba(255, 62, 38, 0.2)', border: '#ff3e26' };
+        }
+        return { bg: 'rgba(253, 224, 211, 0.2)', border: 'primary.main' };
+    };
+
+    const hasActiveFilters = queryFilter && (queryFilter.status || queryFilter.year || queryFilter.rating);
 
     return (
         <Box sx={{ 
@@ -111,10 +136,8 @@ function MovieListPage() {
 
                         <Box sx={{ 
                             display: 'flex', 
-                            flexDirection: { xs: 'column', sm: 'row' },
-                            alignItems: { xs: 'stretch', sm: 'center' },
-                            justifyContent: 'space-between',
-                            gap: 2, 
+                            flexDirection: 'column',
+                            gap: 3, 
                             mb: { xs: 4, md: 6 },
                             px: { xs: 2, sm: 4, md: 6 },
                             py: 3,
@@ -123,47 +146,139 @@ function MovieListPage() {
                             borderRadius: 4,
                             border: '1px solid rgba(253, 224, 211, 0.1)',
                         }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
-                                <Typography sx={{
-                                    fontSize: { xs: '0.875rem', md: '1rem' },
-                                    color: 'text.secondary',
-                                    fontWeight: 600,
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                }}>
-                                    Filter by:
-                                </Typography>
-                                <DropdownFilter handleQuery={manageQuery} />
-                            </Box>
-                            
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                <Chip 
-                                    label={queryFilter} 
-                                    icon={<TrendingUp />}
-                                    sx={{
-                                        backgroundColor: 'rgba(253, 224, 211, 0.15)',
-                                        color: 'primary.main',
-                                        fontWeight: 700,
+                            <Box sx={{ 
+                                display: 'flex', 
+                                flexDirection: { xs: 'column', sm: 'row' },
+                                alignItems: { xs: 'stretch', sm: 'center' },
+                                justifyContent: 'space-between',
+                                gap: 2,
+                            }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
+                                    <Typography sx={{
                                         fontSize: { xs: '0.875rem', md: '1rem' },
-                                        textTransform: 'capitalize',
-                                        border: '2px solid',
-                                        borderColor: 'primary.main',
-                                        px: 1,
-                                        height: { xs: 36, md: 40 },
-                                        boxShadow: '0 4px 12px rgba(253, 224, 211, 0.2)',
-                                        '& .MuiChip-icon': {
-                                            color: 'primary.main',
-                                        }
-                                    }}
-                                />
-                                <Typography sx={{
-                                    fontSize: { xs: '0.875rem', md: '1rem' },
-                                    color: 'text.secondary',
-                                    fontWeight: 500,
-                                }}>
-                                    {movieToDisplay.length} {movieToDisplay.length === 1 ? 'movie' : 'movies'}
-                                </Typography>
+                                        color: 'text.secondary',
+                                        fontWeight: 600,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                    }}>
+                                        Filters:
+                                    </Typography>
+                                    <DropdownFilter handleQuery={manageQuery} currentFilters={queryFilter} />
+                                </Box>
+                                
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                                    <Typography sx={{
+                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        color: 'text.secondary',
+                                        fontWeight: 500,
+                                    }}>
+                                        {movieToDisplay.length} {movieToDisplay.length === 1 ? 'movie' : 'movies'}
+                                    </Typography>
+                                </Box>
                             </Box>
+
+                            {hasActiveFilters && (
+                                <Box sx={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    gap: 1.5, 
+                                    flexWrap: 'wrap',
+                                    pt: 2,
+                                    borderTop: '1px solid rgba(253, 224, 211, 0.1)',
+                                }}>
+                                    <Typography sx={{
+                                        fontSize: '0.875rem',
+                                        color: 'text.secondary',
+                                        fontWeight: 600,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '1px',
+                                    }}>
+                                        Active:
+                                    </Typography>
+                                    
+                                    {queryFilter.status && (
+                                        <Chip
+                                            label={getFilterLabel('status', queryFilter.status)}
+                                            onDelete={() => removeFilter('status')}
+                                            deleteIcon={<Close />}
+                                            sx={{
+                                                backgroundColor: getFilterColor('status', queryFilter.status).bg,
+                                                color: 'text.primary',
+                                                fontWeight: 700,
+                                                fontSize: '0.9rem',
+                                                border: '2px solid',
+                                                borderColor: getFilterColor('status', queryFilter.status).border,
+                                                '& .MuiChip-deleteIcon': {
+                                                    color: 'text.primary',
+                                                    '&:hover': {
+                                                        color: getFilterColor('status', queryFilter.status).border,
+                                                    },
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    
+                                    {queryFilter.year && (
+                                        <Chip
+                                            label={getFilterLabel('year', queryFilter.year)}
+                                            onDelete={() => removeFilter('year')}
+                                            deleteIcon={<Close />}
+                                            sx={{
+                                                backgroundColor: getFilterColor('year', queryFilter.year).bg,
+                                                color: 'text.primary',
+                                                fontWeight: 700,
+                                                fontSize: '0.9rem',
+                                                border: '2px solid',
+                                                borderColor: getFilterColor('year', queryFilter.year).border,
+                                                '& .MuiChip-deleteIcon': {
+                                                    color: 'text.primary',
+                                                    '&:hover': {
+                                                        color: 'primary.main',
+                                                    },
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    
+                                    {queryFilter.rating && (
+                                        <Chip
+                                            label={getFilterLabel('rating', queryFilter.rating)}
+                                            onDelete={() => removeFilter('rating')}
+                                            deleteIcon={<Close />}
+                                            sx={{
+                                                backgroundColor: getFilterColor('rating', queryFilter.rating).bg,
+                                                color: 'text.primary',
+                                                fontWeight: 700,
+                                                fontSize: '0.9rem',
+                                                border: '2px solid',
+                                                borderColor: getFilterColor('rating', queryFilter.rating).border,
+                                                '& .MuiChip-deleteIcon': {
+                                                    color: 'text.primary',
+                                                    '&:hover': {
+                                                        color: getFilterColor('rating', queryFilter.rating).border,
+                                                    },
+                                                },
+                                            }}
+                                        />
+                                    )}
+                                    
+                                    <IconButton
+                                        onClick={clearAllFilters}
+                                        size="small"
+                                        sx={{
+                                            ml: 1,
+                                            color: '#ff3e26',
+                                            border: '1px solid rgba(255, 62, 38, 0.3)',
+                                            '&:hover': {
+                                                backgroundColor: 'rgba(255, 62, 38, 0.1)',
+                                                borderColor: '#ff3e26',
+                                            },
+                                        }}
+                                    >
+                                        <FilterAltOff fontSize="small" />
+                                    </IconButton>
+                                </Box>
+                            )}
                         </Box>
 
                         <MovieList movieToDisplay={movieToDisplay} />

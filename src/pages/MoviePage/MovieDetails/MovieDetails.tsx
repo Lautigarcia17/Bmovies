@@ -7,6 +7,7 @@ import { movieContext } from '../../../context/MovieContext'
 import { Movie, MovieEdit } from '../../../types/interface'
 import DropdownDetail from '../../../components/DropdownDetail/DropdownDetail'
 import ModalEdit from '../../../components/ModalEdit/ModalEdit'
+import ConfirmDialog from '../../../components/ConfirmDialog/ConfirmDialog'
 import { Box, Paper, Typography, Chip, Button } from '@mui/material'
 import { PlayArrow, CalendarToday, TheaterComedy, Movie as MovieIcon } from '@mui/icons-material'
 
@@ -17,6 +18,7 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
     const { removeMovie, modifyMovie } = useGenericContext(movieContext)
     const navigate = useNavigate();
     const [showEdit, setShowEdit] = useState<boolean>(false);
+    const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
 
     const getRatingColor = (rating: number) => {
         if (rating < 5) return '#ff3e26';
@@ -33,7 +35,16 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
         setShowEdit(!showEdit);
     }
 
+    const handleRemoveClick = () => {
+        setShowConfirmDelete(true);
+    }
+
+    const handleCancelDelete = () => {
+        setShowConfirmDelete(false);
+    }
+
     const handleRemove = async () => {
+        setShowConfirmDelete(false);
         try {
             if (movie.id != '') {
                 const response = await removeMovie(movie.id ?? '')
@@ -80,185 +91,342 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                backgroundImage: `url(${movie.poster})`,
-                backgroundPosition: 'center',
-                backgroundRepeat: 'repeat',
-                backgroundSize: '10%',
                 py: 4,
+                backgroundColor: '#060d17',
             }}
         >
             <Box
                 sx={{
                     position: 'absolute',
-                    width: '100%',
-                    height: '100%',
-                    background: 'linear-gradient(to right, rgba(0, 0, 0, 0.85) 15%, rgba(0, 0, 0, 0.7) 60%, rgba(0, 0, 0, 0.5))',
                     top: 0,
                     left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${movie.poster})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover',
+                    filter: 'blur(80px) brightness(0.2)',
+                    transform: 'scale(1.2)',
+                    zIndex: 0,
+                }}
+            />
+            
+            <Box
+                sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(135deg, rgba(6, 13, 23, 0.9) 0%, rgba(6, 13, 23, 0.7) 100%)',
+                    zIndex: 1,
                 }}
             />
 
-            <Paper
-                elevation={8}
+            <Box
                 sx={{
                     position: 'relative',
-                    display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
-                    maxWidth: 1000,
-                    mx: { xs: 2, sm: 4 },
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                    backdropFilter: 'blur(10px)',
-                    border: '2px solid',
-                    borderColor: 'primary.main',
-                    borderRadius: 4,
-                    overflow: 'hidden',
+                    zIndex: 2,
+                    maxWidth: 1400,
+                    width: '100%',
+                    mx: 'auto',
+                    px: { xs: 2, sm: 3, md: 4 },
                 }}
             >
-                <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemove} />
-
                 <Box
                     sx={{
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        p: { xs: 2, md: 3 },
+                        flexDirection: { xs: 'column', md: 'row' },
+                        gap: { xs: 4, md: 6 },
+                        alignItems: { xs: 'center', md: 'flex-start' },
                     }}
                 >
                     <Box
-                        component="img"
-                        src={movie.poster}
-                        alt={movie.title}
                         sx={{
-                            maxWidth: { xs: 200, sm: 250 },
-                            maxHeight: { xs: 300, sm: 370 },
-                            borderRadius: 2,
-                            boxShadow: 6,
-                            objectFit: 'cover',
+                            flexShrink: 0,
+                            width: { xs: '100%', sm: 350, md: 380 },
+                            maxWidth: { xs: 350, sm: 'none' },
                         }}
-                    />
-                </Box>
-
-                <Box
-                    sx={{
-                        flex: 1,
-                        p: { xs: 2, md: 3 },
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 2,
-                        position: 'relative',
-                    }}
-                >
-                    {movie.rating && (
-                        <Chip
-                            label={movie.rating}
+                    >
+                        <Box
+                            component="img"
+                            src={movie.poster}
+                            alt={movie.title}
                             sx={{
-                                position: 'absolute',
-                                top: { xs: -10, md: 16 },
-                                right: { xs: 8, md: 60 },
-                                backgroundColor: 'transparent',
-                                color: getRatingColor(movie.rating),
-                                border: `4px solid ${getRatingColor(movie.rating)}`,
-                                fontWeight: 600,
-                                fontSize: '1.75rem',
-                                height: 70,
-                                minWidth: 70,
-                                borderRadius: '50%',
-                                zIndex: 5,
+                                width: '100%',
+                                height: 'auto',
+                                borderRadius: 3,
+                                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(253, 224, 211, 0.1)',
+                                border: '1px solid rgba(253, 224, 211, 0.2)',
                             }}
                         />
-                    )}
+                    </Box>
 
-                    {movie.title && (
-                        <Typography
-                            variant="h2"
+                    <Box
+                        sx={{
+                            flex: 1,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: 3,
+                        }}
+                    >
+                        <Box
                             sx={{
-                                color: 'primary.main',
-                                fontWeight: 600,
-                                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
-                                mt: { xs: 4, md: 0 },
+                                display: 'flex',
+                                gap: 3,
+                                alignItems: 'flex-start',
+                                flexDirection: { xs: 'column', sm: 'row' },
                             }}
                         >
-                            {movie.title}
-                        </Typography>
-                    )}
+                            <Box sx={{ flex: 1 }}>
+                                {movie.title && (
+                                    <Typography
+                                        variant="h1"
+                                        sx={{
+                                            color: 'primary.main',
+                                            fontWeight: 800,
+                                            fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem', lg: '4rem' },
+                                            lineHeight: 1.1,
+                                            letterSpacing: -1,
+                                            mb: 2,
+                                        }}
+                                    >
+                                        {movie.title}
+                                    </Typography>
+                                )}
+                                {(movie.year || movie.genre) && (
+                                    <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', alignItems: 'center' }}>
+                                        {movie.year && (
+                                            <Chip
+                                                label={movie.year}
+                                                sx={{
+                                                    backgroundColor: 'transparent',
+                                                    color: 'primary.main',
+                                                    border: '2px solid',
+                                                    borderColor: 'primary.main',
+                                                    fontWeight: 700,
+                                                    fontSize: '1rem',
+                                                    height: 38,
+                                                    px: 1,
+                                                }}
+                                            />
+                                        )}
+                                        {movie.genre && (
+                                            <Typography
+                                                sx={{
+                                                    color: 'rgba(255, 255, 255, 0.7)',
+                                                    fontSize: '1.1rem',
+                                                    fontWeight: 500,
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: 2,
+                                                }}
+                                            >
+                                                {movie.genre}
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                )}
+                            </Box>
 
-                    {(movie.year || movie.genre) && (
-                        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
-                            {movie.year && (
-                                <Chip
-                                    icon={<CalendarToday sx={{ fontSize: 16 }} />}
-                                    label={movie.year}
-                                    size="small"
-                                    sx={{ backgroundColor: 'rgba(253, 224, 211, 0.2)', color: 'text.primary' }}
-                                />
-                            )}
-                            {movie.genre && (
-                                <Chip
-                                    icon={<TheaterComedy sx={{ fontSize: 16 }} />}
-                                    label={movie.genre}
-                                    size="small"
-                                    sx={{ backgroundColor: 'rgba(253, 224, 211, 0.2)', color: 'text.primary' }}
-                                />
+                            {movie.rating && (
+                                <Box
+                                    sx={{
+                                        flexShrink: 0,
+                                        width: 140,
+                                        height: 140,
+                                        borderRadius: '50%',
+                                        background: `conic-gradient(${getRatingColor(movie.rating)} ${movie.rating * 10}%, rgba(255, 255, 255, 0.1) 0)`,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        boxShadow: `0 15px 50px ${getRatingColor(movie.rating)}50, 0 0 80px ${getRatingColor(movie.rating)}25`,
+                                        alignSelf: { xs: 'center', sm: 'flex-start' },
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            width: 116,
+                                            height: 116,
+                                            borderRadius: '50%',
+                                            backgroundColor: 'rgba(6, 13, 23, 0.95)',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            border: '3px solid rgba(6, 13, 23, 0.6)',
+                                        }}
+                                    >
+                                        <Typography
+                                            sx={{
+                                                color: getRatingColor(movie.rating),
+                                                fontWeight: 900,
+                                                fontSize: '3rem',
+                                                lineHeight: 1,
+                                                textShadow: `0 0 25px ${getRatingColor(movie.rating)}90`,
+                                            }}
+                                        >
+                                            {movie.rating}
+                                        </Typography>
+                                        <Typography
+                                            sx={{
+                                                color: 'rgba(255, 255, 255, 0.6)',
+                                                fontSize: '0.7rem',
+                                                fontWeight: 700,
+                                                letterSpacing: 2.5,
+                                                mt: 0.75,
+                                            }}
+                                        >
+                                            RATING
+                                        </Typography>
+                                    </Box>
+                                </Box>
                             )}
                         </Box>
-                    )}
 
-                    {movie.director && (
-                        <Typography variant="body1" sx={{ color: 'text.primary' }}>
-                            <Box component="span" sx={{ opacity: 0.7 }}>🎬 Directed by:</Box>{' '}
-                            <Box component="span" sx={{ fontWeight: 500 }}>{movie.director}</Box>
-                        </Typography>
-                    )}
-
-                    {movie.actors && (
-                        <Typography variant="body1" sx={{ color: 'text.primary' }}>
-                            <Box component="span" sx={{ opacity: 0.7 }}>🎭 Cast:</Box>{' '}
-                            <Box component="span" sx={{ fontWeight: 500 }}>{movie.actors}</Box>
-                        </Typography>
-                    )}
-
-                    {movie.plot && (
-                        <Typography
-                            variant="body1"
-                            sx={{
-                                color: 'text.primary',
-                                opacity: 0.9,
-                                lineHeight: 1.6,
-                            }}
-                        >
-                            📝 {movie.plot}
-                        </Typography>
-                    )}
-
-                    {movie.trailer && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                            <Button
-                                variant="outlined"
-                                startIcon={<PlayArrow />}
-                                href={movie.trailer}
-                                target="_blank"
+                        {movie.plot && (
+                            <Box
                                 sx={{
-                                    color: 'secondary.main',
-                                    borderColor: 'secondary.main',
-                                    borderWidth: 2,
-                                    '&:hover': {
-                                        backgroundColor: 'secondary.main',
-                                        color: 'background.default',
-                                        borderWidth: 2,
-                                    },
-                                    px: 3,
-                                    py: 1,
-                                    fontSize: '1rem',
+                                    backgroundColor: 'rgba(253, 224, 211, 0.05)',
+                                    border: '1px solid rgba(253, 224, 211, 0.1)',
+                                    borderRadius: 2,
+                                    p: 3,
                                 }}
                             >
-                                Watch Trailer
-                            </Button>
+                                <Typography
+                                    sx={{
+                                        color: 'rgba(255, 255, 255, 0.9)',
+                                        fontSize: { xs: '1rem', md: '1.15rem' },
+                                        lineHeight: 1.8,
+                                        fontWeight: 400,
+                                    }}
+                                >
+                                    {movie.plot}
+                                </Typography>
+                            </Box>
+                        )}
+
+                        <Box
+                            sx={{
+                                display: 'grid',
+                                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                                gap: 3,
+                                pt: 1,
+                            }}
+                        >
+                            {movie.director && (
+                                <Box>
+                                    <Typography
+                                        sx={{
+                                            color: 'rgba(255, 255, 255, 0.5)',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 2,
+                                            mb: 1,
+                                        }}
+                                    >
+                                        Director
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: 'text.primary',
+                                            fontSize: '1.15rem',
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        {movie.director}
+                                    </Typography>
+                                </Box>
+                            )}
+
+                            {movie.actors && (
+                                <Box>
+                                    <Typography
+                                        sx={{
+                                            color: 'rgba(255, 255, 255, 0.5)',
+                                            fontSize: '0.85rem',
+                                            fontWeight: 600,
+                                            textTransform: 'uppercase',
+                                            letterSpacing: 2,
+                                            mb: 1,
+                                        }}
+                                    >
+                                        Cast
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                            color: 'text.primary',
+                                            fontSize: '1rem',
+                                            fontWeight: 500,
+                                            lineHeight: 1.6,
+                                        }}
+                                    >
+                                        {movie.actors}
+                                    </Typography>
+                                </Box>
+                            )}
                         </Box>
-                    )}
+
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: 2,
+                                pt: 2,
+                                flexDirection: { xs: 'column', sm: 'row' },
+                                alignItems: { xs: 'stretch', sm: 'center' },
+                            }}
+                        >
+                            {movie.trailer && (
+                                <Button
+                                    variant="contained"
+                                    startIcon={<PlayArrow sx={{ fontSize: 32 }} />}
+                                    href={movie.trailer}
+                                    target="_blank"
+                                    sx={{
+                                        backgroundColor: 'primary.main',
+                                        color: '#060d17',
+                                        borderRadius: 2,
+                                        px: 5,
+                                        py: 2,
+                                        fontSize: '1.15rem',
+                                        fontWeight: 700,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: 1.5,
+                                        boxShadow: '0 10px 30px rgba(253, 224, 211, 0.4)',
+                                        transition: 'all 0.3s ease',
+                                        '&:hover': {
+                                            backgroundColor: 'primary.light',
+                                            transform: 'translateY(-3px)',
+                                            boxShadow: '0 15px 40px rgba(253, 224, 211, 0.5)',
+                                        },
+                                    }}
+                                >
+                                    Watch Trailer
+                                </Button>
+                            )}
+                        </Box>
+
+                        <Box
+                            sx={{
+                                pt: 3,
+                                mt: 2,
+                                borderTop: '1px solid rgba(253, 224, 211, 0.1)',
+                            }}
+                        >
+                            <DropdownDetail handleModalEdit={handleModalEdit} handleRemove={handleRemoveClick} />
+                        </Box>
+                    </Box>
                 </Box>
 
                 <ModalEdit show={showEdit} handleModalEdit={handleModalEdit} handleEdit={handleEdit} editData={editData} />
-            </Paper>
+                <ConfirmDialog
+                    open={showConfirmDelete}
+                    title="Remove Movie?"
+                    message={`Are you sure you want to permanently delete "${movie.title}" from your collection?`}
+                    onConfirm={handleRemove}
+                    onCancel={handleCancelDelete}
+                />
+            </Box>
         </Box>
     )
 }

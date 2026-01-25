@@ -1,79 +1,68 @@
-import { useState } from 'react';
-import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
-import { MoreVert, Delete, Edit } from '@mui/icons-material';
+import { Box, Button } from '@mui/material';
+import { Delete, Edit } from '@mui/icons-material';
 
 function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () => void, handleModalEdit: () => void }) {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const handleRemoveClick = () => {
-        handleRemove();
-        handleClose();
-    };
-
-    const handleEditClick = () => {
-        handleModalEdit();
-        handleClose();
-    };
-
     return (
-        <>
-            <IconButton
-                onClick={handleClick}
+        <Box
+            sx={{
+                display: 'flex',
+                gap: 2,
+                flexDirection: { xs: 'column', sm: 'row' },
+            }}
+        >
+            <Button
+                variant="outlined"
+                startIcon={<Edit />}
+                onClick={handleModalEdit}
                 sx={{
-                    color: 'text.primary',
-                    position: 'absolute',
-                    top: 16,
-                    right: 16,
-                    zIndex: 10,
-                    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                    color: 'primary.main',
+                    borderColor: 'primary.main',
+                    borderWidth: 2,
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: 1,
                     '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                        borderWidth: 2,
+                        borderColor: 'primary.light',
+                        transform: 'translateY(-2px)',
                     },
+                    transition: 'all 0.3s ease',
                 }}
             >
-                <MoreVert />
-            </IconButton>
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                PaperProps={{
-                    sx: {
-                        backgroundColor: 'background.paper',
+                Edit Movie
+            </Button>
+            <Button
+                variant="outlined"
+                startIcon={<Delete />}
+                onClick={handleRemove}
+                sx={{
+                    color: 'error.main',
+                    borderColor: 'error.main',
+                    borderWidth: 2,
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1.5,
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    textTransform: 'uppercase',
+                    letterSpacing: 1,
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 62, 38, 0.1)',
+                        borderWidth: 2,
+                        borderColor: 'error.light',
+                        transform: 'translateY(-2px)',
                     },
+                    transition: 'all 0.3s ease',
                 }}
             >
-                <MenuItem onClick={handleEditClick}>
-                    <ListItemIcon>
-                        <Edit fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Edit Movie</ListItemText>
-                </MenuItem>
-                <MenuItem onClick={handleRemoveClick}>
-                    <ListItemIcon>
-                        <Delete fontSize="small" sx={{ color: 'error.main' }} />
-                    </ListItemIcon>
-                    <ListItemText sx={{ color: 'error.main' }}>Remove Movie</ListItemText>
-                </MenuItem>
-            </Menu>
-        </>
+                Remove
+            </Button>
+        </Box>
     )
 }
 

@@ -23,7 +23,20 @@ export const useQueryFilter = (_idSession:string) : UseQueryFilter =>{
         }
     };
 
-    const [queryFilter, setQueryFilter] = useState<FilterState>(parseFilter(initialFilterParam));
+    const getInitialFilter = (): FilterState => {
+        // Primero intentar obtener de la URL
+        if (initialFilterParam !== '{}') {
+            return parseFilter(initialFilterParam);
+        }
+        // Si no hay en URL, intentar recuperar de sessionStorage
+        const savedFilter = sessionStorage.getItem('movieFilters');
+        if (savedFilter) {
+            return parseFilter(savedFilter);
+        }
+        return {};
+    };
+
+    const [queryFilter, setQueryFilter] = useState<FilterState>(getInitialFilter());
     const isInitialMount = useRef(true);
 
     const manageQuery = useCallback((filterType: 'status' | 'year' | 'rating', value: string) => {
@@ -37,6 +50,7 @@ export const useQueryFilter = (_idSession:string) : UseQueryFilter =>{
         
         setQueryFilter(newFilter);
         navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        sessionStorage.setItem('movieFilters', JSON.stringify(newFilter));
     }, [queryFilter, navigate]);
 
     const removeFilter = useCallback((filterType: 'status' | 'year' | 'rating') => {
@@ -44,20 +58,27 @@ export const useQueryFilter = (_idSession:string) : UseQueryFilter =>{
         delete newFilter[filterType];
         setQueryFilter(newFilter);
         navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        sessionStorage.setItem('movieFilters', JSON.stringify(newFilter));
     }, [queryFilter, navigate]);
 
     const clearAllFilters = useCallback(() => {
         setQueryFilter({});
         navigate(`?filter=${encodeURIComponent(JSON.stringify({}))}`);
+        sessionStorage.setItem('movieFilters', JSON.stringify({}));
     }, [navigate]);
 
-    useEffect(()=> {     
-       if(isInitialMount.current && location.pathname === '/' && initialFilterParam === '{}'){
-        isInitialMount.current = false;
-        const defaultFilter = {};
-        navigate(`?filter=${encodeURIComponent(JSON.stringify(defaultFilter))}`, { replace: true });
-        setQueryFilter(defaultFilter);
-       }
+    useEffect(() => {
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            const currentFilter = getInitialFilter();
+            if (Object.keys(currentFilter).length > 0) {
+                navigate(`?filter=${encodeURIComponent(JSON.stringify(currentFilter))}`, { replace: true });
+            } else if (initialFilterParam === '{}') {
+                const defaultFilter = {};
+                navigate(`?filter=${encodeURIComponent(JSON.stringify(defaultFilter))}`, { replace: true });
+                setQueryFilter(defaultFilter);
+            }
+        }
     },[]);
 
     return {queryFilter, manageQuery, removeFilter, clearAllFilters}

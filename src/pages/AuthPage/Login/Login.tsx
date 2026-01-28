@@ -45,7 +45,7 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           fullWidth
           label="Email"
           variant="outlined"
-          autoComplete="off"
+          autoComplete="email"
           error={!!errors.email}
           helperText={
             errors.email?.type === 'required' ? 'Email is required' :
@@ -84,6 +84,7 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           label="Password"
           variant="outlined"
           type={showPassword ? "text" : "password"}
+          autoComplete="current-password"
           error={!!errors.password}
           helperText={
             errors.password?.type === 'required' ? 'Password is required' :

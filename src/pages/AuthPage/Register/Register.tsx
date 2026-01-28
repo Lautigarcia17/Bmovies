@@ -50,7 +50,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
               fullWidth
               label="Username"
               variant="outlined"
-              autoComplete="off"
+              autoComplete="username"
               error={!!errors.username}
               helperText={
                 errors.username?.type === 'required' ? 'Username is required' :
@@ -163,6 +163,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           label="Password"
           variant="outlined"
           type={showPassword ? "text" : "password"}
+          autoComplete="new-password"
           error={!!errors.password}
           helperText={
             errors.password?.type === 'required' ? 'Password is required' :

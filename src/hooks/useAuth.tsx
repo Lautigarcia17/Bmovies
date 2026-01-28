@@ -4,6 +4,7 @@ import { getSession, logOut, signInDatabase, signUpDatabase } from '../services/
 import { useEffect, useState } from "react";
 import { UserLogin, UserRegister } from "../types/interface";
 import { UseAuthReturn } from "../types/type";
+import { supabase } from "../supabase/client";
 
 export const useAuth = (): UseAuthReturn => {
   const [idSession, setIdSession] = useState<string | null | undefined>();
@@ -99,6 +100,24 @@ export const useAuth = (): UseAuthReturn => {
     };
 
     loadSession();
+
+    // Listener para cambios de autenticación (refresh automático)
+    const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'SIGNED_IN' && session) {
+        setIdSession(session.user.id);
+        setUserData(session.user.user_metadata);
+      } else if (event === 'SIGNED_OUT') {
+        setIdSession(null);
+        setUserData(undefined);
+      } else if (event === 'TOKEN_REFRESHED' && session) {
+        setIdSession(session.user.id);
+        setUserData(session.user.user_metadata);
+      }
+    });
+
+    return () => {
+      authListener?.subscription.unsubscribe();
+    };
   }, []);
 
   return { idSession, userData, loadingSession, signIn, signUp, signOut, register, handleSubmit, errors, reset, watch }

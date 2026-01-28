@@ -44,7 +44,7 @@ const SearchMovie = memo(({ search, setSearch }: { search: string, setSearch: Re
                     width: { xs: '95%', sm: '85%', md: '600px', lg: '700px' },
                     maxWidth: { xs: '100%', sm: '500px', md: '600px', lg: '700px' },
                     position: isScrolled ? 'fixed' : 'relative',
-                    top: isScrolled ? { xs: 56, sm: 64, md: 80 } : 'auto',
+                    top: isScrolled ? { xs: '88px', sm: '116px', md: '116px' } : 'auto',
                     zIndex: 1000,
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}

@@ -49,27 +49,69 @@ export const useQueryFilter = (_idSession:string) : UseQueryFilter =>{
         }
         
         setQueryFilter(newFilter);
-        navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        
+        // Only update URL if we're on a route that uses filters
+        const routesWithFilters = ['/', '/details'];
+        const shouldUseFilters = routesWithFilters.some(route => 
+            location.pathname === route || location.pathname.startsWith('/details/')
+        );
+        
+        if (shouldUseFilters) {
+            navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        }
         sessionStorage.setItem('movieFilters', JSON.stringify(newFilter));
-    }, [queryFilter, navigate]);
+    }, [queryFilter, navigate, location.pathname]);
 
     const removeFilter = useCallback((filterType: 'status' | 'year' | 'rating') => {
         const newFilter = { ...queryFilter };
         delete newFilter[filterType];
         setQueryFilter(newFilter);
-        navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        
+        // Only update URL if we're on a route that uses filters
+        const routesWithFilters = ['/', '/details'];
+        const shouldUseFilters = routesWithFilters.some(route => 
+            location.pathname === route || location.pathname.startsWith('/details/')
+        );
+        
+        if (shouldUseFilters) {
+            navigate(`?filter=${encodeURIComponent(JSON.stringify(newFilter))}`);
+        }
         sessionStorage.setItem('movieFilters', JSON.stringify(newFilter));
-    }, [queryFilter, navigate]);
+    }, [queryFilter, navigate, location.pathname]);
 
     const clearAllFilters = useCallback(() => {
         setQueryFilter({});
-        navigate(`?filter=${encodeURIComponent(JSON.stringify({}))}`);
+        
+        // Only update URL if we're on a route that uses filters
+        const routesWithFilters = ['/', '/details'];
+        const shouldUseFilters = routesWithFilters.some(route => 
+            location.pathname === route || location.pathname.startsWith('/details/')
+        );
+        
+        if (shouldUseFilters) {
+            navigate(`?filter=${encodeURIComponent(JSON.stringify({}))}`);
+        }
         sessionStorage.setItem('movieFilters', JSON.stringify({}));
-    }, [navigate]);
+    }, [navigate, location.pathname]);
 
     useEffect(() => {
         if (isInitialMount.current) {
             isInitialMount.current = false;
+            
+            // Only add filter param on routes that need it (not on /auth, /profile/settings, etc.)
+            const routesWithFilters = ['/', '/details'];
+            const shouldUseFilters = routesWithFilters.some(route => 
+                location.pathname === route || location.pathname.startsWith('/details/')
+            );
+            
+            if (!shouldUseFilters) {
+                // Clear filter from URL if we're on a route that doesn't need it
+                if (location.search.includes('filter=')) {
+                    navigate(location.pathname, { replace: true });
+                }
+                return;
+            }
+            
             const currentFilter = getInitialFilter();
             if (Object.keys(currentFilter).length > 0) {
                 navigate(`?filter=${encodeURIComponent(JSON.stringify(currentFilter))}`, { replace: true });

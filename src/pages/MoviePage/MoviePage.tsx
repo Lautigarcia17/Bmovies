@@ -1,15 +1,18 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useMovieById } from '../../hooks/useMovieById'
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import MovieDetails from './MovieDetails/MovieDetails';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
-import { Container } from '@mui/material';
+import { Container, Box, Button } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
 
 function MoviePage() {
     const { idMovie } = useParams<{ idMovie: string }>();
     const { movie, setMovie, loading, processCompleted } = useMovieById(idMovie || '');
     const navigate = useNavigate();
+    const location = useLocation();
+    const fromUsername = (location.state as any)?.fromUsername;
 
     useEffect(() => {
         if (processCompleted && !loading && !movie) {
@@ -19,7 +22,43 @@ function MoviePage() {
     }, [movie, processCompleted, loading, navigate])
 
     return (
-        <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh' }}>
+        <Container maxWidth={false} disableGutters sx={{ minHeight: '100vh', position: 'relative' }}>
+            {fromUsername && (
+                <Box sx={{ 
+                    position: 'absolute',
+                    top: { xs: 16, md: 24 },
+                    left: { xs: 16, md: 32 },
+                    zIndex: 1000,
+                }}>
+                    <Button
+                        onClick={() => navigate(`/${fromUsername}`)}
+                        startIcon={<ArrowBack />}
+                        sx={{
+                            backgroundColor: 'rgba(6, 13, 23, 0.85)',
+                            backdropFilter: 'blur(20px) saturate(180%)',
+                            color: 'primary.main',
+                            border: '2px solid',
+                            borderColor: 'rgba(253, 224, 211, 0.4)',
+                            px: { xs: 2, md: 3 },
+                            py: { xs: 0.75, md: 1 },
+                            borderRadius: '50px',
+                            fontWeight: 700,
+                            textTransform: 'none',
+                            fontSize: { xs: '0.875rem', md: '1rem' },
+                            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(253, 224, 211, 0.1) inset',
+                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            '&:hover': {
+                                backgroundColor: 'rgba(253, 224, 211, 0.15)',
+                                borderColor: 'primary.main',
+                                transform: 'translateX(-4px) scale(1.02)',
+                                boxShadow: '0 12px 40px rgba(253, 224, 211, 0.25), 0 0 0 1px rgba(253, 224, 211, 0.3) inset',
+                            },
+                        }}
+                    >
+                        Back to @{fromUsername}
+                    </Button>
+                </Box>
+            )}
             {loading ? (
                 <LoadingSpinner />
             ) : (movie &&

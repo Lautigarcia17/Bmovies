@@ -6,14 +6,16 @@ import { useGenericContext } from "../../hooks/useGenericContext";
 import { useEffect, useState } from 'react'
 import { scrollContext } from '../../context/ScrollContext'
 import DropdownNavbar from '../DropdownNavbar/DropdownNavbar'
-import { AppBar, Toolbar, Box, IconButton, Button, useMediaQuery, useTheme, Typography } from '@mui/material'
-import { Home, Person, ExitToApp } from '@mui/icons-material'
+import UserSearch from '../UserSearch/UserSearch'
+import { AppBar, Toolbar, Box, IconButton, Button, useMediaQuery, useTheme, Typography, Dialog, DialogTitle, DialogContent } from '@mui/material'
+import { Home, Person, ExitToApp, Search, Close } from '@mui/icons-material'
 
 
 function NavBar() {
     const { idSession, signOut } = useGenericContext(authContext)
     const { scrollRef } = useGenericContext(scrollContext)
     const [isScrolled, setIsScrolled] = useState(false);
+    const [searchDialogOpen, setSearchDialogOpen] = useState(false);
     const location = useLocation();
     const navigate = useNavigate();
     const match = !!useMatch("/details/*");
@@ -155,6 +157,31 @@ function NavBar() {
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>Home</Box>
                                 </Button>
+
+                                <Button
+                                    onClick={() => setSearchDialogOpen(true)}
+                                    startIcon={<Search sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    sx={{
+                                        color: 'text.secondary',
+                                        border: '2px solid transparent',
+                                        '&:hover': {
+                                            color: 'primary.main',
+                                            backgroundColor: 'rgba(253, 224, 211, 0.15)',
+                                            borderColor: 'primary.main',
+                                            transform: 'translateY(-2px)',
+                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
+                                        },
+                                        textTransform: 'none',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                        fontWeight: 600,
+                                        px: { xs: 1, sm: 1.5, md: 2.5 },
+                                        py: { xs: 0.5, sm: 0.75, md: 1 },
+                                        borderRadius: 2,
+                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    }}
+                                >
+                                    <Box sx={{ display: { xs: 'none', md: 'block' } }}>Search Users</Box>
+                                </Button>
                                 
                                 <Button
                                     component={NavLink}
@@ -213,6 +240,47 @@ function NavBar() {
                     </Box>
                 </Toolbar>
             )}
+
+            <Dialog
+                open={searchDialogOpen}
+                onClose={() => setSearchDialogOpen(false)}
+                maxWidth="sm"
+                fullWidth
+                PaperProps={{
+                    sx: {
+                        backgroundColor: 'rgba(6, 13, 23, 0.95)',
+                        backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(253, 224, 211, 0.2)',
+                        borderRadius: 3,
+                    }
+                }}
+            >
+                <DialogTitle sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'center',
+                    color: 'primary.main',
+                    fontWeight: 700,
+                    pb: 1,
+                }}>
+                    Search Users
+                    <IconButton
+                        onClick={() => setSearchDialogOpen(false)}
+                        sx={{
+                            color: 'text.secondary',
+                            '&:hover': {
+                                color: 'primary.main',
+                                backgroundColor: 'rgba(253, 224, 211, 0.1)',
+                            }
+                        }}
+                    >
+                        <Close />
+                    </IconButton>
+                </DialogTitle>
+                <DialogContent sx={{ pt: 2 }}>
+                    <UserSearch onUserSelect={() => setSearchDialogOpen(false)} />
+                </DialogContent>
+            </Dialog>
         </AppBar>
     )
 }

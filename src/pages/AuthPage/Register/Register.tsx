@@ -1,10 +1,11 @@
 import { toast } from 'react-hot-toast'
 import { authContext } from '../../../context/AuthContext';
 import { useGenericContext } from '../../../hooks/useGenericContext';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useEnterClick } from '../../../hooks/useEnterClick';
-import { Box, Button, TextField, Typography, InputAdornment, IconButton, Grid } from '@mui/material';
-import { LockOutlined, AlternateEmail, HowToReg, AssignmentIndOutlined, CakeOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Box, Button, TextField, Typography, InputAdornment, IconButton, Grid, CircularProgress } from '@mui/material';
+import { LockOutlined, AlternateEmail, HowToReg, AssignmentIndOutlined, CakeOutlined, Visibility, VisibilityOff, CheckCircle, Error } from '@mui/icons-material';
+import { checkUsernameAvailable } from '../../../services/database';
 
 function Register({ setShowLogin }: { setShowLogin: () => void }) {
 
@@ -13,19 +14,81 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
   const [showPassword, setShowPassword] = useState(false);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
   const passwordValue = watch("password");
+  const usernameValue = watch("username");
+
+  const [usernameStatus, setUsernameStatus] = useState<{
+    checking: boolean;
+    available: boolean | null;
+    message: string;
+  }>({ checking: false, available: null, message: '' });
 
   useEnterClick(buttonRef);
 
+  // Check username availability when it changes
+  useEffect(() => {
+    const checkUsername = async () => {
+      if (!usernameValue || usernameValue.length < 3) {
+        setUsernameStatus({ checking: false, available: null, message: '' });
+        return;
+      }
+
+      // Validate format first
+      if (!/^[a-zA-Z0-9_]+$/.test(usernameValue)) {
+        setUsernameStatus({
+          checking: false,
+          available: false,
+          message: 'Username can only contain letters, numbers, and underscores',
+        });
+        return;
+      }
+
+      setUsernameStatus({ checking: true, available: null, message: 'Checking availability...' });
+
+      try {
+        // Use empty string as userId since user doesn't exist yet
+        const result = await checkUsernameAvailable('', usernameValue);
+        setUsernameStatus({
+          checking: false,
+          available: result.available,
+          message: result.message || (result.available ? 'Username is available!' : 'Username not available'),
+        });
+      } catch (err) {
+        setUsernameStatus({
+          checking: false,
+          available: false,
+          message: 'Error checking username',
+        });
+      }
+    };
+
+    const debounceTimeout = setTimeout(() => {
+      checkUsername();
+    }, 500);
+
+    return () => clearTimeout(debounceTimeout);
+  }, [usernameValue]);
+
   const onSubmit = async (dataUser: any) => {
     if (dataUser !== null && !isSubmitting) {
+      // Check username availability before submitting
+      if (usernameStatus.checking) {
+        toast.error('Please wait while we check username availability', { position: 'top-right', duration: 2000 });
+        return;
+      }
+
+      if (!usernameStatus.available) {
+        toast.error('Please choose an available username', { position: 'top-right', duration: 2000 });
+        return;
+      }
+
       setIsSubmitting(true);
-      const { data, error } = await signUp(dataUser);
+      const { error } = await signUp(dataUser);
       setIsSubmitting(false);
 
       if (error) {
         toast.error(error.message, { position: 'top-right', duration: 2000 });
       } else {
-        toast.success(`Congratulations ${data?.user?.user_metadata.username}! you have logged in`, { position: 'top-right', duration: 2000 });
+        toast.success(`Congratulations! Your account has been created`, { position: 'top-right', duration: 2000 });
       }
     }
   };
@@ -51,10 +114,11 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
               label="Username"
               variant="outlined"
               autoComplete="username"
-              error={!!errors.username}
+              error={!!errors.username || usernameStatus.available === false}
               helperText={
                 errors.username?.type === 'required' ? 'Username is required' :
-                  errors.username?.type === 'pattern' ? 'Username cannot contain symbols' : ''
+                  errors.username?.type === 'pattern' ? 'Username can only contain letters, numbers, and underscores' :
+                    usernameStatus.message || 'Username must be 3-20 characters'
               }
               InputProps={{
                 startAdornment: (
@@ -62,12 +126,27 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
                     <AssignmentIndOutlined sx={{ color: 'primary.main' }} />
                   </InputAdornment>
                 ),
+                endAdornment: usernameValue && usernameValue.length >= 3 && (
+                  <InputAdornment position="end">
+                    {usernameStatus.checking ? (
+                      <CircularProgress size={20} sx={{ color: 'primary.main' }} />
+                    ) : usernameStatus.available === true ? (
+                      <CheckCircle sx={{ color: '#4caf50' }} />
+                    ) : usernameStatus.available === false ? (
+                      <Error sx={{ color: '#d32f2f' }} />
+                    ) : null}
+                  </InputAdornment>
+                ),
               }}
               sx={{
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: 'rgba(253, 224, 211, 0.03)',
                   '& fieldset': {
-                    borderColor: 'rgba(253, 224, 211, 0.2)',
+                    borderColor: usernameStatus.available === true
+                      ? '#4caf50'
+                      : usernameStatus.available === false
+                      ? '#d32f2f'
+                      : 'rgba(253, 224, 211, 0.2)',
                   },
                   '&:hover fieldset': {
                     borderColor: 'rgba(253, 224, 211, 0.4)',
@@ -78,9 +157,20 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
                   },
                 },
               }}
+              FormHelperTextProps={{
+                sx: {
+                  color: usernameStatus.available === true 
+                    ? '#4caf50' 
+                    : usernameStatus.available === false 
+                    ? '#d32f2f' 
+                    : 'rgba(255, 255, 255, 0.7)',
+                },
+              }}
               {...register('username', {
                 required: true,
-                pattern: /^[a-zA-Z0-9\\s]+$/,
+                pattern: /^[a-zA-Z0-9_]+$/,
+                minLength: 3,
+                maxLength: 20,
               })}
             />
           </Grid>
@@ -154,7 +244,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           }}
           {...register("email", {
             required: true,
-            pattern: /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/,
+            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
           })}
         />
 
@@ -221,7 +311,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
         variant="contained"
         startIcon={<HowToReg />}
         fullWidth
-        disabled={isSubmitting}
+        disabled={isSubmitting || usernameStatus.checking || usernameStatus.available === false}
         sx={{
           py: { xs: 1.5, sm: 1.7, md: 1.8 },
           fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
@@ -245,7 +335,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           },
         }}
       >
-        {isSubmitting ? 'Creating Account...' : 'Create Account'}
+        {isSubmitting ? 'Creating Account...' : usernameStatus.checking ? 'Checking username...' : 'Create Account'}
       </Button>
 
       <Box

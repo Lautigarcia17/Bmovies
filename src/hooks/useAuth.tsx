@@ -54,7 +54,7 @@ export const useAuth = (): UseAuthReturn => {
           setUserData(response.data.session?.user.user_metadata);
         }
 
-        return response
+        return response as AuthResponse
       }
 
       return {

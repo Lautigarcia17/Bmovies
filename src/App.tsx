@@ -3,9 +3,10 @@ import Layout from './pages/Layout'
 import { Toaster } from 'react-hot-toast';
 import MovieProvider from './context/MovieContext';
 import AuthProvider from './context/AuthContext';
+import ProfileProvider from './context/ProfileContext';
 import ScrollProvider from './context/ScrollContext';
 import { Suspense } from 'react';
-import { MovieListPage, MoviePage, ProfilePage } from './lazyRoutes';
+import { MovieListPage, MoviePage, ProfilePage, PublicProfilePage, ProfileSettingsPage } from './lazyRoutes';
 import AuthPage from './pages/AuthPage/AuthPage';
 import NotFound from './pages/NotFound/NotFound';
 import ProtectedRoute from './ProtectedRoute';
@@ -20,30 +21,34 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AuthProvider>
-        <ScrollProvider>
-          <MovieProvider>
-            <Suspense
-              fallback={<LoadingSpinner/>}
-            >
-              <Routes>
-                <Route path="/" element={<Layout />}>
-                  <Route element={<ProtectedRoute redirectTo="/auth" requireAuth={true} />}>
-                    <Route index element={<MovieListPage />} />
-                    <Route path="details/:idMovie" element={<MoviePage />} />
-                    <Route path="profile" element={<ProfilePage />} />
-                  </Route>
+        <ProfileProvider>
+          <ScrollProvider>
+            <MovieProvider>
+              <Suspense
+                fallback={<LoadingSpinner/>}
+              >
+                <Routes>
+                  <Route path="/" element={<Layout />}>
+                    <Route element={<ProtectedRoute redirectTo="/auth" requireAuth={true} />}>
+                      <Route index element={<MovieListPage />} />
+                      <Route path="details/:idMovie" element={<MoviePage />} />
+                      <Route path="profile" element={<ProfilePage />} />
+                      <Route path="profile/settings" element={<ProfileSettingsPage />} />
+                      <Route path=":username" element={<PublicProfilePage />} />
+                    </Route>
 
-                  <Route element={<ProtectedRoute redirectTo="/" requireAuth={false} />}>
-                    <Route path="auth" element={<AuthPage />} />
-                  </Route>
+                    <Route element={<ProtectedRoute redirectTo="/" requireAuth={false} />}>
+                      <Route path="auth" element={<AuthPage />} />
+                    </Route>
 
-                  <Route path="*" element={<NotFound />} />
-                </Route>
-              </Routes>
-            </Suspense>
-            <Toaster />
-          </MovieProvider>
-        </ScrollProvider>
+                    <Route path="*" element={<NotFound />} />
+                  </Route>
+                </Routes>
+              </Suspense>
+              <Toaster />
+            </MovieProvider>
+          </ScrollProvider>
+        </ProfileProvider>
       </AuthProvider>
     </ThemeProvider>
   )

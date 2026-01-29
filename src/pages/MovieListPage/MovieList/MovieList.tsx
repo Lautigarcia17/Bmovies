@@ -4,8 +4,12 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Box, Grid, Card, Typography, Chip } from '@mui/material';
 import { memo } from 'react';
 
+interface MovieListProps {
+    movieToDisplay: Array<Movie>;
+    fromUsername?: string; // Optional: username to pass in navigation state
+}
 
-const MovieList = memo(({ movieToDisplay }: { movieToDisplay: Array<Movie> }) => {
+const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
 
     const getRatingColor = (rating: number) => {
         if (rating < 5) return '#ff3e26';
@@ -28,7 +32,8 @@ const MovieList = memo(({ movieToDisplay }: { movieToDisplay: Array<Movie> }) =>
                         <Grid item xs={12} sm={6} md={4} lg={3} xl={2.4} key={movie.id}>
                             <Card
                                 component={Link}
-                                to={`details/${movie.id}`}
+                                to={`/details/${movie.id}`}
+                                state={fromUsername ? { fromUsername } : undefined}
                                 sx={{
                                     height: { xs: 420, sm: 450, md: 480 },
                                     display: 'flex',

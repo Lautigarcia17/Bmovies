@@ -1,5 +1,5 @@
 import { TextField, InputAdornment, Box, List, ListItem, ListItemAvatar, ListItemText, Avatar, Typography, CircularProgress, Paper } from '@mui/material';
-import { Search, Person } from '@mui/icons-material';
+import { Search } from '@mui/icons-material';
 import { useUserSearch } from '../../hooks/useUserSearch';
 import { useNavigate } from 'react-router-dom';
 import styles from './UserSearch.module.css';
@@ -13,9 +13,11 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
   const navigate = useNavigate();
 
   const handleUserClick = (username: string) => {
+    // Close dialog first
+    onUserSelect?.();
+    // Then navigate and clear
+    setQuery('');
     navigate(`/${username}`);
-    setQuery(''); // Clear search after navigation
-    onUserSelect?.(); // Close dialog if callback provided
   };
 
   const showResults = query.trim().length >= 2;
@@ -91,8 +93,6 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
             backdropFilter: 'blur(20px)',
             borderRadius: '16px',
             border: '1px solid rgba(253, 224, 211, 0.1)',
-            maxHeight: '400px',
-            overflow: 'auto',
           }}
         >
           {loading && (
@@ -139,9 +139,12 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
                         bgcolor: 'primary.main',
                         width: 48,
                         height: 48,
+                        fontSize: '1.25rem',
+                        fontWeight: 700,
+                        color: '#060d17',
                       }}
                     >
-                      {!user.avatar_url && <Person />}
+                      {!user.avatar_url && user.username.charAt(0).toUpperCase()}
                     </Avatar>
                   </ListItemAvatar>
                   <ListItemText

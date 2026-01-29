@@ -252,6 +252,7 @@ function NavBar() {
                         backdropFilter: 'blur(20px)',
                         border: '1px solid rgba(253, 224, 211, 0.2)',
                         borderRadius: 3,
+                        maxHeight: '80vh',
                     }
                 }}
             >
@@ -277,7 +278,7 @@ function NavBar() {
                         <Close />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent sx={{ pt: 2 }}>
+                <DialogContent sx={{ pt: 2, overflow: 'visible' }}>
                     <UserSearch onUserSelect={() => setSearchDialogOpen(false)} />
                 </DialogContent>
             </Dialog>

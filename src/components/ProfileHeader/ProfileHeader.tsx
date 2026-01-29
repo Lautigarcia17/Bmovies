@@ -1,5 +1,5 @@
 import { Box, Typography, Paper, Avatar, Button, Grid, LinearProgress } from '@mui/material';
-import { Movie, Edit, Person } from '@mui/icons-material';
+import { Movie, Edit } from '@mui/icons-material';
 import { Profile } from '../../types/interface';
 import { useNavigate } from 'react-router-dom';
 import styles from './ProfileHeader.module.css';
@@ -52,9 +52,11 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
                 height: { xs: 80, md: 100 },
                 bgcolor: 'primary.main',
                 fontSize: { xs: '2rem', md: '2.5rem' },
+                fontWeight: 700,
+                color: '#060d17',
               }}
             >
-              {!profile.avatar_url && <Person sx={{ fontSize: { xs: 40, md: 50 } }} />}
+              {!profile.avatar_url && profile.username.charAt(0).toUpperCase()}
             </Avatar>
             
             <Box>

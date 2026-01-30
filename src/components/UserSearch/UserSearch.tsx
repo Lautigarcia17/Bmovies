@@ -13,11 +13,11 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
   const navigate = useNavigate();
 
   const handleUserClick = (username: string) => {
-    // Close dialog first
-    onUserSelect?.();
-    // Then navigate and clear
+    // Navigate and clear first
     setQuery('');
     navigate(`/${username}`);
+    // Then close dialog
+    onUserSelect?.();
   };
 
   const showResults = query.trim().length >= 2;

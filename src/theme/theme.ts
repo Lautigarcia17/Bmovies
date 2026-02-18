@@ -36,37 +36,37 @@ const theme = createTheme({
   typography: {
     fontFamily: '"Lexend", sans-serif',
     h1: {
-      fontSize: '3rem',
+      fontSize: '2rem',
       fontWeight: 700,
       color: '#FDE0D3',
     },
     h2: {
-      fontSize: '2.5rem',
+      fontSize: '1.625rem',
       fontWeight: 600,
       color: '#FDE0D3',
     },
     h3: {
-      fontSize: '2rem',
+      fontSize: '1.375rem',
       fontWeight: 500,
     },
     h4: {
-      fontSize: '1.5rem',
+      fontSize: '1.125rem',
       fontWeight: 500,
     },
     h5: {
-      fontSize: '1.25rem',
+      fontSize: '1rem',
       fontWeight: 400,
     },
     h6: {
-      fontSize: '1rem',
+      fontSize: '0.875rem',
       fontWeight: 400,
     },
     body1: {
-      fontSize: '1rem',
+      fontSize: '0.875rem',
       fontWeight: 300,
     },
     body2: {
-      fontSize: '0.875rem',
+      fontSize: '0.8125rem',
       fontWeight: 300,
     },
   },

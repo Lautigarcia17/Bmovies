@@ -158,7 +158,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
             border: '2px solid',
             borderColor: 'primary.main',
           }}>
-            <Movie sx={{ fontSize: 28, color: 'primary.main' }} />
+            <Movie sx={{ fontSize: 22, color: 'primary.main' }} />
           </Box>
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 700, color: 'primary.main' }}>
@@ -305,7 +305,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                   '& .MuiToggleButton-root': {
                     py: 1.5,
                     fontWeight: 600,
-                    fontSize: '1rem',
+                    fontSize: '0.875rem',
                     border: '2px solid rgba(253, 224, 211, 0.3)',
                     '&.Mui-selected': {
                       backgroundColor: 'primary.main',
@@ -344,14 +344,14 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                     '& .MuiOutlinedInput-root': {
                       backgroundColor: 'rgba(253, 224, 211, 0.05)',
                       borderRadius: 3,
-                      fontSize: '1.1rem',
+                      fontSize: '0.9375rem',
                       py: 0.5,
                     },
                   }}
                   InputProps={{
                     startAdornment: (
                       <Box sx={{ mr: 1, display: 'flex' }}>
-                        <Search sx={{ color: 'primary.main', fontSize: 24 }} />
+                        <Search sx={{ color: 'primary.main', fontSize: 20 }} />
                       </Box>
                     ),
                   }}
@@ -368,7 +368,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                       '& .MuiOutlinedInput-root': {
                         backgroundColor: 'rgba(253, 224, 211, 0.05)',
                         borderRadius: 3,
-                        fontSize: '1.1rem',
+                        fontSize: '0.9375rem',
                       },
                     }}
                   />
@@ -381,7 +381,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                       borderRadius: 3,
                     }}
                   >
-                    <Search sx={{ fontSize: 24 }} />
+                    <Search sx={{ fontSize: 20 }} />
                   </Button>
                 </Box>
               )}
@@ -466,7 +466,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                             sx={{ 
                               color: 'primary.main',
                               fontWeight: 700,
-                              fontSize: { xs: '1rem', sm: '1.25rem' },
+                              fontSize: { xs: '0.875rem', sm: '1rem' },
                               mb: 1,
                               lineHeight: 1.3,
                             }}
@@ -477,7 +477,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                             variant="body1" 
                             sx={{ 
                               color: 'text.secondary',
-                              fontSize: { xs: '0.875rem', sm: '1rem' },
+                              fontSize: { xs: '0.8125rem', sm: '0.875rem' },
                               display: 'flex',
                               alignItems: 'center',
                               gap: 1,
@@ -523,7 +523,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
           sx={{
             px: 3,
             py: 1.25,
-            fontSize: '1rem',
+            fontSize: '0.875rem',
             fontWeight: 600,
             borderRadius: 3,
             borderColor: 'rgba(253, 224, 211, 0.3)',
@@ -545,7 +545,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
           sx={{
             px: 4,
             py: 1.25,
-            fontSize: '1rem',
+            fontSize: '0.875rem',
             fontWeight: 700,
             borderRadius: 3,
             boxShadow: '0 4px 16px rgba(253, 224, 211, 0.3)',

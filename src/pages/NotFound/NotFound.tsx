@@ -24,12 +24,12 @@ function NotFound() {
                     gap: 3,
                 }}
             >
-                <ErrorOutline sx={{ fontSize: { xs: 80, md: 120 }, color: 'primary.main' }} />
+                <ErrorOutline sx={{ fontSize: { xs: 60, md: 80 }, color: 'primary.main' }} />
                 
                 <Typography
                     variant="h1"
                     sx={{
-                        fontSize: { xs: '3rem', md: '5rem' },
+                        fontSize: { xs: '2rem', md: '3rem' },
                         fontWeight: 700,
                         color: 'primary.main',
                     }}
@@ -40,7 +40,7 @@ function NotFound() {
                 <Typography
                     variant="h4"
                     sx={{
-                        fontSize: { xs: '1.5rem', md: '2rem' },
+                        fontSize: { xs: '1.125rem', md: '1.375rem' },
                         fontWeight: 600,
                         color: 'text.primary',
                         mb: 2,
@@ -52,7 +52,7 @@ function NotFound() {
                 <Typography
                     variant="body1"
                     sx={{
-                        fontSize: { xs: '1rem', md: '1.25rem' },
+                        fontSize: { xs: '0.8125rem', md: '0.9375rem' },
                         color: 'text.secondary',
                         maxWidth: 600,
                         mb: 3,
@@ -70,7 +70,7 @@ function NotFound() {
                     sx={{
                         px: 4,
                         py: 1.5,
-                        fontSize: '1.125rem',
+                        fontSize: '0.9375rem',
                         fontWeight: 600,
                     }}
                 >

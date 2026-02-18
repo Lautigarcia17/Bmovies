@@ -37,8 +37,8 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
             >
                 <Box
                     sx={{
-                        width: { xs: 50, sm: 55, md: 60 },
-                        height: { xs: 50, sm: 55, md: 60 },
+                        width: { xs: 42, sm: 46, md: 50 },
+                        height: { xs: 42, sm: 46, md: 50 },
                         borderRadius: '50%',
                         backgroundColor: 'rgba(255, 62, 38, 0.15)',
                         display: 'flex',
@@ -47,14 +47,14 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                         border: '2px solid rgba(255, 62, 38, 0.3)',
                     }}
                 >
-                    <Warning sx={{ color: 'error.main', fontSize: { xs: 26, sm: 28, md: 32 } }} />
+                    <Warning sx={{ color: 'error.main', fontSize: { xs: 20, sm: 22, md: 24 } }} />
                 </Box>
                 <Typography
                     variant="h4"
                     sx={{
                         color: 'error.main',
                         fontWeight: 700,
-                        fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
+                        fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
                         letterSpacing: 0.5,
                         flex: 1,
                     }}
@@ -69,7 +69,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                 <Typography
                     sx={{
                         color: 'rgba(255, 255, 255, 0.9)',
-                        fontSize: { xs: '0.95rem', sm: '1.05rem', md: '1.15rem' },
+                        fontSize: { xs: '0.8125rem', sm: '0.875rem', md: '0.9375rem' },
                         lineHeight: 1.7,
                         textAlign: 'center',
                     }}
@@ -79,7 +79,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                 <Typography
                     sx={{
                         color: 'rgba(255, 255, 255, 0.6)',
-                        fontSize: '0.95rem',
+                        fontSize: '0.8125rem',
                         lineHeight: 1.6,
                         textAlign: 'center',
                         mt: 2,
@@ -112,7 +112,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                         borderRadius: 2,
                         px: { xs: 3, sm: 4 },
                         py: { xs: 1.25, sm: 1.5 },
-                        fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
+                        fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' },
                         fontWeight: 600,
                         textTransform: 'uppercase',
                         letterSpacing: { xs: 0.5, sm: 1 },
@@ -128,7 +128,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                 </Button>
                 <Button
                     onClick={onConfirm}
-                    startIcon={<Delete sx={{ fontSize: { xs: 20, sm: 22, md: 24 } }} />}
+                    startIcon={<Delete sx={{ fontSize: { xs: 18, sm: 20, md: 20 } }} />}
                     variant="contained"
                     sx={{
                         backgroundColor: 'error.main',
@@ -136,7 +136,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                         borderRadius: 2,
                         px: { xs: 3, sm: 4 },
                         py: { xs: 1.25, sm: 1.5 },
-                        fontSize: { xs: '0.875rem', sm: '0.95rem', md: '1rem' },
+                        fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' },
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: { xs: 0.5, sm: 1 },

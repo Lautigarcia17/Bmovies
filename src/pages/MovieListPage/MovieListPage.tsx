@@ -67,7 +67,7 @@ function MovieListPage() {
                     <Typography 
                         variant="h1" 
                         sx={{ 
-                            fontSize: { xs: '2.5rem', sm: '3.5rem', md: '4.5rem', lg: '5rem' },
+                            fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem', lg: '2.75rem' },
                             fontWeight: 900,
                             background: 'linear-gradient(135deg, #FDE0D3 0%, #ffffff 50%, #FDE0D3 100%)',
                             WebkitBackgroundClip: 'text',
@@ -97,7 +97,7 @@ function MovieListPage() {
                         variant="h6"
                         sx={{
                             color: 'rgba(253, 224, 211, 0.7)',
-                            fontSize: { xs: '0.875rem', md: '1.125rem' },
+                            fontSize: { xs: '0.8125rem', md: '0.9375rem' },
                             fontWeight: 400,
                             mb: 4,
                             letterSpacing: '1px',
@@ -122,7 +122,7 @@ function MovieListPage() {
                             },
                         }}
                     >
-                        <Add sx={{ fontSize: { xs: 28, md: 36 } }} />
+                        <Add sx={{ fontSize: { xs: 24, md: 28 } }} />
                     </Fab>
                 </Box>
 
@@ -155,7 +155,7 @@ function MovieListPage() {
                             }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexWrap: 'wrap' }}>
                                     <Typography sx={{
-                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.75rem', md: '0.8125rem' },
                                         color: 'text.secondary',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
@@ -168,7 +168,7 @@ function MovieListPage() {
                                 
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                     <Typography sx={{
-                                        fontSize: { xs: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.75rem', md: '0.8125rem' },
                                         color: 'text.secondary',
                                         fontWeight: 500,
                                     }}>
@@ -187,7 +187,7 @@ function MovieListPage() {
                                     borderTop: '1px solid rgba(253, 224, 211, 0.1)',
                                 }}>
                                     <Typography sx={{
-                                        fontSize: { xs: '0.75rem', sm: '0.875rem' },
+                                        fontSize: { xs: '0.6875rem', sm: '0.75rem' },
                                         color: 'text.secondary',
                                         fontWeight: 600,
                                         textTransform: 'uppercase',
@@ -205,13 +205,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('status', queryFilter.status).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
-                                                height: { xs: 28, sm: 32, md: 36 },
+                                                fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
+                                                height: { xs: 26, sm: 28, md: 30 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('status', queryFilter.status).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
-                                                    fontSize: { xs: 16, sm: 18 },
+                                                    fontSize: { xs: 14, sm: 16 },
                                                     '&:hover': {
                                                         color: getFilterColor('status', queryFilter.status).border,
                                                     },
@@ -229,13 +229,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('year', queryFilter.year).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
-                                                height: { xs: 28, sm: 32, md: 36 },
+                                                fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
+                                                height: { xs: 26, sm: 28, md: 30 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('year', queryFilter.year).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
-                                                    fontSize: { xs: 16, sm: 18 },
+                                                    fontSize: { xs: 14, sm: 16 },
                                                     '&:hover': {
                                                         color: 'primary.main',
                                                     },
@@ -253,13 +253,13 @@ function MovieListPage() {
                                                 backgroundColor: getFilterColor('rating', queryFilter.rating).bg,
                                                 color: 'text.primary',
                                                 fontWeight: 700,
-                                                fontSize: { xs: '0.75rem', sm: '0.85rem', md: '0.9rem' },
-                                                height: { xs: 28, sm: 32, md: 36 },
+                                                fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
+                                                height: { xs: 26, sm: 28, md: 30 },
                                                 border: '2px solid',
                                                 borderColor: getFilterColor('rating', queryFilter.rating).border,
                                                 '& .MuiChip-deleteIcon': {
                                                     color: 'text.primary',
-                                                    fontSize: { xs: 16, sm: 18 },
+                                                    fontSize: { xs: 14, sm: 16 },
                                                     '&:hover': {
                                                         color: getFilterColor('rating', queryFilter.rating).border,
                                                     },
@@ -315,7 +315,7 @@ function MovieListPage() {
                             border: '3px solid',
                             borderColor: 'primary.main',
                         }}>
-                            <TrendingUp sx={{ fontSize: { xs: 40, md: 60 }, color: 'primary.main' }} />
+                            <TrendingUp sx={{ fontSize: { xs: 32, md: 40 }, color: 'primary.main' }} />
                         </Box>
                         <Typography 
                             variant="h4" 
@@ -323,7 +323,7 @@ function MovieListPage() {
                                 color: 'primary.main', 
                                 fontWeight: 700,
                                 textTransform: 'uppercase',
-                                fontSize: { xs: '1.5rem', md: '2rem' },
+                                fontSize: { xs: '1.125rem', md: '1.375rem' },
                                 textAlign: 'center',
                             }}
                         >
@@ -332,7 +332,7 @@ function MovieListPage() {
                         <Typography
                             sx={{
                                 color: 'text.secondary',
-                                fontSize: { xs: '1rem', md: '1.125rem' },
+                                fontSize: { xs: '0.8125rem', md: '0.9375rem' },
                                 textAlign: 'center',
                                 maxWidth: '500px',
                             }}

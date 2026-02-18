@@ -143,8 +143,8 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
         startIcon={<LoginOutlined />}
         fullWidth
         sx={{
-          py: { xs: 1.5, sm: 1.7, md: 1.8 },
-          fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
+          py: { xs: 1.25, sm: 1.5, md: 1.5 },
+          fontSize: { xs: '0.8125rem', sm: '0.875rem', md: '0.9375rem' },
           fontWeight: 700,
           textTransform: 'uppercase',
           letterSpacing: { xs: 1, md: 1.5 },
@@ -176,7 +176,7 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           sx={{
             textAlign: 'center',
             color: 'rgba(255, 255, 255, 0.6)',
-            fontSize: '0.95rem',
+            fontSize: '0.8125rem',
           }}
         >
           Don't have an account?{' '}
@@ -190,7 +190,7 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
               color: 'primary.main',
               fontWeight: 700,
               cursor: 'pointer',
-              fontSize: '0.95rem',
+              fontSize: '0.8125rem',
               transition: 'all 0.2s ease',
               '&:hover': {
                 color: 'primary.light',

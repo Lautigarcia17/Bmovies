@@ -24,7 +24,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-            <CalendarToday sx={{ color: 'primary.main', fontSize: 28 }} />
+            <CalendarToday sx={{ color: 'primary.main', fontSize: 22 }} />
             <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700 }}>
               Movies Per Year
             </Typography>
@@ -72,7 +72,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-            <Star sx={{ color: 'primary.main', fontSize: 28 }} />
+            <Star sx={{ color: 'primary.main', fontSize: 22 }} />
             <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700 }}>
               Movies By Rating
             </Typography>
@@ -119,7 +119,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-            <Category sx={{ color: 'primary.main', fontSize: 28 }} />
+            <Category sx={{ color: 'primary.main', fontSize: 22 }} />
             <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700 }}>
               Movies By Genre
             </Typography>
@@ -134,7 +134,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
                   color: 'text.primary',
                   border: '1px solid rgba(253, 224, 211, 0.3)',
                   fontWeight: 600,
-                  fontSize: '0.95rem',
+                  fontSize: '0.8125rem',
                   py: 2.5,
                   '&:hover': {
                     backgroundColor: 'rgba(253, 224, 211, 0.25)',
@@ -159,7 +159,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-            <DateRange sx={{ color: 'primary.main', fontSize: 28 }} />
+            <DateRange sx={{ color: 'primary.main', fontSize: 22 }} />
             <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700 }}>
               Movies By Decade
             </Typography>
@@ -174,7 +174,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
                   color: 'text.primary',
                   border: '1px solid rgba(253, 224, 211, 0.3)',
                   fontWeight: 600,
-                  fontSize: '0.95rem',
+                  fontSize: '0.8125rem',
                   py: 2.5,
                   '&:hover': {
                     backgroundColor: 'rgba(253, 224, 211, 0.25)',
@@ -199,7 +199,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
           }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-            <TodayOutlined sx={{ color: 'primary.main', fontSize: 28 }} />
+            <TodayOutlined sx={{ color: 'primary.main', fontSize: 22 }} />
             <Typography variant="h5" sx={{ color: 'primary.main', fontWeight: 700 }}>
               Movies Per Month ({currentYearOfMonth})
             </Typography>
@@ -226,7 +226,7 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
                     sx={{
                       color: 'text.primary',
                       fontWeight: 600,
-                      fontSize: '0.9rem',
+                      fontSize: '0.8125rem',
                       mb: 1,
                     }}
                   >

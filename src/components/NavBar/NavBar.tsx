@@ -100,8 +100,8 @@ function NavBar() {
                                 src={logo}
                                 alt="logo"
                                 sx={{
-                                    width: { xs: 50, sm: 65, md: 80 },
-                                    height: { xs: 50, sm: 65, md: 80 },
+                                    width: { xs: 40, sm: 50, md: 60 },
+                                    height: { xs: 40, sm: 50, md: 60 },
                                     objectFit: 'contain',
                                     filter: 'drop-shadow(0 0 10px rgba(253, 224, 211, 0.3))',
                                 }}
@@ -114,7 +114,7 @@ function NavBar() {
                             pl: 2,
                         }}>
                             <Typography sx={{ 
-                                fontSize: { sm: '1.25rem', md: '1.5rem' },
+                                fontSize: { sm: '1rem', md: '1.125rem' },
                                 fontWeight: 800,
                                 background: 'linear-gradient(45deg, #FDE0D3 30%, #ffffff 90%)',
                                 WebkitBackgroundClip: 'text',
@@ -133,7 +133,7 @@ function NavBar() {
                             <>
                                 <Button
                                     onClick={handleScrollToTop}
-                                    startIcon={<Home sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    startIcon={<Home sx={{ fontSize: { xs: 16, md: 18 } }} />}
                                     sx={{
                                         color: location.pathname === '/' ? 'primary.main' : 'text.secondary',
                                         backgroundColor: location.pathname === '/' ? 'rgba(253, 224, 211, 0.1)' : 'transparent',
@@ -147,7 +147,7 @@ function NavBar() {
                                             boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
-                                        fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
                                         fontWeight: 600,
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.75, md: 1 },
@@ -160,7 +160,7 @@ function NavBar() {
 
                                 <Button
                                     onClick={() => setSearchDialogOpen(true)}
-                                    startIcon={<Search sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    startIcon={<Search sx={{ fontSize: { xs: 16, md: 18 } }} />}
                                     sx={{
                                         color: 'text.secondary',
                                         border: '2px solid transparent',
@@ -172,7 +172,7 @@ function NavBar() {
                                             boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
-                                        fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
                                         fontWeight: 600,
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },
@@ -186,7 +186,7 @@ function NavBar() {
                                 <Button
                                     component={NavLink}
                                     to='/profile'
-                                    startIcon={<Person sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    startIcon={<Person sx={{ fontSize: { xs: 16, md: 18 } }} />}
                                     sx={{
                                         color: location.pathname === '/profile' ? 'primary.main' : 'text.secondary',
                                         backgroundColor: location.pathname === '/profile' ? 'rgba(253, 224, 211, 0.1)' : 'transparent',
@@ -200,7 +200,7 @@ function NavBar() {
                                             boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
-                                        fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
                                         fontWeight: 600,
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },
@@ -213,7 +213,7 @@ function NavBar() {
 
                                 <Button
                                     onClick={handleLogout}
-                                    startIcon={<ExitToApp sx={{ fontSize: { xs: 18, md: 22 } }} />}
+                                    startIcon={<ExitToApp sx={{ fontSize: { xs: 16, md: 18 } }} />}
                                     sx={{
                                         color: 'text.secondary',
                                         border: '2px solid transparent',
@@ -225,7 +225,7 @@ function NavBar() {
                                             boxShadow: '0 4px 12px rgba(255, 62, 38, 0.25)',
                                         },
                                         textTransform: 'none',
-                                        fontSize: { xs: '0.75rem', sm: '0.875rem', md: '1rem' },
+                                        fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
                                         fontWeight: 600,
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },

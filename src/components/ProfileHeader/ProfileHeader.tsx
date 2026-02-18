@@ -51,7 +51,7 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
                 width: { xs: 80, md: 100 },
                 height: { xs: 80, md: 100 },
                 bgcolor: 'primary.main',
-                fontSize: { xs: '2rem', md: '2.5rem' },
+                fontSize: { xs: '1.5rem', md: '2rem' },
                 fontWeight: 700,
                 color: '#060d17',
               }}
@@ -66,20 +66,20 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
                   sx={{
                     color: 'primary.main',
                     fontWeight: 800,
-                    fontSize: { xs: '1.75rem', md: '3rem' },
+                    fontSize: { xs: '1.25rem', md: '2rem' },
                     letterSpacing: -0.5,
                   }}
                 >
                   @{profile.username}
                 </Typography>
-                <Movie sx={{ fontSize: { xs: 30, md: 40 }, color: 'primary.main' }} />
+                <Movie sx={{ fontSize: { xs: 24, md: 30 }, color: 'primary.main' }} />
               </Box>
               
               {profile.display_name && (
                 <Typography
                   sx={{
                     color: 'rgba(255, 255, 255, 0.9)',
-                    fontSize: { xs: '1rem', md: '1.25rem' },
+                    fontSize: { xs: '0.8125rem', md: '0.9375rem' },
                     fontWeight: 600,
                     mb: 1,
                   }}
@@ -92,7 +92,7 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
                 <Typography
                   sx={{
                     color: 'rgba(255, 255, 255, 0.7)',
-                    fontSize: { xs: '0.875rem', md: '1rem' },
+                    fontSize: { xs: '0.75rem', md: '0.8125rem' },
                     maxWidth: '600px',
                   }}
                 >
@@ -127,7 +127,7 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
         <Typography
           sx={{
             color: 'rgba(255, 255, 255, 0.6)',
-            fontSize: { xs: '0.875rem', sm: '1rem' },
+            fontSize: { xs: '0.75rem', sm: '0.8125rem' },
             mb: 3,
           }}
         >
@@ -137,30 +137,30 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4}>
             <Box>
-              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.75rem' }, mb: 1 }}>
                 Total Movies
               </Typography>
-              <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+              <Typography variant="h3" sx={{ color: 'text.primary', fontWeight: 700, fontSize: { xs: '1.375rem', sm: '1.625rem', md: '1.875rem' } }}>
                 {totalMovies}
               </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Box>
-              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.75rem' }, mb: 1 }}>
                 Watched
               </Typography>
-              <Typography variant="h3" sx={{ color: '#26ff3e', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+              <Typography variant="h3" sx={{ color: '#26ff3e', fontWeight: 700, fontSize: { xs: '1.375rem', sm: '1.625rem', md: '1.875rem' } }}>
                 {moviesWatched}
               </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
             <Box>
-              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.8rem', sm: '0.85rem', md: '0.9rem' }, mb: 1 }}>
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.75rem' }, mb: 1 }}>
                 To Watch
               </Typography>
-              <Typography variant="h3" sx={{ color: '#ffc226', fontWeight: 700, fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}>
+              <Typography variant="h3" sx={{ color: '#ffc226', fontWeight: 700, fontSize: { xs: '1.375rem', sm: '1.625rem', md: '1.875rem' } }}>
                 {moviesToWatch}
               </Typography>
             </Box>
@@ -169,10 +169,10 @@ const ProfileHeader = ({ profile, isOwnProfile, totalMovies, moviesWatched, movi
 
         <Box sx={{ mt: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-            <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.85rem' }}>
+            <Typography sx={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '0.75rem' }}>
               Progress
             </Typography>
-            <Typography sx={{ color: 'primary.main', fontSize: '0.85rem', fontWeight: 600 }}>
+            <Typography sx={{ color: 'primary.main', fontSize: '0.75rem', fontWeight: 600 }}>
               {watchedPercentage.toFixed(1)}%
             </Typography>
           </Box>

@@ -35,7 +35,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                 to={`/details/${movie.id}`}
                                 state={fromUsername ? { fromUsername } : undefined}
                                 sx={{
-                                    height: { xs: 420, sm: 450, md: 480 },
+                                    height: { xs: 360, sm: 380, md: 420 },
                                     display: 'flex',
                                     flexDirection: 'column',
                                     textDecoration: 'none',
@@ -111,9 +111,9 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                             color: getRatingColor(movie.rating),
                                             border: `3px solid ${getRatingColor(movie.rating)}`,
                                             fontWeight: 800,
-                                            fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
-                                            height: { xs: 40, sm: 45, md: 50 },
-                                            minWidth: { xs: 40, sm: 45, md: 50 },
+                                            fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.9375rem' },
+                                            height: { xs: 34, sm: 38, md: 42 },
+                                            minWidth: { xs: 34, sm: 38, md: 42 },
                                             borderRadius: '50%',
                                             zIndex: 3,
                                             boxShadow: `0 0 20px ${getRatingColor(movie.rating)}60, 0 4px 16px rgba(0,0,0,0.5)`,
@@ -142,7 +142,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                         sx={{
                                             color: 'primary.main',
                                             fontWeight: 700,
-                                            fontSize: { xs: '1.125rem', md: '1.375rem' },
+                                            fontSize: { xs: '0.9375rem', md: '1.125rem' },
                                             lineHeight: 1.2,
                                             overflow: 'hidden',
                                             textOverflow: 'ellipsis',
@@ -189,9 +189,9 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                                         color: 'primary.main',
                                                         border: '1px solid',
                                                         borderColor: 'primary.main',
-                                                        fontSize: '0.75rem',
+                                                        fontSize: '0.6875rem',
                                                         fontWeight: 600,
-                                                        height: 24,
+                                                        height: 22,
                                                     }}
                                                 />
                                             ))}
@@ -202,7 +202,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                                 variant="body2" 
                                                 sx={{ 
                                                     color: 'rgba(226, 234, 236, 0.8)',
-                                                    fontSize: '0.875rem',
+                                                    fontSize: '0.75rem',
                                                     fontWeight: 500,
                                                     textShadow: '1px 1px 6px rgba(0,0,0,0.9)',
                                                     display: 'flex',
@@ -232,7 +232,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                         sx={{ 
                             color: 'rgba(253, 224, 211, 0.5)',
                             fontWeight: 800,
-                            fontSize: { xs: '1.75rem', md: '2.5rem' },
+                            fontSize: { xs: '1.25rem', md: '1.75rem' },
                             textTransform: 'uppercase',
                             letterSpacing: '2px',
                         }}
@@ -243,7 +243,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                         sx={{
                             color: 'text.secondary',
                             mt: 2,
-                            fontSize: { xs: '1rem', md: '1.125rem' },
+                            fontSize: { xs: '0.8125rem', md: '0.9375rem' },
                         }}
                     >
                         Try adjusting your search or filter criteria

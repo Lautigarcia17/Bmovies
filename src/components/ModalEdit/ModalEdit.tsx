@@ -46,7 +46,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
           sx={{
             color: 'primary.main',
             fontWeight: 700,
-            fontSize: '1.75rem',
+            fontSize: '1.25rem',
             letterSpacing: 0.5,
           }}
         >
@@ -83,14 +83,14 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
                   justifyContent: 'center',
                 }}
               >
-                <Star sx={{ color: 'primary.main', fontSize: 22 }} />
+                <Star sx={{ color: 'primary.main', fontSize: 18 }} />
               </Box>
               <Typography
                 variant="h6"
                 sx={{
                   color: 'text.primary',
                   fontWeight: 600,
-                  fontSize: '1.1rem',
+                  fontSize: '0.9375rem',
                 }}
               >
                 Movie Rating
@@ -109,7 +109,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: 'rgba(253, 224, 211, 0.05)',
                   borderRadius: 2,
-                  fontSize: '1.1rem',
+                  fontSize: '0.9375rem',
                   '& fieldset': {
                     borderColor: 'rgba(253, 224, 211, 0.2)',
                     borderWidth: 2,
@@ -126,7 +126,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
             <Typography
               sx={{
                 color: 'rgba(255, 255, 255, 0.5)',
-                fontSize: '0.85rem',
+                fontSize: '0.75rem',
                 mt: 1,
                 ml: 1,
               }}
@@ -148,14 +148,14 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
                   justifyContent: 'center',
                 }}
               >
-                <VideoLibrary sx={{ color: 'primary.main', fontSize: 22 }} />
+                <VideoLibrary sx={{ color: 'primary.main', fontSize: 18 }} />
               </Box>
               <Typography
                 variant="h6"
                 sx={{
                   color: 'text.primary',
                   fontWeight: 600,
-                  fontSize: '1.1rem',
+                  fontSize: '0.9375rem',
                 }}
               >
                 Trailer Link
@@ -172,7 +172,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
                 '& .MuiOutlinedInput-root': {
                   backgroundColor: 'rgba(253, 224, 211, 0.05)',
                   borderRadius: 2,
-                  fontSize: '1rem',
+                  fontSize: '0.875rem',
                   '& fieldset': {
                     borderColor: 'rgba(253, 224, 211, 0.2)',
                     borderWidth: 2,
@@ -189,7 +189,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
             <Typography
               sx={{
                 color: 'rgba(255, 255, 255, 0.5)',
-                fontSize: '0.85rem',
+                fontSize: '0.75rem',
                 mt: 1,
                 ml: 1,
               }}
@@ -220,7 +220,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
             borderRadius: 2,
             px: 4,
             py: 1.5,
-            fontSize: '1rem',
+            fontSize: '0.875rem',
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: 1,
@@ -235,7 +235,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
         </Button>
         <Button
           onClick={handleSave}
-          startIcon={<Save sx={{ fontSize: 24 }} />}
+          startIcon={<Save sx={{ fontSize: 20 }} />}
           variant="contained"
           sx={{
             backgroundColor: 'primary.main',
@@ -243,7 +243,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
             borderRadius: 2,
             px: 4,
             py: 1.5,
-            fontSize: '1rem',
+            fontSize: '0.875rem',
             fontWeight: 700,
             textTransform: 'uppercase',
             letterSpacing: 1,

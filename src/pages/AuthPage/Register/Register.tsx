@@ -98,7 +98,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
       <Typography
         sx={{
           color: 'rgba(255, 255, 255, 0.7)',
-          fontSize: '1rem',
+          fontSize: '0.8125rem',
           textAlign: 'center',
           mb: 1,
         }}
@@ -313,8 +313,8 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
         fullWidth
         disabled={isSubmitting || usernameStatus.checking || usernameStatus.available === false}
         sx={{
-          py: { xs: 1.5, sm: 1.7, md: 1.8 },
-          fontSize: { xs: '0.95rem', sm: '1rem', md: '1.1rem' },
+          py: { xs: 1.25, sm: 1.5, md: 1.5 },
+          fontSize: { xs: '0.8125rem', sm: '0.875rem', md: '0.9375rem' },
           fontWeight: 700,
           textTransform: 'uppercase',
           letterSpacing: { xs: 1, md: 1.5 },
@@ -350,7 +350,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
           sx={{
             textAlign: 'center',
             color: 'rgba(255, 255, 255, 0.6)',
-            fontSize: '0.95rem',
+            fontSize: '0.8125rem',
           }}
         >
           Already have an account?{' '}
@@ -364,7 +364,7 @@ function Register({ setShowLogin }: { setShowLogin: () => void }) {
               color: 'primary.main',
               fontWeight: 700,
               cursor: 'pointer',
-              fontSize: '0.95rem',
+              fontSize: '0.8125rem',
               transition: 'all 0.2s ease',
               '&:hover': {
                 color: 'primary.light',

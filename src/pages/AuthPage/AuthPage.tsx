@@ -79,11 +79,11 @@ function AuthPage() {
           />
           
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4 }}>
-            <Movie sx={{ fontSize: 60, color: 'primary.main' }} />
+            <Movie sx={{ fontSize: 48, color: 'primary.main' }} />
             <Typography
               variant="h1"
               sx={{
-                fontSize: '4rem',
+                fontSize: '2.5rem',
                 fontWeight: 900,
                 letterSpacing: -2,
                 background: 'linear-gradient(135deg, #FDE0D3 0%, #e2eaec 100%)',
@@ -100,7 +100,7 @@ function AuthPage() {
             variant="h2"
             sx={{
               color: 'primary.main',
-              fontSize: { xs: '1.75rem', sm: '2rem', md: '2.5rem' },
+              fontSize: { xs: '1.25rem', sm: '1.5rem', md: '1.75rem' },
               fontWeight: 700,
               mb: 3,
               lineHeight: 1.2,
@@ -112,7 +112,7 @@ function AuthPage() {
           <Typography
             sx={{
               color: 'rgba(255, 255, 255, 0.7)',
-              fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+              fontSize: { xs: '0.8125rem', sm: '0.875rem', md: '0.9375rem' },
               lineHeight: 1.8,
               mb: 4,
             }}
@@ -139,8 +139,8 @@ function AuthPage() {
                   border: '1px solid rgba(253, 224, 211, 0.2)',
                 }}
               >
-                <Icon sx={{ color: 'primary.main', fontSize: { xs: 24, sm: 26, md: 28 } }} />
-                <Typography sx={{ color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' } }}>
+                <Icon sx={{ color: 'primary.main', fontSize: { xs: 20, sm: 22, md: 24 } }} />
+                <Typography sx={{ color: 'text.primary', fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.8125rem', md: '0.875rem' } }}>
                   {text}
                 </Typography>
               </Box>
@@ -180,11 +180,11 @@ function AuthPage() {
           >
             <Box sx={{ display: { xs: 'flex', lg: 'none' }, justifyContent: 'center', mb: 3 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Movie sx={{ fontSize: 40, color: 'primary.main' }} />
+                <Movie sx={{ fontSize: 32, color: 'primary.main' }} />
                 <Typography
                   variant="h2"
                   sx={{
-                    fontSize: '2.5rem',
+                    fontSize: '1.75rem',
                     fontWeight: 900,
                     letterSpacing: -1,
                     background: 'linear-gradient(135deg, #FDE0D3 0%, #e2eaec 100%)',
@@ -209,7 +209,7 @@ function AuthPage() {
                   borderRadius: '3px 3px 0 0',
                 },
                 '& .MuiTab-root': {
-                  fontSize: '1.1rem',
+                  fontSize: '0.9375rem',
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: 1,

@@ -96,11 +96,11 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
         >
             <Box
                 sx={{
-                    position: 'absolute',
+                    position: 'fixed',
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
+                    height: '100vh',
                     backgroundImage: `url(${movie.poster})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover',
@@ -112,11 +112,11 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
             
             <Box
                 sx={{
-                    position: 'absolute',
+                    position: 'fixed',
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: '100%',
+                    height: '100vh',
                     background: 'linear-gradient(135deg, rgba(6, 13, 23, 0.9) 0%, rgba(6, 13, 23, 0.7) 100%)',
                     zIndex: 1,
                 }}

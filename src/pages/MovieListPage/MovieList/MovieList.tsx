@@ -42,13 +42,13 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                     position: 'relative',
                                     borderRadius: 4,
                                     overflow: 'hidden',
-                                    transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
                                     border: '2px solid',
                                     borderColor: 'rgba(253, 224, 211, 0.15)',
                                     boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
                                     '&:hover': {
-                                        transform: 'translateY(-12px) scale(1.02)',
-                                        boxShadow: '0 24px 48px rgba(253, 224, 211, 0.3)',
+                                        transform: 'translateY(-6px)',
+                                        boxShadow: '0 16px 32px rgba(253, 224, 211, 0.2)',
                                         borderColor: 'primary.main',
                                         zIndex: 10,
                                         '& .movie-overlay': {
@@ -94,7 +94,6 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                         right: 0,
                                         bottom: 0,
                                         background: 'linear-gradient(180deg, rgba(6,13,23,0.1) 0%, rgba(6,13,23,0.7) 60%, rgba(6,13,23,0.95) 100%)',
-                                        transition: 'background 0.5s ease',
                                         zIndex: 1,
                                     }}
                                 />
@@ -117,7 +116,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                             borderRadius: '50%',
                                             zIndex: 3,
                                             boxShadow: `0 0 20px ${getRatingColor(movie.rating)}60, 0 4px 16px rgba(0,0,0,0.5)`,
-                                            transition: 'all 0.3s ease',
+                                            transition: 'color 0.15s ease',
                                         }}
                                     />
                                 )}
@@ -150,7 +149,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                             WebkitLineClamp: 2,
                                             WebkitBoxOrient: 'vertical',
                                             textShadow: '2px 2px 12px rgba(0,0,0,0.9)',
-                                            transition: 'transform 0.4s ease',
+                                            transition: 'transform 0.2s ease',
                                             mb: 0.5,
                                         }}
                                     >
@@ -165,7 +164,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                             gap: 1,
                                             transform: 'translateY(15px)',
                                             opacity: 0,
-                                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                            transition: 'transform 0.2s ease, opacity 0.2s ease',
                                         }}
                                     >
                                         {movie.genre && (
@@ -176,7 +175,7 @@ const MovieList = memo(({ movieToDisplay, fromUsername }: MovieListProps) => {
                                                     flexWrap: 'wrap',
                                                     gap: 0.75,
                                                     opacity: 0,
-                                                    transition: 'opacity 0.4s ease 0.1s',
+                                                    transition: 'opacity 0.2s ease 0.05s',
                                                 }}
                                             >
                                                 {movie.genre.split(',').slice(0, 3).map((genre, idx) => (

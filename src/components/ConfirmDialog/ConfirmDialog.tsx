@@ -19,7 +19,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
             PaperProps={{
                 sx: {
                     backgroundColor: 'rgba(6, 13, 23, 0.98)',
-                    backdropFilter: 'blur(20px)',
+                    backdropFilter: 'blur(10px)',
                     border: '1px solid rgba(255, 62, 38, 0.3)',
                     borderRadius: 3,
                     boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 62, 38, 0.2)',
@@ -147,7 +147,7 @@ function ConfirmDialog({ open, title, message, onConfirm, onCancel }: ConfirmDia
                             transform: 'translateY(-2px)',
                             boxShadow: '0 12px 32px rgba(255, 62, 38, 0.5)',
                         },
-                        transition: 'all 0.3s ease',
+                        transition: 'background-color 0.15s ease, transform 0.15s ease',
                     }}
                 >
                     Delete

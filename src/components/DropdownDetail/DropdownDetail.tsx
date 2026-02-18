@@ -29,9 +29,8 @@ function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () =>
                         backgroundColor: 'rgba(253, 224, 211, 0.1)',
                         borderWidth: 2,
                         borderColor: 'primary.light',
-                        transform: 'translateY(-2px)',
                     },
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.15s ease, border-color 0.15s ease',
                 }}
             >
                 Edit
@@ -55,9 +54,8 @@ function DropdownDetail({ handleRemove, handleModalEdit }: { handleRemove: () =>
                         backgroundColor: 'rgba(255, 62, 38, 0.1)',
                         borderWidth: 2,
                         borderColor: 'error.light',
-                        transform: 'translateY(-2px)',
                     },
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.15s ease, border-color 0.15s ease',
                 }}
             >
                 Remove

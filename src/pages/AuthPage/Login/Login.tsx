@@ -153,11 +153,9 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
           borderRadius: 2,
           mt: 1,
           boxShadow: '0 10px 30px rgba(253, 224, 211, 0.3)',
-          transition: 'all 0.3s ease',
+          transition: 'background-color 0.15s ease',
           '&:hover': {
             backgroundColor: 'primary.light',
-            transform: 'translateY(-2px)',
-            boxShadow: '0 15px 40px rgba(253, 224, 211, 0.4)',
           },
         }}
       >
@@ -191,7 +189,7 @@ function Login({ setShowLogin }: { setShowLogin: () => void }) {
               fontWeight: 700,
               cursor: 'pointer',
               fontSize: '0.8125rem',
-              transition: 'all 0.2s ease',
+              transition: 'color 0.15s ease',
               '&:hover': {
                 color: 'primary.light',
                 textDecoration: 'underline',

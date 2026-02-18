@@ -68,10 +68,10 @@ function NavBar() {
             elevation={0}
             sx={{
                 backgroundColor: isScrolled || match ? 'rgba(6, 13, 23, 0.98)' : 'rgba(6, 13, 23, 0.8)',
-                backdropFilter: 'blur(20px) saturate(180%)',
+                backdropFilter: 'blur(12px)',
                 borderBottom: isScrolled || match ? '2px solid' : '1px solid',
                 borderColor: isScrolled || match ? 'primary.main' : 'rgba(253, 224, 211, 0.1)',
-                transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                transition: 'background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease',
                 boxShadow: isScrolled || match ? '0 8px 32px rgba(253, 224, 211, 0.15)' : 'none',
             }}
         >
@@ -143,8 +143,6 @@ function NavBar() {
                                             color: 'primary.main',
                                             backgroundColor: 'rgba(253, 224, 211, 0.15)',
                                             borderColor: 'primary.main',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
                                         fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
@@ -152,7 +150,7 @@ function NavBar() {
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.75, md: 1 },
                                         borderRadius: 2,
-                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        transition: 'color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease',
                                     }}
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>Home</Box>
@@ -168,8 +166,6 @@ function NavBar() {
                                             color: 'primary.main',
                                             backgroundColor: 'rgba(253, 224, 211, 0.15)',
                                             borderColor: 'primary.main',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
                                         fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
@@ -177,7 +173,7 @@ function NavBar() {
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },
                                         borderRadius: 2,
-                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        transition: 'color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease',
                                     }}
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>Search Users</Box>
@@ -196,8 +192,6 @@ function NavBar() {
                                             color: 'primary.main',
                                             backgroundColor: 'rgba(253, 224, 211, 0.15)',
                                             borderColor: 'primary.main',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 4px 12px rgba(253, 224, 211, 0.25)',
                                         },
                                         textTransform: 'none',
                                         fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
@@ -205,7 +199,7 @@ function NavBar() {
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },
                                         borderRadius: 2,
-                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        transition: 'color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease',
                                     }}
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>Profile</Box>
@@ -221,8 +215,6 @@ function NavBar() {
                                             color: '#ff3e26',
                                             backgroundColor: 'rgba(255, 62, 38, 0.1)',
                                             borderColor: '#ff3e26',
-                                            transform: 'translateY(-2px)',
-                                            boxShadow: '0 4px 12px rgba(255, 62, 38, 0.25)',
                                         },
                                         textTransform: 'none',
                                         fontSize: { xs: '0.6875rem', sm: '0.75rem', md: '0.8125rem' },
@@ -230,7 +222,7 @@ function NavBar() {
                                         px: { xs: 1, sm: 1.5, md: 2.5 },
                                         py: { xs: 0.5, sm: 0.75, md: 1 },
                                         borderRadius: 2,
-                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                                        transition: 'color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease',
                                     }}
                                 >
                                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>Logout</Box>
@@ -249,7 +241,7 @@ function NavBar() {
                 PaperProps={{
                     sx: {
                         backgroundColor: 'rgba(6, 13, 23, 0.95)',
-                        backdropFilter: 'blur(20px)',
+                        backdropFilter: 'blur(10px)',
                         border: '1px solid rgba(253, 224, 211, 0.2)',
                         borderRadius: 3,
                         maxHeight: '80vh',

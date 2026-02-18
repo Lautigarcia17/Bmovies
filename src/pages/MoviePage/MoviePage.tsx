@@ -35,7 +35,7 @@ function MoviePage() {
                         startIcon={<ArrowBack />}
                         sx={{
                             backgroundColor: 'rgba(6, 13, 23, 0.85)',
-                            backdropFilter: 'blur(20px) saturate(180%)',
+                            backdropFilter: 'blur(10px)',
                             color: 'primary.main',
                             border: '2px solid',
                             borderColor: 'rgba(253, 224, 211, 0.4)',
@@ -46,12 +46,10 @@ function MoviePage() {
                             textTransform: 'none',
                             fontSize: { xs: '0.875rem', md: '1rem' },
                             boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(253, 224, 211, 0.1) inset',
-                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'background-color 0.15s ease, border-color 0.15s ease',
                             '&:hover': {
                                 backgroundColor: 'rgba(253, 224, 211, 0.15)',
                                 borderColor: 'primary.main',
-                                transform: 'translateX(-4px) scale(1.02)',
-                                boxShadow: '0 12px 40px rgba(253, 224, 211, 0.25), 0 0 0 1px rgba(253, 224, 211, 0.3) inset',
                             },
                         }}
                     >

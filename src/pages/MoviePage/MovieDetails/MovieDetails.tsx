@@ -395,11 +395,9 @@ function MovieDetails({ movie, setMovie }: { movie: Movie, setMovie: React.Dispa
                                         textTransform: 'uppercase',
                                         letterSpacing: { xs: 1, md: 1.5 },
                                         boxShadow: '0 10px 30px rgba(253, 224, 211, 0.4)',
-                                        transition: 'all 0.3s ease',
+                                        transition: 'background-color 0.15s ease',
                                         '&:hover': {
                                             backgroundColor: 'primary.light',
-                                            transform: 'translateY(-3px)',
-                                            boxShadow: '0 15px 40px rgba(253, 224, 211, 0.5)',
                                         },
                                     }}
                                 >

@@ -165,7 +165,7 @@ function AuthPage() {
             width: '100%',
             maxWidth: 500,
             backgroundColor: 'rgba(6, 13, 23, 0.85)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(10px)',
             borderRadius: 4,
             border: '1px solid rgba(253, 224, 211, 0.2)',
             boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(253, 224, 211, 0.1)',
@@ -214,7 +214,7 @@ function AuthPage() {
                   textTransform: 'uppercase',
                   letterSpacing: 1,
                   color: 'rgba(255, 255, 255, 0.5)',
-                  transition: 'all 0.3s ease',
+                  transition: 'color 0.15s ease',
                   '&.Mui-selected': {
                     color: 'primary.main',
                   },

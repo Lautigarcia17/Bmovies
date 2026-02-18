@@ -124,7 +124,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
       PaperProps={{
         sx: {
           backgroundColor: 'rgba(15, 25, 40, 0.98)',
-          backdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(10px)',
           border: '2px solid',
           borderColor: 'primary.main',
           borderRadius: 4,
@@ -420,7 +420,7 @@ function ModalMovie({ show, handleModal }: { show: boolean, handleModal: () => v
                         sx={{
                           display: 'flex',
                           cursor: 'pointer',
-                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
                           backgroundColor: 'rgba(253, 224, 211, 0.03)',
                           border: '2px solid rgba(253, 224, 211, 0.15)',
                           borderRadius: 3,

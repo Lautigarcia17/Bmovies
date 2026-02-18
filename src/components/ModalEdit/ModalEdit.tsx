@@ -25,7 +25,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
       PaperProps={{
         sx: {
           backgroundColor: 'rgba(6, 13, 23, 0.98)',
-          backdropFilter: 'blur(20px)',
+          backdropFilter: 'blur(10px)',
           border: '1px solid rgba(253, 224, 211, 0.2)',
           borderRadius: 3,
           boxShadow: '0 20px 60px rgba(0, 0, 0, 0.8)',
@@ -253,7 +253,7 @@ function ModalEdit({ show, handleModalEdit, handleEdit, editData }: { show: bool
               transform: 'translateY(-2px)',
               boxShadow: '0 12px 32px rgba(253, 224, 211, 0.4)',
             },
-            transition: 'all 0.3s ease',
+            transition: 'color 0.15s ease, background-color 0.15s ease',
           }}
         >
           Save Changes

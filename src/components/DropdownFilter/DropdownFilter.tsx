@@ -72,7 +72,7 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                     boxShadow: '0 4px 16px rgba(253, 224, 211, 0.3)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    transition: 'background-color 0.15s ease, box-shadow 0.15s ease',
                     '&:hover': {
                         backgroundColor: 'primary.dark',
                         transform: 'translateY(-2px)',
@@ -97,7 +97,7 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                 PaperProps={{
                     sx: {
                         backgroundColor: 'rgba(15, 25, 40, 0.98)',
-                        backdropFilter: 'blur(20px)',
+                        backdropFilter: 'blur(10px)',
                         border: '2px solid',
                         borderColor: 'primary.main',
                         borderRadius: 3,
@@ -163,7 +163,7 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                                         fontSize: '0.875rem',
                                         py: 2.5,
                                         cursor: 'pointer',
-                                        transition: 'all 0.3s ease',
+                                        transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                                         '&:hover': {
                                             backgroundColor: 'rgba(253, 224, 211, 0.2)',
                                             borderColor: 'primary.main',
@@ -185,12 +185,11 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                                         fontSize: '0.875rem',
                                         py: 2.5,
                                         cursor: 'pointer',
-                                        transition: 'all 0.3s ease',
+                                        transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                                         '&:hover': {
                                             backgroundColor: 'rgba(38, 255, 62, 0.2)',
                                             borderColor: '#26ff3e',
                                             color: '#26ff3e',
-                                            transform: 'translateX(8px)',
                                         },
                                     }}
                                 />
@@ -207,12 +206,11 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                                         fontSize: '0.875rem',
                                         py: 2.5,
                                         cursor: 'pointer',
-                                        transition: 'all 0.3s ease',
+                                        transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                                         '&:hover': {
                                             backgroundColor: 'rgba(255, 62, 38, 0.2)',
                                             borderColor: '#ff3e26',
                                             color: '#ff3e26',
-                                            transform: 'translateX(8px)',
                                         },
                                     }}
                                 />
@@ -248,12 +246,11 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                                                 fontSize: { xs: '0.75rem', md: '0.8125rem' },
                                                 py: 2,
                                                 cursor: 'pointer',
-                                                transition: 'all 0.3s ease',
+                                                transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                                                 '&:hover': {
                                                     backgroundColor: 'primary.main',
                                                     borderColor: 'primary.main',
                                                     color: 'background.default',
-                                                    transform: 'scale(1.05)',
                                                 },
                                             }}
                                         />
@@ -307,12 +304,11 @@ function DropdownFilter({ handleQuery, currentFilters }: DropdownFilterProps) {
                                                     fontSize: { xs: '0.75rem', md: '0.8125rem' },
                                                     py: 2,
                                                     cursor: 'pointer',
-                                                    transition: 'all 0.3s ease',
+                                                    transition: 'background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease',
                                                     '&:hover': {
                                                         backgroundColor: baseColor,
                                                         borderColor: baseColor,
                                                         color: '#000',
-                                                        transform: 'scale(1.08)',
                                                         fontWeight: 800,
                                                     },
                                                 }}

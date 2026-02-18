@@ -214,11 +214,10 @@ const MovieStatsDisplay = ({ statistics }: MovieStatsDisplayProps) => {
                     borderRadius: 2,
                     backgroundColor: 'rgba(253, 224, 211, 0.05)',
                     border: '1px solid rgba(253, 224, 211, 0.15)',
-                    transition: 'all 0.3s ease',
+                    transition: 'background-color 0.15s ease, border-color 0.15s ease',
                     '&:hover': {
                       backgroundColor: 'rgba(253, 224, 211, 0.1)',
                       borderColor: 'primary.main',
-                      transform: 'translateY(-4px)',
                     }
                   }}
                 >

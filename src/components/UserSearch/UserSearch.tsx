@@ -33,14 +33,14 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
         sx={{
           '& .MuiOutlinedInput-root': {
             backgroundColor: 'rgba(25, 31, 43, 0.8)',
-            backdropFilter: 'blur(20px) saturate(180%)',
+            backdropFilter: 'blur(12px)',
             borderRadius: '50px',
             border: '2px solid',
             borderColor: query.length > 0 ? 'primary.main' : 'rgba(253, 224, 211, 0.2)',
             boxShadow: query.length > 0 
               ? '0 8px 32px rgba(253, 224, 211, 0.25)'
               : '0 4px 16px rgba(0, 0, 0, 0.3)',
-            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+            transition: 'border-color 0.15s ease, box-shadow 0.15s ease',
             '&:hover': {
               borderColor: 'primary.main',
               boxShadow: '0 8px 32px rgba(253, 224, 211, 0.3)',
@@ -90,7 +90,7 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
           sx={{
             mt: 2,
             backgroundColor: 'rgba(25, 31, 43, 0.95)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(10px)',
             borderRadius: '16px',
             border: '1px solid rgba(253, 224, 211, 0.1)',
           }}
@@ -121,11 +121,10 @@ const UserSearch = ({ onUserSelect }: UserSearchProps) => {
                   onClick={() => handleUserClick(user.username)}
                   sx={{
                     cursor: 'pointer',
-                    transition: 'all 0.2s ease',
+                    transition: 'background-color 0.15s ease',
                     borderBottom: '1px solid rgba(253, 224, 211, 0.05)',
                     '&:hover': {
                       backgroundColor: 'rgba(253, 224, 211, 0.1)',
-                      transform: 'translateX(4px)',
                     },
                     '&:last-child': {
                       borderBottom: 'none',

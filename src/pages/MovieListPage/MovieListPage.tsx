@@ -115,9 +115,9 @@ function MovieListPage() {
                             boxShadow: '0 8px 32px rgba(253, 224, 211, 0.4)',
                             border: '3px solid',
                             borderColor: 'background.default',
-                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                             '&:hover': {
-                                transform: 'scale(1.15) rotate(90deg)',
+                                transform: 'scale(1.1) rotate(90deg)',
                                 boxShadow: '0 12px 48px rgba(253, 224, 211, 0.6)',
                             },
                         }}

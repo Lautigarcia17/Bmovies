@@ -1,5 +1,5 @@
 .headerContainer {
-  animation: fadeInScale 0.5s ease-out;
+  animation: fadeInScale 0.2s ease-out;
 }
 
 @keyframes fadeInScale {

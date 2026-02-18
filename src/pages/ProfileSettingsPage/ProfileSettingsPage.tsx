@@ -264,7 +264,7 @@ function ProfileSettingsPage() {
           sx={{
             p: 4,
             backgroundColor: 'rgba(6, 13, 23, 0.8)',
-            backdropFilter: 'blur(20px)',
+            backdropFilter: 'blur(10px)',
             border: '1px solid rgba(253, 224, 211, 0.2)',
             borderRadius: 3,
           }}
